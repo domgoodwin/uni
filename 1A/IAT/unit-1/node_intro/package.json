@@ -1,0 +1,22 @@
+{
+  "name": "node_intro",
+  "version": "0.1.0",
+  "description": "IAT Unit 1 Practical Part 1/",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domgoodwin/uni.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/domgoodwin/uni/issues"
+  },
+  "homepage": "https://github.com/domgoodwin/uni#readme",
+  "dependencies": {
+    "npm": "^6.0.0"
+  }
+}
