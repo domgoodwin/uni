@@ -11,6 +11,11 @@
         header('Location: '."login.php");
     }
 
+    function setSessionID($id){
+        $_SESSION['user_id'] = $id;
+        $_SESSION['user_type'] = checkUserIsOrg($id) ? 'org' : 'usr';
+    }
+
 ?>
 
 <!-- Header components -->
@@ -31,14 +36,14 @@
     <li class='nav'><a class='nav' href="events.php">Events</a></li>
     <li class='nav'>
         <?php if($_SESSION['user_type'] == "org"){ ?>
-            <a class="nav" href="create.php" >Login/Register</a>
+            <a class="nav" href="create.php" >Create Event</a>
         <?php }?>
     </li>
     <li class='nav login'>
         <?php if($_SESSION['user_id'] == 0){ ?>
             <a class="nav login" href="login.php">Login/Register</a>
         <?php }else{ ?>
-            <a class="nav login" href="parts/logout.php">Logout</a>
+            <a class="nav login" href="logout.php">Logout</a>
         <?php } ?>
     </li>
 </ul>

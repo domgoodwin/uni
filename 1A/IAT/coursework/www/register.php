@@ -7,10 +7,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = prune($_POST["firstname"]);
     $lastname = prune($_POST["lastname"]);
     $type = prune($_POST["user_type"]);
-    $returned = registerUser($username, $password, $firstname, $lastname, $type);
+    $email = "todo";
+    $returned = registerUser($username, $password, $firstname, $lastname, $type, $email);
     if(is_numeric($returned)){
         $_SESSION['message'] = "Account has been created";
-        $_SESSION['user_id'] = $returned;
+        // $_SESSION['user_id'] = $returned;
+        setSessionID($returned);
         header('Location: '."index.php");
     } else{
         $_SESSION['message'] = "Register failed due to: ".$returned;

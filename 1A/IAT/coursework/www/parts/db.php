@@ -20,7 +20,6 @@ function login($username, $password){
     global $db;
     try {
         $hashedPw = hashPw($password);
-        error_log($username."/".$password."/".$hashedPw);
         $sql = $db->prepare("SELECT user_id FROM users  WHERE username = :usernm AND password = :passwd");
         $sql->bindParam(':usernm', $username, PDO::PARAM_STR, 20);
         $sql->bindParam(':passwd', $hashedPw, PDO::PARAM_STR, 128);
@@ -36,7 +35,7 @@ function login($username, $password){
     }
 }
 
-function registerUser($username, $password, $firstname, $lastname, $type){
+function registerUser($username, $password, $firstname, $lastname, $type, $email){
     global $db;
     try {
         if(checkUserExists($username)){
@@ -51,13 +50,34 @@ function registerUser($username, $password, $firstname, $lastname, $type){
         $sql->bindParam(':last', $lastname, PDO::PARAM_STR, 20);
         $success = $sql->execute();
         if($success){
+            $id = (int)$db->lastInsertId();
             if($type == "organiser"){
-                // TODO 
+                $sql = $db->prepare("INSERT INTO organisers (user_id, email)
+                    VALUES (:id, :email)");
+                $sql->bindParam(':id', $id, PDO::PARAM_INT);
+                $sql->bindParam(':email', $email, PDO::PARAM_STR, 50);
+                $success = $sql->execute();
             }
-            return $db->lastInsertId();
+            return $id;
         } else {
             return $sql->fetch();
          }
+    } catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+
+function checkUserIsOrg($userID){
+    global $db;
+    try {
+        $sql = $db->prepare("SELECT user_id FROM organisers WHERE user_id = :id ");
+        $sql->bindParam(':id', $userID, PDO::PARAM_INT);
+        $sql->execute();
+        if($sql->rowCount() == 0){
+            return false;
+        } else {
+            return true;
+        }
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
     }

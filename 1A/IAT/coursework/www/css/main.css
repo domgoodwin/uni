@@ -51,6 +51,10 @@ input.login {
     background-color: rgba(54, 161, 42, 0.664);
 }
 
+#email-box {
+    display: none;   
+}
+
 
 
 /* Header */ 

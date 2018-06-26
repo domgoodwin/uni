@@ -7,7 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $returned = login($username, $password);
     if(is_numeric($returned)){
         $_SESSION['message'] = "Login successful";
-        $_SESSION['user_id'] = $returned;
+        setSessionID($returned);
+        // $_SESSION['user_id'] = $returned;
         header('Location: '."index.php");
     } else{
         $_SESSION['message'] = "Login failed: ".$returned;
@@ -28,16 +29,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h1>Sign up</h1>
 <div class="container">
-    <form action="<?php echo htmlspecialchars("parts/register.php");?>" method="post">
+    <form action="<?php echo htmlspecialchars("register.php");?>" method="post">
         First Name: <input class='login' type="text" name="firstname" required><br>
         Last Name: <input class='login' type="text" name="lastname" required><br>
         Username: <input class='login' type="text" name="username" required><br>
         Password: <input class='login' type="password" name="password" required><br>
         Type: 
-        <select class='login' name='user_type'>
+        <select class='login' name='user_type' onchange="updateField()" id='type-select'>
             <option value="student">Student</option>
             <option value="organiser">Organiser</option>
         </select><br>
+        <div id='email-box'>Email: <input class='login' type="text" name="email" id="email-field"></div>
         <input type="submit" value="Register">
     </form>
 </div>
