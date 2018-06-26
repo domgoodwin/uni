@@ -1,0 +1,1 @@
+docker run -dit --name iat-apache -p 8080:80 -v "$PWD":site httpd:2.4
