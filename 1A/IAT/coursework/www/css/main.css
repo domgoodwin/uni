@@ -1,6 +1,57 @@
+/* Content */ 
+
 body {
     font-family: Georgia, serif;
 }
+div.main {
+    padding: 20px;
+}
+
+span.message {
+    color: red;
+    font-weight: bold;
+}
+
+/* Login */ 
+input.login {
+    padding: 5px;
+    width: 250px;
+}
+
+.container {
+    width: 500px;
+    clear: both;
+}
+.container input[type=text] {
+    width: 100%;
+    clear: both;
+    margin: 10px;
+}
+.container select {
+    width: 100%;
+    clear: both;
+    margin: 10px;
+}
+.container input[type=password] {
+    width: 100%;
+    clear: both;
+    margin: 10px;
+}
+.container input[type=submit] {
+    background-color: #333;
+    width: 25%;
+    margin: 10px;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.container input[type=submit]:hover {
+    background-color: rgba(54, 161, 42, 0.664);
+}
+
+
 
 /* Header */ 
 ul.nav {
@@ -11,8 +62,12 @@ ul.nav {
     background-color: #333;
 }
 
-liv.nav {
-    
+li.nav {
+    float: left;
+}
+
+li.login {
+    float: right;
 }
 
 li.nav a.nav {
@@ -24,9 +79,8 @@ li.nav a.nav {
 }
 
 li.nav a.nav:hover {
-    background-color: #111;
+    background-color: rgba(54, 161, 42, 0.664);
 }
-
 
 /* Footer */ 
 div.footer {
