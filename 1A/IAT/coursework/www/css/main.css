@@ -7,9 +7,10 @@ div.main {
     padding: 20px;
 }
 
-span.message {
+div.message {
     color: red;
     font-weight: bold;
+    text-align: center;
 }
 
 /* Login */ 
@@ -55,6 +56,20 @@ input.login {
     display: none;   
 }
 
+/* Events */
+div.event {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid black; 
+}
+
+h1.event {
+    margin-bottom: 0px;
+}
+
+h2.event {
+    margin-top: 0px;
+}
 
 
 /* Header */ 

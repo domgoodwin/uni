@@ -16,6 +16,8 @@ function init(){
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 
+
+// User mgmt
 function login($username, $password){
     global $db;
     try {
@@ -99,6 +101,67 @@ function checkUserExists($username){
     }
 }
 
+// Events
+function getEvents($filterPopularity, $filterDateFrom, $filterDateTo, $filterOrganiser){
+    global $db;
+    $sqlStatement = "SELECT event_id, event_type, name, description, date, organiser_id FROM events e";
+    // If any params are set
+    $sqlAppend = "";
+    if(isset($filterPopularity)) {
+        $sqlStatement = str_replace("FROM", ", COUNT(ei.id) FROM");
+        $sqlStatement .= " JOIN event_interest ei ON e.event_id=ei.event_id ";
+        $sqlAppend .= " ORDER BY COUNT(ei.id) ";
+        $sqlAppend .= $filterPopularity ? "ASC" : "DESC";
+    }
+    if((isset($filterDateFrom) and isset($filterDateTo)) or isset($filterOrganiser)){
+        $sqlStatement .= " WHERE event_id > 0 ";
+        $sqlStatement .= (isset($filterDateFrom) and isset($filterDateTo)) ? " AND date BETWEEN :dateF AND :dateT " :  "";
+        $sqlStatement .= (isset($filterOrganiser)) ? " AND organiser_id = :orgID " :  "";
+        //$sqlStatement .= (isset($filterPopularity)) ? " AND organiser_id = :orgID " :  "";
+    }
+    $sqlStatement .= $sqlAppend;
+    try {
+        error_log($sqlStatement);
+        $sql = $db->prepare($sqlStatement);
+        $sql->bindParam(':dateF', $filterDateFrom, PDO::PARAM_STR, 20);
+        $sql->bindParam(':dateT', $filterDateTo, PDO::PARAM_STR, 20);
+        $sql->bindParam(':orgID', $filterOrganiser, PDO::PARAM_INT);
+        $success = $sql->execute();
+        if($success){
+            return $sql->fetchAll();
+        } else {
+            return "Failed: ".$sql->fetch();;
+        }
+        
+    } catch(PDOException $e) {
+        echo "Error: ".$e->getMessage();
+    }
+}
+
+function getEvent($id){
+    global $db;
+    $sqlStatement = "SELECT event_id, event_type, name, description, date, organiser_id, picture, venue
+        FROM events e WHERE e.event_id=:id";
+    $sqlStatement .= $sqlAppend;
+    try {
+        error_log($sqlStatement);
+        $sql = $db->prepare($sqlStatement);
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $success = $sql->execute();
+        if($success){
+            return $sql->fetch();
+        } else {
+            return "Failed: ".$sql->fetch();;
+        }
+        
+    } catch(PDOException $e) {
+        echo "Error: ".$e->getMessage();
+    }
+}
+
+function registerInterest($id, $userID){
+    return true;
+}
 
 // Reusable functions
 function hashPw($password){

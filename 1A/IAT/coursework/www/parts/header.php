@@ -6,7 +6,11 @@
         $_SESSION['user_id'] = 0;
     }
     $page = basename($_SERVER['PHP_SELF']);
-    if($_SESSION['user_id'] == 0 and $page <> "login.php" and $page <> "register.php"){
+    if($_SESSION['user_id'] == 0 and 
+            $page <> "login.php" and
+            $page <> "register.php" and
+            $page <> "events.php"
+        ){
         $_SESSION['message'] = "Please log in first";
         header('Location: '."login.php");
     }

@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 ?>
 
-<span class='message'><?php echo $_SESSION['message'] ?> </span>
+<div class='message'><?php echo $_SESSION['message'] ?> </div>
 <h1>Login</h1>
 <div class="container">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
