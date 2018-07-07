@@ -9,7 +9,7 @@
     if($_SESSION['user_id'] == 0 and 
             $page <> "login.php" and
             $page <> "register.php" and
-            $page <> "events.php"
+            $page <> "index.php"
         ){
         $_SESSION['message'] = "Please log in first";
         header('Location: '."login.php");
@@ -36,8 +36,7 @@
 <body>
 
 <ul class='nav'>
-    <li class='nav'><a class='nav' href="index.php">Home</a></li>
-    <li class='nav'><a class='nav' href="events.php">Events</a></li>
+    <li class='nav'><a class='nav' href="index.php">Events</a></li>
     <li class='nav'>
         <?php if($_SESSION['user_type'] == "org"){ ?>
             <a class="nav" href="create.php" >Create Event</a>

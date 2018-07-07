@@ -5,7 +5,7 @@ USE astonevents;
 CREATE TABLE events 
     (
         event_id INT NOT NULL AUTO_INCREMENT, #PK for event
-        event_type INT NOT NULL, #Type: sport, culture or other
+        event_type varchar(10) NOT NULL, #Type: sport, culture or other
         name varchar(50) NOT NULL, #Name of the event
         description varchar(500), #Description for the event
         date DATE NOT NULL, #Date of the event

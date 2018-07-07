@@ -71,6 +71,19 @@ h2.event {
     margin-top: 0px;
 }
 
+div.search {
+    padding: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+div.filter {
+    display: inline-block;
+    float: left;
+    padding: 5px;
+
+}
+
 
 /* Header */ 
 ul.nav {

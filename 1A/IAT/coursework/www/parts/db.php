@@ -102,20 +102,26 @@ function checkUserExists($username){
 }
 
 // Events
-function getEvents($filterPopularity, $filterDateFrom, $filterDateTo, $filterOrganiser){
+function getEvents($filterType, $filterDateFrom, $filterDateTo, $filterPopularity, $filterOrganiser){
     global $db;
-    $sqlStatement = "SELECT event_id, event_type, name, description, date, organiser_id FROM events e";
+    error_log("dt".$filterDateTo);
+    error_log("df".$filterDateFrom);
+    $datesGiven = ! (empty($filterDateFrom) and empty($filterDateTo));
+    //error_log(isset($filterDateFrom)."/" . isset($filterDateTo)."//" . (trim($filterDateFrom) <> '')."///" . (trim($filterDateTo) <> ''));
+    $sqlStatement = "SELECT e.event_id, event_type, name, description, date, organiser_id FROM events e";
     // If any params are set
     $sqlAppend = "";
     if(isset($filterPopularity)) {
-        $sqlStatement = str_replace("FROM", ", COUNT(ei.id) FROM");
-        $sqlStatement .= " JOIN event_interest ei ON e.event_id=ei.event_id ";
-        $sqlAppend .= " ORDER BY COUNT(ei.id) ";
+        $sqlStatement = str_replace("FROM", ", COUNT(ei.id) FROM", $sqlStatement);
+        $sqlStatement .= " LEFT JOIN event_interest ei ON e.event_id=ei.event_id ";
+        $sqlAppend .= "GROUP BY e.event_id ORDER BY IFNULL(COUNT(ei.id),0) ";
         $sqlAppend .= $filterPopularity ? "ASC" : "DESC";
     }
-    if((isset($filterDateFrom) and isset($filterDateTo)) or isset($filterOrganiser)){
-        $sqlStatement .= " WHERE event_id > 0 ";
-        $sqlStatement .= (isset($filterDateFrom) and isset($filterDateTo)) ? " AND date BETWEEN :dateF AND :dateT " :  "";
+    if($datesGiven or isset($filterOrganiser) or $filterType <> "all"){
+        $sqlStatement .= " WHERE e.event_id > 0 ";
+        error_log($datesGiven);
+        $sqlStatement .= ($filterType <> "all") ? " AND event_type = :type " : "";
+        $sqlStatement .= ($datesGiven) ? " AND date BETWEEN :dateF AND :dateT " :  "";
         $sqlStatement .= (isset($filterOrganiser)) ? " AND organiser_id = :orgID " :  "";
         //$sqlStatement .= (isset($filterPopularity)) ? " AND organiser_id = :orgID " :  "";
     }
@@ -123,9 +129,16 @@ function getEvents($filterPopularity, $filterDateFrom, $filterDateTo, $filterOrg
     try {
         error_log($sqlStatement);
         $sql = $db->prepare($sqlStatement);
-        $sql->bindParam(':dateF', $filterDateFrom, PDO::PARAM_STR, 20);
-        $sql->bindParam(':dateT', $filterDateTo, PDO::PARAM_STR, 20);
-        $sql->bindParam(':orgID', $filterOrganiser, PDO::PARAM_INT);
+        if($datesGiven){
+            $sql->bindParam(':dateF', $filterDateFrom, PDO::PARAM_STR, 20);
+            $sql->bindParam(':dateT', $filterDateTo, PDO::PARAM_STR, 20);
+        }
+        if(isset($filterOrganiser)){
+            $sql->bindParam(':orgID', $filterOrganiser, PDO::PARAM_INT);
+        }
+        if($filterType <> "all"){
+            $sql->bindParam(':type', $filterType, PDO::PARAM_STR, 20);
+        }
         $success = $sql->execute();
         if($success){
             return $sql->fetchAll();

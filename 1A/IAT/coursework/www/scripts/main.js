@@ -8,3 +8,11 @@ function updateField(){
     }
 }
 
+
+function clearFilters(){
+    document.getElementById('date-to').value = "";
+    document.getElementById('date-from').value = "";
+    document.getElementById('type-filter').value = "all";
+    document.getElementById('popularity-filter').value = "ascending";
+    return true;
+}
