@@ -267,6 +267,27 @@ function updateEvent($type, $name, $desc, $date, $venue, $eid){
     }
 }
 
+function getInterestedStudents($eid){
+    global $db;
+    $sqlStatement = "SELECT u.username, u.firstname, u.lastname, u.user_id
+        FROM events e 
+            LEFT JOIN event_interest ei ON e.event_id = ei.event_id
+            left JOIN users u ON ei.user_id = u.user_id
+        WHERE e.event_id = :eid and u.username is not  NULL";
+    try{
+        $sql = $db->prepare($sqlStatement);
+        $sql->bindParam(':eid', $eid, PDO::PARAM_INT);
+        $success = $sql->execute();
+        if($success){
+            return $sql->fetchAll();
+        } else {
+            return $sql->fetch();
+        }
+    } catch(PDOException $e){
+        echo "Error: ".$e->getMessage();
+    }
+}
+
 // Reusable functions
 function hashPw($password){
     return hash('sha512', $password);

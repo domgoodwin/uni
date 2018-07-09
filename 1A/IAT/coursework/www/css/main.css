@@ -111,6 +111,30 @@ div.filter {
 
 }
 
+div.eventView{
+    display: block;
+    float: left;
+    width:70%;
+    border: none;
+}
+
+div.students{
+    display: block;
+    float: right;
+    width: 20%;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 5px;
+}
+
+td.student, th.student {
+    border: 1px solid black;
+    
+}
+
+table.students {
+    width: 100%;
+}
 
 /* Header */ 
 ul.nav {
