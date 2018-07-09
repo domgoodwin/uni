@@ -28,6 +28,24 @@ input.login {
     clear: both;
     margin: 10px;
 }
+
+.container input[type=date] {
+    display: block;
+    clear: both;
+    margin: 10px;
+}
+
+.container input[type=file] {
+    display: block;
+    clear: both;
+    margin: 10px;
+}
+
+.container textarea {
+    width: 100%;
+    clear: both;
+    margin: 10px;
+}
 .container select {
     width: 100%;
     clear: both;
@@ -50,6 +68,15 @@ input.login {
 
 .container input[type=submit]:hover {
     background-color: rgba(54, 161, 42, 0.664);
+}
+
+
+.container input[type=submit]:disabled {
+    cursor: default;
+}
+
+.container input[type=submit]:disabled:hover {
+    background-color: #333;
 }
 
 #email-box {
