@@ -63,3 +63,6 @@ typings/
 # terraform
 *.tfstate*
 .terraform
+
+# vagrant
+.vagrant
