@@ -1,0 +1,56 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$script = <<-SCRIPT
+echo Installing Puppet...
+sudo yum update -y
+sudo DEBIAN_FRONTEND=noninteractive yum install -y unzip curl vim \
+    apt-transport-https \
+    ca-certificates \
+    software-properties-common
+sudo yum install wget -y
+sudo yum list updates -y
+sudo rpm -ivh https://yum.puppetlabs.com/el/7/products/x86_64/puppetlabs-release-7-11.noarch.rpm
+sudo yum --nogpgcheck install -y puppet-server
+
+wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+sudo rpm -ivh mysql57-community-release-el7-9.noarch.rpm
+sudo yum install mysql-server -y
+sudo chkconfig --levels 235 mysqld on
+/etc/init.d/mysqld start
+
+SCRIPT
+
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/7"
+  config.vm.hostname = "centos-demo-0"
+  config.vm.provision "shell", 
+    inline: $script, 
+    privileged: false
+  #config.vm.provision "docker" # Just install it
+  
+
+  # Expose the nomad api and ui to the host
+  config.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true
+
+
+  config.vm.provider :virtualbox do |vb|
+      vb.name = "centos-demo-0"
+      vb.memory = "1024"
+  end
+
+
+  forward_port = ->(guest, host = guest) do
+    config.vm.network :forwarded_port,
+      guest: guest,
+      host: host,
+      auto_correct: true
+  end
+  
+  forward_port[1080]      # mailcatcher
+  forward_port[3306]      # mysql
+  forward_port[80, 8080]  # nginx/apache
+
+  config.vm.network :private_network, ip: "33.33.33.10"
+end
