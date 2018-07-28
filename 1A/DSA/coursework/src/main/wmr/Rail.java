@@ -1,21 +1,21 @@
 package wmr;
 
 public class Rail {
-    public Rail(String lineName, String connectedStation, int duration){
+    public Rail(String lineName, Station connectedStation, int duration){
         this.lineName = lineName;
         this.connectedStation = connectedStation;
         this.duration = duration;
     }
 
     private String lineName;
-    private String connectedStation;
+    private Station connectedStation;
     private int duration;
 
     public String getLineName(){
         return this.lineName;
     }
 
-    public String getConnectedStation(){
+    public Station getConnectedStation(){
         return this.connectedStation;
     }
 
@@ -24,6 +24,6 @@ public class Rail {
     }
 
     public String toString() {
-        return "LineName: " + lineName + " / ConnectedStation: " + connectedStation + " / Duration: " + Integer.toString(duration);
+        return "\tLineName: " + lineName + " / ConnectedStation: " + connectedStation.getName() + " / Duration: " + Integer.toString(duration);
     }
 }

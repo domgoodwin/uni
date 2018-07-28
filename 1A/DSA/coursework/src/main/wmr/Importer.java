@@ -33,31 +33,30 @@ public class Importer {
         String toStation = parts[2].trim();
         int duration = Integer.parseInt(parts[3].trim());
 
-        checkAndAddStation(fromStation);
-        addLine(lineName, fromStation, toStation, duration);
+        Station curStation = checkAndAddStation(fromStation);
+        addLine(curStation, lineName, checkAndAddStation(toStation), duration);
     }
 
-    static private void checkAndAddStation(String fromStation){
+    static private Station checkAndAddStation(String fromStation){
         boolean found = false;
         for (Station station: stations) {
             found = station.getName().equals(fromStation);
             if(found){
-                break;
+                return station;
             }
         }
-        if(!found){
-            stations.add(new Station(fromStation, new ArrayList<Rail>()));
-        }
+        stations.add(new Station(fromStation, new ArrayList<Rail>()));
+        return stations.get(stations.size()-1);
     }
 
-    static private void addLine(String lineName, String fromStation, String toStation, int duration){
-        int stationIndex = 0;
-        for(int i = 0; i < stations.size(); i++) {
-            if(stations.get(i).getName() == fromStation){
-                stationIndex = i;
-                break;
-            }
-        }
-        stations.get(stationIndex).addRail(new Rail(lineName, toStation, duration));
+    static private void addLine(Station fromStation, String lineName, Station toStation, int duration){
+//        int stationIndex = 0;
+//        for(int i = 0; i < stations.size(); i++) {
+//            if(stations.get(i).getName() == fromStation){
+//                stationIndex = i;
+//                break;
+//            }
+//        }
+        fromStation.addRail(new Rail(lineName, toStation, duration));
     }
 }

@@ -7,6 +7,11 @@ import java.util.stream.*;
 
 public class Station {
 
+    public Station(String name){
+        this.name = name;
+        this.rails = new ArrayList<Rail>();
+    }
+
     public Station(String name, ArrayList<Rail> rails){
         this.name = name;
         this.rails = rails;
@@ -34,9 +39,9 @@ public class Station {
     public String toString() {
         String lines = "";
         for (Rail line : rails) {
-            lines += "\t" + line.toString() + "\n";
+            lines +=  line.toString() + "\n";
         }
-        return "Name: " + name + " \n\t" + lines;
+        return "Name: " + name + " \n" + lines;
     }
 
 }
