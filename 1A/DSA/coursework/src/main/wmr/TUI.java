@@ -44,20 +44,22 @@ public class TUI {
 	 */
 	private void getAndProcessUserOption() {
 		String command = stdIn.nextLine().trim();
+		String lineName;
 		switch (command) {
 		case "1" : // Lists all termini along a specified line
 			display("Lists all termini along a line...");
 			display("Enter the ID of the required line.");
 			display(allWMRlines());
 			String line = stdIn.nextLine().trim();
-			String lineName = mapLineName(line);
+			lineName = mapLineName(line);
 			display(controller.listAllTermini(lineName));
 			break;
 		case "2" : // Lists all stations in a line
 			display("Lists all stations along a line...");
 			display("Enter the ID of the line you'd like to view:");
 			display(allWMRlines());
-			display(controller.listStationsInLine(stdIn.nextLine().trim()));
+			lineName = mapLineName(stdIn.nextLine().trim());
+			display(controller.listStationsInLine(lineName));
 			break;
 		case "3" : // Finds a path between two stations
 			display("Finds a path between two stations...");

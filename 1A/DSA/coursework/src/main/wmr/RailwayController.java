@@ -52,8 +52,24 @@ public class RailwayController implements Controller {
         }
     }
     @Override
-    public String listStationsInLine(String line) {
-        return null;
+    public String listStationsInLine(String lineName) {
+        String stationList = "";
+        ArrayList<Station> line = lines.get(lineName);
+        int mins = 0;
+        Station prevStation = null;
+        Station curStation = null;
+        for (int i = 0; i < line.size(); i++) {
+//            curStation = i+1 <= line.size() - 1 ? line.get(i+1) : null;
+            prevStation = line.get(i);
+            curStation = prevStation.getC4onnectedStations(lineName).get(0);
+            if(curStation != null){
+                mins += prevStation.getDurationToStation(curStation, lineName);
+            }
+            stationList += prevStation.getName() + " <-> ";
+        }
+        stationList += prevStation.getConnectedStations(lineName).get(0).getName();
+        String output = String.format("%s %d mins:\n",lineName, mins);
+        return output + stationList;
     }
 
     @Override

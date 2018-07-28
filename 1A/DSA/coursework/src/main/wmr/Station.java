@@ -52,6 +52,15 @@ public class Station {
         this.rails.add(rail);
     }
 
+    public int getDurationToStation(Station station, String lineName){
+        for(Rail rail: rails){
+            if(rail.getLineName().equals(lineName) && rail.getConnectedStation() == station){
+                return rail.getDuration();
+            }
+        }
+        return 0;
+    }
+
     public String toString() {
         String lines = "";
         for (Rail line : rails) {
