@@ -50,7 +50,8 @@ public class TUI {
 			display("Enter the ID of the required line.");
 			display(allWMRlines());
 			String line = stdIn.nextLine().trim();
-			display(controller.listAllTermini(line));
+			String lineName = mapLineName(line);
+			display(controller.listAllTermini(lineName));
 			break;
 		case "2" : // Lists all stations in a line
 			display("Lists all stations along a line...");
@@ -93,7 +94,38 @@ public class TUI {
 			   "\nk. Birmingham -- Wolverhampton -- Telford -- Shrewsbury" +
 		       "\nl. Birmingham -- Worcester -- Hereford";
 	}
-	
+
+	private static String mapLineName(String line){
+		switch (line) {
+			case "a":
+				return "Birmingham -- Dorridge -- Leamington Spa";
+			case "b":
+				return "Cross City Line";
+			case "c":
+				return "Birmingham -- Rugby -- Northampton -- London";
+			case "d":
+				return "Nuneaton -- Coventry";
+			case "e":
+				return "Watford -- St Albans Abbey";
+			case "f":
+				return "Bletchley -- Bedford";
+			case "g":
+				return "Crewe -- Stoke -- Stafford -- London";
+			case "h":
+				return "Worcester -- Birmingham";
+			case "i":
+				return "Smethwick Galton Bridge Connections";
+			case "j":
+				return "Birmingham -- Stratford-upon-Avon";
+			case "k":
+				return "Birmingham -- Wolverhampton -- Telford -- Shrewsbury";
+			case "l":
+				return "Birmingham -- Worcester -- Hereford";
+			default:
+				return null;
+		}
+	}
+
 	/*
 	 * Returns a string representation of a brief title for this application as the header.
 	 * @return	a header

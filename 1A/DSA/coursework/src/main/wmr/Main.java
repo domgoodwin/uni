@@ -7,8 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         String path = new File("src/main/resources/WestMidlandsRailway.csv").getAbsolutePath();
-        ArrayList<Station> stations = Importer.processStations(path);
-        Controller ctl = new RailwayController(stations);
+        Controller ctl = Importer.createController(path);
 	    TUI tui = new TUI(ctl);
 
     }

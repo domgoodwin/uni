@@ -1,5 +1,6 @@
 package wmr;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.*;
 import java.util.stream.*;
@@ -29,7 +30,22 @@ public class Station {
     }
 
     public boolean checkStationConnected(String stationName){
+        // Returns if any connected station is same name
         return rails.stream().filter(o -> o.getConnectedStation().equals(stationName)).findFirst().isPresent();
+    }
+
+    public boolean checkNextStationOnLine(String lineName){
+        // Returns if any station connected is on supplied line
+        return rails.stream().anyMatch(o -> o.getLineName().equals(lineName));
+    }
+
+    public ArrayList<Station> getConnectedStations(String lineName){
+        ArrayList<Rail> rails = this.rails.stream().filter(o -> o.getLineName().equals(lineName)).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Station> stations = new ArrayList<>();
+        for (Rail rail : rails) {
+            stations.add(rail.getConnectedStation());
+        }
+        return stations;
     }
 
     public void addRail(Rail rail){
