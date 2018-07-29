@@ -17,7 +17,6 @@ public class RailwayController implements Controller {
 
     HashMap<String, Station> stations;
     HashMap<String, ArrayList<Station>> lines;
-    private ArrayList<Station> termini;
 
 
     @Override
@@ -30,30 +29,16 @@ public class RailwayController implements Controller {
     }
 
     private ArrayList<Station> getTermini(String lineName) {
-        termini = new ArrayList<>();
-        ArrayList<Station> startStation = new ArrayList<Station>();
-        startStation.add(lines.get(lineName).get(0));
-        termini.add(startStation.get(0));
-        followToTerminal(startStation, lineName);
+        ArrayList<Station> termini = new ArrayList<>();
+        ArrayList<Station> stationsInLine = lines.get(lineName);
+        for(Station station : stationsInLine){
+            if(station.getConnectedStations(lineName).size() == 1 && !termini.contains(station)){
+                termini.add(station);
+            }
+        }
         return termini;
     }
 
-
-    private void followToTerminal(ArrayList<Station> stations, String lineName) {
-        for (Station station : stations) {
-            ArrayList<Station> conStations = station.getConnectedStations(lineName);
-            if (conStations.size() == 0) {
-                addTerminal(station);
-            }
-            followToTerminal(conStations, lineName);
-        }
-    }
-
-    private void addTerminal(Station station) {
-        if (!termini.contains(station)) {
-            termini.add(station);
-        }
-    }
 
     @Override
     public String listStationsInLine(String lineName) {
@@ -63,7 +48,6 @@ public class RailwayController implements Controller {
         Station prevStation = null;
         Station curStation = null;
         for (int i = 0; i < line.size(); i++) {
-//            curStation = i+1 <= line.size() - 1 ? line.get(i+1) : null;
             prevStation = line.get(i);
             curStation = prevStation.getConnectedStations(lineName).get(0);
             if (curStation != null) {

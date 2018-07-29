@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="759348b0-5478-45b3-bcd7-7fb80775dcd5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/wmr/Route.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/Importer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/coursework/wmr/Importer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/RailwayController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/Station.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/coursework/wmr/Station.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/coursework/wmr/ImporterTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/coursework/wmr/ImporterTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/wmr/Importer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/wmr/Importer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/wmr/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/wmr/Line.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/wmr/RailwayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/wmr/RailwayController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/wmr/Station.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/wmr/Station.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/wmr/ImporterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/wmr/ImporterTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,8 +36,8 @@
       <file leaf-file-name="Station.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/wmr/Station.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="48" column="147" selection-start-line="48" selection-start-column="98" selection-end-line="48" selection-end-column="147" />
+            <state relative-caret-position="293">
+              <caret line="48" column="11" lean-forward="true" selection-start-line="48" selection-end-line="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1077#1078#0" expanded="true" />
@@ -58,14 +49,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RailwayController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RailwayController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/wmr/RailwayController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="123" column="49" selection-start-line="123" selection-start-column="49" selection-end-line="123" selection-end-column="49" />
+            <state relative-caret-position="159">
+              <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#844#853#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,8 +64,8 @@
       <file leaf-file-name="Importer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/wmr/Importer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="43" column="42" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
+            <state relative-caret-position="330">
+              <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -83,10 +73,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Route.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Route.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/wmr/Route.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
+            <state relative-caret-position="511">
               <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
               <folding>
                 <element signature="e#200#201#0" expanded="true" />
@@ -204,10 +194,10 @@
         <option value="$PROJECT_DIR$/src/main/wmr/TUI.java" />
         <option value="$PROJECT_DIR$/src/test/wmr/ImporterTest.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/Station.java" />
-        <option value="$PROJECT_DIR$/src/main/wmr/Importer.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/Line.java" />
-        <option value="$PROJECT_DIR$/src/main/wmr/RailwayController.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/Route.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/Importer.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/RailwayController.java" />
       </list>
     </option>
   </component>
@@ -453,7 +443,7 @@
       <workItem from="1532119355588" duration="345000" />
       <workItem from="1532119890916" duration="448000" />
       <workItem from="1532636118253" duration="7877000" />
-      <workItem from="1532702594559" duration="27926000" />
+      <workItem from="1532702594559" duration="28740000" />
     </task>
     <servers />
   </component>
@@ -490,7 +480,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36596000" />
+    <option name="totallyTimeSpent" value="37410000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -547,7 +537,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="42" />
+      <option name="time" value="43" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
@@ -587,7 +577,6 @@
           <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#844#853#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -758,44 +747,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/wmr/Importer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="43" column="42" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/wmr/Station.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="48" column="147" selection-start-line="48" selection-start-column="98" selection-end-line="48" selection-end-column="147" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1077#1078#0" expanded="true" />
-            <element signature="e#1096#1097#0" expanded="true" />
-            <element signature="e#643#644#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/wmr/RailwayController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="123" column="49" selection-start-line="123" selection-start-column="49" selection-end-line="123" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#844#853#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/wmr/Route.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
+        <state relative-caret-position="511">
           <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
           <folding>
             <element signature="e#200#201#0" expanded="true" />
@@ -808,6 +762,40 @@
             <element signature="e#928#929#0" expanded="true" />
             <element signature="e#418#419#0" expanded="true" />
             <element signature="e#459#460#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Station.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="48" column="11" lean-forward="true" selection-start-line="48" selection-end-line="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1077#1078#0" expanded="true" />
+            <element signature="e#1096#1097#0" expanded="true" />
+            <element signature="e#643#644#0" expanded="true" />
+            <element signature="e#679#680#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Importer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/RailwayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -26,6 +26,7 @@ public class Importer {
         for (String textLine: fileLines) {
             processTextLine(textLine);
         }
+        System.out.println("Station map read in, stations: " + stations.size());
         return new RailwayController(stations, lines);
     }
 
@@ -42,6 +43,7 @@ public class Importer {
         addToStation(curStation, lineName, toStationObj, duration);
         addToStation(toStationObj, lineName, curStation, duration);
         processLine(curStation, lineName);
+        processLine(toStationObj, lineName);
     }
 
     static private Station checkAndAddStation(String fromStation){
