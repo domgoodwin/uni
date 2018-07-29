@@ -31,8 +31,8 @@ public class RailwayController implements Controller {
     private ArrayList<Station> getTermini(String lineName) {
         ArrayList<Station> termini = new ArrayList<>();
         ArrayList<Station> stationsInLine = lines.get(lineName);
-        for(Station station : stationsInLine){
-            if(station.getConnectedStations(lineName).size() == 1 && !termini.contains(station)){
+        for (Station station : stationsInLine) {
+            if (station.getConnectedStations(lineName).size() == 1 && !termini.contains(station)) {
                 termini.add(station);
             }
         }
@@ -42,31 +42,38 @@ public class RailwayController implements Controller {
 
     @Override
     public String listStationsInLine(String lineName) {
-        String stationList = "";
-        ArrayList<Station> line = lines.get(lineName);
-        int mins = 0;
-        Station prevStation = null;
-        Station curStation = null;
-        for (int i = 0; i < line.size(); i++) {
-            prevStation = line.get(i);
-            curStation = prevStation.getConnectedStations(lineName).get(0);
-            if (curStation != null) {
-                mins += prevStation.getDurationToStation(curStation, lineName);
-            }
-            stationList += prevStation.getName() + " <-> ";
-        }
-        stationList += prevStation.getConnectedStations(lineName).get(0).getName();
-        String output = String.format("%s %d mins:\n", lineName, mins);
-        return output + stationList;
+        Station startStation = lines.get(lineName).get(0);
+        return startStation.getName() + listConStations(startStation, null, lineName);
     }
 
-    ArrayList<Route> routes = new ArrayList<>();
-    Route shortestRoute = null;
-    int currentShortestDuration = -1;
+
+    private String listConStations(Station newStation, Station prevStation, String lineName){
+        String output = "";
+        ArrayList<Station> conStations = newStation.getConnectedStations(lineName);
+        conStations.remove(prevStation);
+        if(conStations.size() > 1){
+            for(Station conStation : conStations){
+                output += " <--> " + conStation.getName();
+                output += listConStations(conStation, newStation, lineName);
+            }
+        } else {
+            output += " <--> " + conStations.get(0).getName();
+            if(conStations.get(0).getConnectedStations(lineName).size() > 1){
+                output += listConStations(conStations.get(0), newStation, lineName);
+            }
+        }
+        return output;
+    }
+
+
+
     @Override
     public String showPathBetween(String stationA, String stationB) {
         Station stationAObj = stations.get(stationA);
         Station stationBObj = stations.get(stationB);
+        ArrayList<Route> routes = new ArrayList<>();
+        Route shortestRoute = null;
+        int currentShortestDuration = -1;
         routes.add(new Route(stationAObj));
         while (true){
             ArrayList<Route> newRoutes = new ArrayList<>();
