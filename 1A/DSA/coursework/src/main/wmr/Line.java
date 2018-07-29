@@ -12,6 +12,7 @@ public class Line {
     private ArrayList<Station> stations;
     private Station startStation;
 
+
     public String getLineName() {
         return lineName;
     }

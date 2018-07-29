@@ -39,6 +39,12 @@ public class Station {
         return rails.stream().anyMatch(o -> o.getLineName().equals(lineName));
     }
 
+
+
+    public ArrayList<Rail> getConnectedRails(){
+        return this.rails;
+    }
+
     public ArrayList<Station> getConnectedStations(String lineName){
         ArrayList<Rail> rails = this.rails.stream().filter(o -> o.getLineName().equals(lineName)).collect(Collectors.toCollection(ArrayList::new));
         ArrayList<Station> stations = new ArrayList<>();

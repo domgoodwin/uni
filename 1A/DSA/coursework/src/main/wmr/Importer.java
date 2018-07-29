@@ -11,11 +11,11 @@ import java.util.Map;
 
 public class Importer {
 
-    static ArrayList<Station> stations = new ArrayList<>();
+    static HashMap<String, Station> stations = new HashMap<>();
     static HashMap<String, ArrayList<Station>> lines = new HashMap<>();
 
     static public RailwayController createController(String filePath){
-        stations = new ArrayList<>();
+        stations = new HashMap<>();
         List<String> fileLines = new ArrayList<>();
         try {
             fileLines = Files.readAllLines(Paths.get(filePath));
@@ -38,20 +38,22 @@ public class Importer {
         int duration = Integer.parseInt(parts[3].trim());
 
         Station curStation = checkAndAddStation(fromStation);
-        addToStation(curStation, lineName, checkAndAddStation(toStation), duration);
+        Station toStationObj = checkAndAddStation(toStation);
+        addToStation(curStation, lineName, toStationObj, duration);
+        addToStation(toStationObj, lineName, curStation, duration);
         processLine(curStation, lineName);
     }
 
     static private Station checkAndAddStation(String fromStation){
         boolean found = false;
-        for (Station station: stations) {
+        for (Station station: stations.values()) {
             found = station.getName().equals(fromStation);
             if(found){
                 return station;
             }
         }
-        stations.add(new Station(fromStation, new ArrayList<Rail>()));
-        return stations.get(stations.size()-1);
+        stations.put(fromStation, new Station(fromStation, new ArrayList<Rail>()));
+        return stations.get(fromStation);
     }
 
     static private void addToStation(Station fromStation, String lineName, Station toStation, int duration){
