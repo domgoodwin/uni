@@ -71,11 +71,15 @@ public class RailwayController implements Controller {
     public String showPathBetween(String stationA, String stationB) {
         Station stationAObj = stations.get(stationA);
         Station stationBObj = stations.get(stationB);
+        if(stationAObj == null || stationBObj == null){
+            return "One or both of the station names were not found";
+        }
         ArrayList<Route> routes = new ArrayList<>();
         Route shortestRoute = null;
         int currentShortestDuration = -1;
         routes.add(new Route(stationAObj));
-        while (true){
+        boolean found = false;
+        while (!found){
             ArrayList<Route> newRoutes = new ArrayList<>();
             for(Route route : routes){
                 for(Rail rail : route.getCurrentStation().getConnectedRails()){
@@ -87,6 +91,8 @@ public class RailwayController implements Controller {
                                         || currentShortestDuration == - 1)){
                             shortestRoute = newRoute;
                             currentShortestDuration = newRoute.getTotalDuration();
+                            // TODO Make this not check all of them but still be efficient
+                            found = true;
                         } else{
                             newRoutes.add(newRoute);
                         }
