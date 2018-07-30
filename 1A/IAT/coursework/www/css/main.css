@@ -28,6 +28,24 @@ input.login {
     clear: both;
     margin: 10px;
 }
+
+.container input[type=date] {
+    display: block;
+    clear: both;
+    margin: 10px;
+}
+
+.container input[type=file] {
+    display: block;
+    clear: both;
+    margin: 10px;
+}
+
+.container textarea {
+    width: 100%;
+    clear: both;
+    margin: 10px;
+}
 .container select {
     width: 100%;
     clear: both;
@@ -50,6 +68,15 @@ input.login {
 
 .container input[type=submit]:hover {
     background-color: rgba(54, 161, 42, 0.664);
+}
+
+
+.container input[type=submit]:disabled {
+    cursor: default;
+}
+
+.container input[type=submit]:disabled:hover {
+    background-color: #333;
 }
 
 #email-box {
@@ -84,6 +111,30 @@ div.filter {
 
 }
 
+div.eventView{
+    display: block;
+    float: left;
+    width:70%;
+    border: none;
+}
+
+div.students{
+    display: block;
+    float: right;
+    width: 20%;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 5px;
+}
+
+td.student, th.student {
+    border: 1px solid black;
+    
+}
+
+table.students {
+    width: 100%;
+}
 
 /* Header */ 
 ul.nav {
