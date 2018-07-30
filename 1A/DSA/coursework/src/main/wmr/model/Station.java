@@ -1,4 +1,4 @@
-package wmr;
+package wmr.model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

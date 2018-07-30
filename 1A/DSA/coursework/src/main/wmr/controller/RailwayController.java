@@ -1,11 +1,10 @@
-package wmr;
+package wmr.controller;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import wmr.model.*;
+
 
 
 public class RailwayController implements Controller {
@@ -25,7 +24,7 @@ public class RailwayController implements Controller {
         for (Station station : getTermini(line)) {
             output += station.getName() + ", ";
         }
-        return output.substring(0, output.length() - 2);
+        return "Termini: \n" + output.substring(0, output.length() - 2);
     }
 
     private ArrayList<Station> getTermini(String lineName) {
@@ -43,7 +42,7 @@ public class RailwayController implements Controller {
     @Override
     public String listStationsInLine(String lineName) {
         Station startStation = lines.get(lineName).get(0);
-        return startStation.getName() + listConStations(startStation, null, lineName);
+        return lineName + ": \n" + startStation.getName() + listConStations(startStation, null, lineName);
     }
 
 
@@ -74,12 +73,16 @@ public class RailwayController implements Controller {
         if(stationAObj == null || stationBObj == null){
             return "One or both of the station names were not found";
         }
+        if(stationAObj == stationBObj){
+            return "You cannot plot the route to the same station";
+        }
         ArrayList<Route> routes = new ArrayList<>();
         Route shortestRoute = null;
         int currentShortestDuration = -1;
         routes.add(new Route(stationAObj));
         boolean found = false;
-        while (!found){
+        int validCount = 0;
+        while (shortestRoute == null){
             ArrayList<Route> newRoutes = new ArrayList<>();
             for(Route route : routes){
                 for(Rail rail : route.getCurrentStation().getConnectedRails()){
@@ -89,10 +92,11 @@ public class RailwayController implements Controller {
                         if(newRoute.getCurrentStation() == stationBObj &&
                                 (newRoute.getTotalDuration() < currentShortestDuration
                                         || currentShortestDuration == - 1)){
+                            validCount += 1;
                             shortestRoute = newRoute;
                             currentShortestDuration = newRoute.getTotalDuration();
                             // TODO Make this not check all of them but still be efficient
-                            found = true;
+//                            found = true;
                         } else{
                             newRoutes.add(newRoute);
                         }
@@ -100,21 +104,10 @@ public class RailwayController implements Controller {
                 }
             }
             if(newRoutes.size() == 0){
-//                if(loop == 0){
-//                    routes = newRoutes;
-//                }
                 break;
             }
             routes = newRoutes;
         }
-//        Route shortestRoute = null;
-//        int curShorest = -1;
-//        for(Route route : validRoutes){
-//            if(route.getCurrentStation() == stationBObj && (curShorest > route.getTotalDuration() || curShorest == -1) ){
-//                shortestRoute = route;
-//                curShorest = shortestRoute.getTotalDuration();
-//            }
-//        }
 
         System.out.println(shortestRoute);
 

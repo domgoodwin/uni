@@ -1,4 +1,4 @@
-package wmr;
+package wmr.model;
 
 public class Rail {
     public Rail(String lineName, Station connectedStation, int duration){

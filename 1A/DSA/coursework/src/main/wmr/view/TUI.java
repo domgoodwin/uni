@@ -1,9 +1,9 @@
 /**
  * 
  */
-package wmr;
+package wmr.view;
 
-import java.util.ArrayList;
+import wmr.controller.*;
 import java.util.Scanner;
 
 /**

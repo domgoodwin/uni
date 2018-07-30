@@ -2,8 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="759348b0-5478-45b3-bcd7-7fb80775dcd5" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/Importer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/coursework/wmr/Importer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/Line.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/coursework/wmr/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/Rail.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/RailwayController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/Route.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/Station.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/coursework/wmr/TUI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/coursework/wmr/ImporterTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/coursework/wmr/StationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/coursework/wmr/StationTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/wmr/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/wmr/Importer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/wmr/Importer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/wmr/Line.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/wmr/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/wmr/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/wmr/RailwayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/wmr/RailwayController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/wmr/Rail.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/wmr/RailwayController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/wmr/Route.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/wmr/Station.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/wmr/TUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/wmr/ImporterTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/wmr/StationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/wmr/StationTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,30 +35,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/coursework$Main.ic" NAME="Main Coverage Results" MODIFIED="1532884896907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/coursework$Main.ic" NAME="Main Coverage Results" MODIFIED="1532978225289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TUI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/wmr/TUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
-              <folding>
-                <element signature="e#3901#3902#0" expanded="true" />
-                <element signature="e#3943#3944#0" expanded="true" />
-                <element signature="e#4486#4487#0" expanded="true" />
-                <element signature="e#4517#4518#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Importer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/wmr/Importer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="671">
-              <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
+            <state relative-caret-position="165">
+              <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,85 +51,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RailwayController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/wmr/RailwayController.java">
+      <file leaf-file-name="TUI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/wmr/view/TUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="93" column="90" selection-start-line="93" selection-start-column="90" selection-end-line="93" selection-end-column="90" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Station.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/wmr/Station.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="61" column="27" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="-1602">
+              <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Route.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/wmr/Route.java">
+        <entry file="file://$PROJECT_DIR$/src/main/wmr/model/Route.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
-              <folding>
-                <element signature="e#200#201#0" expanded="true" />
-                <element signature="e#236#237#0" expanded="true" />
-                <element signature="e#283#284#0" expanded="true" />
-                <element signature="e#313#314#0" expanded="true" />
-                <element signature="e#358#359#0" expanded="true" />
-                <element signature="e#382#383#0" expanded="true" />
-                <element signature="e#893#894#0" expanded="true" />
-                <element signature="e#928#929#0" expanded="true" />
-                <element signature="e#418#419#0" expanded="true" />
-                <element signature="e#459#460#0" expanded="true" />
-              </folding>
+            <state>
+              <caret selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Rail.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/wmr/model/Rail.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Line.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/wmr/Line.java">
+        <entry file="file://$PROJECT_DIR$/src/main/wmr/model/Line.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" selection-start-line="13" selection-end-line="13" />
-              <folding>
-                <element signature="e#208#209#0" expanded="true" />
-                <element signature="e#239#240#0" expanded="true" />
-                <element signature="e#286#287#0" expanded="true" />
-                <element signature="e#317#318#0" expanded="true" />
-                <element signature="e#546#547#0" expanded="true" />
-                <element signature="e#623#624#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="18" selection-start-column="18" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImporterTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/wmr/ImporterTest.java">
+      <file leaf-file-name="RailwayController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/wmr/controller/RailwayController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/wmr/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+            <state relative-caret-position="210">
+              <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -132,26 +100,31 @@
         </entry>
       </file>
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/wmr/Controller.java">
+        <entry file="file://$PROJECT_DIR$/src/main/wmr/controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+            <state relative-caret-position="225">
+              <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Rail.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/wmr/Rail.java">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/wmr/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="12" lean-forward="true" selection-start-column="12" selection-end-column="12" />
+            <state relative-caret-position="45">
+              <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StationTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/wmr/StationTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
               <folding>
-                <element signature="e#356#357#0" expanded="true" />
-                <element signature="e#392#393#0" expanded="true" />
-                <element signature="e#434#435#0" expanded="true" />
-                <element signature="e#478#479#0" expanded="true" />
-                <element signature="e#509#510#0" expanded="true" />
-                <element signature="e#545#546#0" expanded="true" />
+                <element signature="e#349#355#0" expanded="true" />
+                <element signature="e#759#765#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -193,16 +166,23 @@
         <option value="$PROJECT_DIR$/src/wmr/Station.java" />
         <option value="$PROJECT_DIR$/src/wmr/TUI.java" />
         <option value="$PROJECT_DIR$/src/test/Simulate.java" />
-        <option value="$PROJECT_DIR$/src/test/wmr/StationTest.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/Rail.java" />
-        <option value="$PROJECT_DIR$/src/test/wmr/ImporterTest.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/Station.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/Line.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/Route.java" />
-        <option value="$PROJECT_DIR$/src/main/wmr/Importer.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/TUI.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/RailwayController.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/model/Station.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/model/Route.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/model/Rail.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/model/Line.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/controller/Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/Importer.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/controller/RailwayController.java" />
+        <option value="$PROJECT_DIR$/src/main/wmr/view/TUI.java" />
         <option value="$PROJECT_DIR$/src/main/wmr/Main.java" />
+        <option value="$PROJECT_DIR$/src/test/wmr/StationTest.java" />
+        <option value="$PROJECT_DIR$/src/test/wmr/ImporterTest.java" />
       </list>
     </option>
   </component>
@@ -226,6 +206,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -263,6 +245,30 @@
               <item name="coursework" type="b2602c69:ProjectViewProjectNode" />
               <item name="coursework" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="wmr" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="coursework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="coursework" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="wmr" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="coursework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="coursework" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="wmr" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="coursework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="coursework" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -276,8 +282,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -448,7 +452,8 @@
       <workItem from="1532119355588" duration="345000" />
       <workItem from="1532119890916" duration="448000" />
       <workItem from="1532636118253" duration="7877000" />
-      <workItem from="1532702594559" duration="32378000" />
+      <workItem from="1532702594559" duration="32408000" />
+      <workItem from="1532977056848" duration="1656000" />
     </task>
     <servers />
   </component>
@@ -485,7 +490,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41048000" />
+    <option name="totallyTimeSpent" value="42734000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -497,27 +502,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="23" width="1440" height="873" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32802126" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32802126" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32760897" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50143063" side_tool="true" weight="0.3997344" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4985694" visible="true" weight="0.32802126" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4985694" weight="0.32760897" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32934928" />
-      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.3297568" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.20053121" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.1994716" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.63787377" visible="true" weight="0.24964234" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.63787377" visible="true" weight="0.2532189" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32934928" />
       <window_info id="Structure" order="1" sideWeight="0.36212623" side_tool="true" weight="0.24964234" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -525,10 +528,12 @@
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4985694" weight="0.3997344" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3297568" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32934928" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,14 +544,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/wmr/RailwayController.java</url>
-          <line>51</line>
-          <properties />
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -568,6 +565,88 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/TUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Importer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/RailwayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1320">
+          <caret line="93" column="90" selection-start-line="93" selection-start-column="90" selection-end-line="93" selection-end-column="90" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Station.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="61" column="27" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Route.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Line.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/wmr/ImporterTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Rail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" lean-forward="true" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/coursework.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -575,12 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="28" column="12" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
-          <folding>
-            <element signature="e#3901#3902#0" expanded="true" />
-            <element signature="e#3943#3944#0" expanded="true" />
-            <element signature="e#4486#4487#0" expanded="true" />
-            <element signature="e#4517#4518#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -629,9 +702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="9" column="62" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -639,14 +709,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
-          <folding>
-            <element signature="e#356#357#0" expanded="true" />
-            <element signature="e#392#393#0" expanded="true" />
-            <element signature="e#434#435#0" expanded="true" />
-            <element signature="e#478#479#0" expanded="true" />
-            <element signature="e#509#510#0" expanded="true" />
-            <element signature="e#545#546#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -682,39 +744,10 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/wmr/Rail" />
-    <entry file="file://$PROJECT_DIR$/src/test/wmr/StationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#330#336#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/wmr/Rail.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="12" lean-forward="true" selection-start-column="12" selection-end-column="12" />
-          <folding>
-            <element signature="e#356#357#0" expanded="true" />
-            <element signature="e#392#393#0" expanded="true" />
-            <element signature="e#434#435#0" expanded="true" />
-            <element signature="e#478#479#0" expanded="true" />
-            <element signature="e#509#510#0" expanded="true" />
-            <element signature="e#545#546#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/wmr/ImporterTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -722,37 +755,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="e#208#209#0" expanded="true" />
-            <element signature="e#239#240#0" expanded="true" />
-            <element signature="e#286#287#0" expanded="true" />
-            <element signature="e#317#318#0" expanded="true" />
-            <element signature="e#546#547#0" expanded="true" />
-            <element signature="e#623#624#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/wmr/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
+        <state relative-caret-position="180">
           <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/wmr/Importer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="671">
-          <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/wmr/Station.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
+        <state relative-caret-position="750">
           <caret line="61" column="27" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -762,50 +777,112 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/wmr/TUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
+        <state relative-caret-position="645">
           <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
-          <folding>
-            <element signature="e#3901#3902#0" expanded="true" />
-            <element signature="e#3943#3944#0" expanded="true" />
-            <element signature="e#4486#4487#0" expanded="true" />
-            <element signature="e#4517#4518#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/wmr/Route.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
+        <state relative-caret-position="705">
           <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
-          <folding>
-            <element signature="e#200#201#0" expanded="true" />
-            <element signature="e#236#237#0" expanded="true" />
-            <element signature="e#283#284#0" expanded="true" />
-            <element signature="e#313#314#0" expanded="true" />
-            <element signature="e#358#359#0" expanded="true" />
-            <element signature="e#382#383#0" expanded="true" />
-            <element signature="e#893#894#0" expanded="true" />
-            <element signature="e#928#929#0" expanded="true" />
-            <element signature="e#418#419#0" expanded="true" />
-            <element signature="e#459#460#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/wmr/RailwayController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="93" column="90" selection-start-line="93" selection-start-column="90" selection-end-line="93" selection-end-column="90" />
+        <state relative-caret-position="37">
+          <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/model/Station.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/model/Route.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/model/Rail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/Importer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/view/TUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1602">
+          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/wmr/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+        <state relative-caret-position="45">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/wmr/StationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding>
+            <element signature="e#349#355#0" expanded="true" />
+            <element signature="e#759#765#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/wmr/ImporterTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="23" column="75" selection-start-line="23" selection-start-column="75" selection-end-line="23" selection-end-column="75" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/model/Line.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/wmr/controller/RailwayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -1,5 +1,8 @@
 package wmr;
 
+import wmr.controller.*;
+import wmr.view.*;
+
 import java.io.File;
 import java.util.ArrayList;
 
