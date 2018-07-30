@@ -63,3 +63,9 @@ typings/
 # terraform
 *.tfstate*
 .terraform
+
+# vagrant
+.vagrant
+
+# MACOS
+.DS_Store
