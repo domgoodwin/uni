@@ -1,4 +1,4 @@
-USE astonevents;
+USE goodwind_db;
 
 # Tables
 # cols: event id, type, name, desription, date, picture, organiser, venue

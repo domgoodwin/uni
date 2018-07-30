@@ -43,10 +43,10 @@
 <p><?php echo $event['description']; ?></p>
 <p><strong>Venue: </strong> <?php echo $event['venue']; ?> </strong></p>
 <div class='event-image'><img src="img/<?php echo $event['picture'] ?>"></div>
-</div>
+</div>    
+<?php if($_SESSION['user_type'] == "org" and $_SESSION['user_id'] == $event['organiser_id']){ ?>
 <div class='students'>
     <h3>Interested students </h3>
-    <?php if($_SESSION['user_type'] == "org" and $_SESSION['user_id'] == $event['organiser_id']){ ?>
         <?php
             $students = getInterestedStudents($event['event_id']);
             $table = "<table class='students'>";
@@ -57,8 +57,9 @@
             $table .= "</table>";
             echo $table;
         ?>
-    <?php } ?>
+
     </div>
+    <?php } ?>
 <div class="container">
 
     <form action="<?php echo htmlspecialchars("event.php") ."?".$event['event_id'];?>" method="post">
