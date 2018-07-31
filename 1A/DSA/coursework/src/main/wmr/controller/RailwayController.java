@@ -6,9 +6,16 @@ import java.util.HashMap;
 import wmr.model.*;
 
 
-
+/**
+ * Controller object for manipulating the models
+ */
 public class RailwayController implements Controller {
 
+    /** Create a RailwayController
+     *
+     * @param stations HashMap of station name and station objects
+     * @param lines HashMap of line names and line objects
+     */
     public RailwayController(HashMap<String, Station> stations, HashMap<String, ArrayList<Station>> lines) {
         this.stations = stations;
         this.lines = lines;
@@ -17,7 +24,11 @@ public class RailwayController implements Controller {
     HashMap<String, Station> stations;
     HashMap<String, ArrayList<Station>> lines;
 
-
+    /**
+     * Lists termini of a specific line
+     * @param line The number of the required line as shown in the TUI.
+     * @return String outlining the termini
+     */
     @Override
     public String listAllTermini(String line) {
         String output = "";
@@ -27,6 +38,11 @@ public class RailwayController implements Controller {
         return "Termini: \n" + output.substring(0, output.length() - 2);
     }
 
+    /**
+     * Gets a list of Station objects which are termini of the suppled line
+     * @param lineName Line name to get the termini of
+     * @return ArrayList of station objects, the termini
+     */
     private ArrayList<Station> getTermini(String lineName) {
         ArrayList<Station> termini = new ArrayList<>();
         ArrayList<Station> stationsInLine = lines.get(lineName);
@@ -39,6 +55,11 @@ public class RailwayController implements Controller {
     }
 
 
+    /**
+     * Lists every station in the supplied line
+     * @param lineName Line for stations on it
+     * @return Output string of stations
+     */
     @Override
     public String listStationsInLine(String lineName) {
         Station startStation = lines.get(lineName).get(0);
@@ -46,6 +67,13 @@ public class RailwayController implements Controller {
     }
 
 
+    /**
+     * Recursive method for listing connected stations to the supplied
+     * @param newStation Station to get connected from
+     * @param prevStation Station previously visited to avoid looping
+     * @param lineName Name of the line to follow
+     * @return String of connected stations
+     */
     private String listConStations(Station newStation, Station prevStation, String lineName){
         String output = "";
         ArrayList<Station> conStations = newStation.getConnectedStations(lineName);
@@ -65,7 +93,12 @@ public class RailwayController implements Controller {
     }
 
 
-
+    /**
+     * Gets any path between the two supplied stations
+     * @param stationA	the name of a station
+     * @param stationB	the name of another station
+     * @return Path overview and detail route
+     */
     @Override
     public String showPathBetween(String stationA, String stationB) {
         Station stationAObj = stations.get(stationA);
@@ -112,27 +145,6 @@ public class RailwayController implements Controller {
         System.out.println(shortestRoute);
 
         return shortestRoute.getJourneyPrintout();
-    }
-
-    private void addToRoutes(ArrayList<Station> stations){
-
-    }
-
-
-        private ArrayList<Station> checkStations(ArrayList<Station> stations, Station goalStation){
-        ArrayList<Station> newStations = new ArrayList<>();
-        for(Station station : stations){
-            ArrayList<Rail> rails = station.getLines();
-            for(Rail rail: rails){
-                newStations.add(rail.getConnectedStation());
-            }
-        }
-
-        if(newStations.contains(goalStation)){
-            return newStations;
-        } else {
-            return checkStations(newStations, goalStation);
-        }
     }
 }
 
