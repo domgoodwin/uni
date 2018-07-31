@@ -18,7 +18,7 @@ public class Station {
     }
 
     /**
-     * Creates station with predefined rails
+    bl  * Creates station with predefined rails
      * @param name Name of statio
      * @param rails Rails of station
      */
@@ -113,7 +113,7 @@ public class Station {
 
     /**
      * Gets printout of station
-     * @return Printout
+     * @return PrintoutA
      */
     public String toString() {
         String lines = "";

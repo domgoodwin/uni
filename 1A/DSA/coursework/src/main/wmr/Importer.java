@@ -14,8 +14,8 @@ import wmr.model.*;
  */
 public class Importer {
 
-    static HashMap<String, Station> stations = new HashMap<>();
-    static HashMap<String, ArrayList<Station>> lines = new HashMap<>();
+    private static HashMap<String, Station> stations = new HashMap<>();
+    private static HashMap<String, ArrayList<Station>> lines = new HashMap<>();
 
     /**
      * Creates railway controller from a filepath csv

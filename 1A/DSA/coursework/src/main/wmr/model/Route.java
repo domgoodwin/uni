@@ -95,7 +95,7 @@ public class Route {
 
     /**
      * Gets full journey printout
-     * @return Full journey string
+     * @return Full journey stringjt
      */
     public String getJourneyPrintout(){
         String output = journey.getFirst().getName() + " --> " + journey.getLast().getName()
