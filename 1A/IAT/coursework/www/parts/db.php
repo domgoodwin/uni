@@ -102,24 +102,36 @@ function checkUserExists($username){
 }
 
 // Events
-function getEvents($filterType, $filterDateFrom, $filterDateTo, $filterPopularity, $filterOrganiser){
+function getEvents($filterType, $filterDateFrom, $filterDateTo, $filterPopularity, $filterOrganiser, $alpha){
     $_POST['cur-filter'] = "Current filters are: ";
     global $db;
     error_log("dt //".$filterDateTo);
     error_log("df //".$filterDateFrom);
     error_log("fil //".$filterType);
     error_log("org // ".$filterOrganiser);
+    error_log("alpha // ".$alpha);
     $datesGiven = ! (empty($filterDateFrom) and empty($filterDateTo));
     //error_log(isset($filterDateFrom)."/" . isset($filterDateTo)."//" . (trim($filterDateFrom) <> '')."///" . (trim($filterDateTo) <> ''));
     $sqlStatement = "SELECT e.event_id, event_type, name, description, date, organiser_id FROM events e";
     // If any params are set
     $sqlAppend = "";
+    $alphaOrder="";
+    if($alpha){
+        $alphaOrder .= " name ASC";
+    }
+    error_log($alphaOrder);
     if(isset($filterPopularity)) {
         $_POST['cur-filter'] .= $filterPopularity ? " popularity ascending" : " popularity descending,";
         $sqlStatement = str_replace("FROM", ", COUNT(ei.id) FROM", $sqlStatement);
         $sqlStatement .= " LEFT JOIN event_interest ei ON e.event_id=ei.event_id ";
-        $sqlAppend .= "GROUP BY e.event_id ORDER BY IFNULL(COUNT(ei.id),0) ";
+        $sqlAppend .= "GROUP BY e.event_id ORDER BY ".$alphaOrder;
+        if($alpha){
+            $sqlAppend .= ", ";
+        }
+        $sqlAppend .= "IFNULL(COUNT(ei.id),0) ";
         $sqlAppend .= $filterPopularity ? "ASC" : "DESC";
+    } else {
+        $sqlAppend .= " ORDER BY ".$alphaOrder;
     }
     if($datesGiven or isset($filterOrganiser) or $filterType <> "all"){
         $sqlStatement .= " WHERE e.event_id > 0 ";
@@ -145,6 +157,9 @@ function getEvents($filterType, $filterDateFrom, $filterDateTo, $filterPopularit
         if($filterType <> "all"){
             $_POST['cur-filter'] .= ", type filter:" . $filterType;
             $sql->bindParam(':type', $filterType, PDO::PARAM_STR, 20);
+        }
+        if($alpha){
+            $_POST['cur-filter'] .= ", alphabetical";
         }
         $success = $sql->execute();
         if($success){
@@ -286,6 +301,32 @@ function getInterestedStudents($eid){
     } catch(PDOException $e){
         echo "Error: ".$e->getMessage();
     }
+}
+
+function sendEmail($eid, $message, $student){
+    global $db;
+    $oemail = "";
+    $sqlStatement = "SELECT o.email
+    FROM events e
+        LEFT JOIN users u ON e.organiser_id = o.user_id
+    WHERE e.event_id = :eid";
+    try{
+        $sql = $db->prepare($sqlStatement);
+        $sql->bindParam(':eid', $eid, PDO::PARAM_INT);
+        $success = $sql->execute();
+        if($success){
+            $oemail = $sql->fetch();
+        } else {
+            return $sql->fetch();
+        }
+    } catch(PDOException $e){
+        echo "Error: ".$e->getMessage();
+    }
+    error_log("email //".$oemail);
+    return true;
+
+    // send email
+    //mail($oemail, "Question from student", $message."\nFrom: ".$student);
 }
 
 // Reusable functions

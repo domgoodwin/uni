@@ -1,4 +1,4 @@
-#CREATE DATABASE astonevents;
+#CREATE DATABASE goodwind_db;
 
 USE astonevents;
 

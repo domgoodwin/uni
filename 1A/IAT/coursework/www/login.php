@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['message'] = "Login successful";
         setSessionID($returned);
         // $_SESSION['user_id'] = $returned;
+        $_SESSION["token"] = md5(uniqid(mt_rand(), true));
         header('Location: '."index.php");
     } else{
         $_SESSION['message'] = "Login failed: ".$returned;
@@ -29,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h1>Sign up</h1>
 <div class="container">
-    <form action="<?php echo htmlspecialchars("register.php");?>" method="post">
+    <form action="<?php echo htmlspecialchars("register.php");?>" method="post" onsubmit="return validateEmail();">
         First Name: <input class='login' type="text" name="firstname" required><br>
         Last Name: <input class='login' type="text" name="lastname" required><br>
         Username: <input class='login' type="text" name="username" required><br>
@@ -39,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="student">Student</option>
             <option value="organiser">Organiser</option>
         </select><br>
-        <div id='email-box'>Email: <input class='login' type="text" name="email" id="email-field"></div>
+        <div id='email-box'>Email: <input class='login' type="text" name="email" id="email-field" onchange="validateEmail()"></div>
         <input type="submit" value="Register">
     </form>
 </div>

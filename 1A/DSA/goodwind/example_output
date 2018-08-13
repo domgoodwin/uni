@@ -1,0 +1,110 @@
+/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/bin/java "-javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=50699:/Applications/IntelliJ IDEA.app/Contents/bin" -Dfile.encoding=UTF-8 -classpath /Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/cldrdata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/jaccess.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/nashorn.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/jfxswt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/lib/dt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/lib/javafx-mx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/lib/jconsole.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/lib/packager.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/lib/sa-jdi.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/lib/tools.jar:/Users/dom/repos/uni/1A/DSA/coursework/out/production/coursework:/Users/dom/.m2/repository/org/jboss/arquillian/junit/arquillian-junit-container/1.4.0.Final/arquillian-junit-container-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/junit/arquillian-junit-core/1.4.0.Final/arquillian-junit-core-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/test/arquillian-test-api/1.4.0.Final/arquillian-test-api-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/core/arquillian-core-api/1.4.0.Final/arquillian-core-api-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/test/arquillian-test-spi/1.4.0.Final/arquillian-test-spi-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/core/arquillian-core-spi/1.4.0.Final/arquillian-core-spi-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/container/arquillian-container-test-api/1.4.0.Final/arquillian-container-test-api-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/shrinkwrap/shrinkwrap-api/1.2.6/shrinkwrap-api-1.2.6.jar:/Users/dom/.m2/repository/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-api-base/2.0.0/shrinkwrap-descriptors-api-base-2.0.0.jar:/Users/dom/.m2/repository/org/jboss/arquillian/container/arquillian-container-test-spi/1.4.0.Final/arquillian-container-test-spi-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/container/arquillian-container-spi/1.4.0.Final/arquillian-container-spi-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/core/arquillian-core-impl-base/1.4.0.Final/arquillian-core-impl-base-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/test/arquillian-test-impl-base/1.4.0.Final/arquillian-test-impl-base-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/container/arquillian-container-impl-base/1.4.0.Final/arquillian-container-impl-base-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/config/arquillian-config-api/1.4.0.Final/arquillian-config-api-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/config/arquillian-config-impl-base/1.4.0.Final/arquillian-config-impl-base-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/arquillian/config/arquillian-config-spi/1.4.0.Final/arquillian-config-spi-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-spi/2.0.0/shrinkwrap-descriptors-spi-2.0.0.jar:/Users/dom/.m2/repository/org/jboss/arquillian/container/arquillian-container-test-impl-base/1.4.0.Final/arquillian-container-test-impl-base-1.4.0.Final.jar:/Users/dom/.m2/repository/org/jboss/shrinkwrap/shrinkwrap-impl-base/1.2.6/shrinkwrap-impl-base-1.2.6.jar:/Users/dom/.m2/repository/org/jboss/shrinkwrap/shrinkwrap-spi/1.2.6/shrinkwrap-spi-1.2.6.jar wmr.Main
+Station map read in, stations: 132
+
+MTR Information Centre
+
+Enter the number associated with your chosen menu option.
+1: List all termini in a specified line
+2: List all stations along a specific line
+3: Find a path between two stations
+4: Exit this application
+
+1
+Lists all termini along a line...
+Enter the ID of the required line.
+
+a. Birmingham -- Dorridge -- Leamington Spa
+b. Cross City Line
+c. Birmingham -- Rugby -- Northampton -- London
+d. Nuneaton -- Coventry
+e. Watford -- St Albans Abbey
+f. Bletchley -- Bedford
+g. Crewe -- Stoke -- Stafford -- London
+h. Worcester -- Birmingham
+i. Smethwick Galton Bridge Connections
+j. Birmingham -- Stratford-upon-Avon
+k. Birmingham -- Wolverhampton -- Telford -- Shrewsbury
+l. Birmingham -- Worcester -- Hereford
+a
+Termini: 
+Birmingham Snow Hill, Stratford-upon-Avon, Leamington Spa
+
+MTR Information Centre
+
+Enter the number associated with your chosen menu option.
+1: List all termini in a specified line
+2: List all stations along a specific line
+3: Find a path between two stations
+4: Exit this application
+
+2
+Lists all stations along a line...
+Enter the ID of the line you'd like to view:
+
+a. Birmingham -- Dorridge -- Leamington Spa
+b. Cross City Line
+c. Birmingham -- Rugby -- Northampton -- London
+d. Nuneaton -- Coventry
+e. Watford -- St Albans Abbey
+f. Bletchley -- Bedford
+g. Crewe -- Stoke -- Stafford -- London
+h. Worcester -- Birmingham
+i. Smethwick Galton Bridge Connections
+j. Birmingham -- Stratford-upon-Avon
+k. Birmingham -- Wolverhampton -- Telford -- Shrewsbury
+l. Birmingham -- Worcester -- Hereford
+a
+Birmingham -- Dorridge -- Leamington Spa: 
+Birmingham Snow Hill <--> Birmingham Moor Street <--> Bordesley <--> Small Heath <--> Tyseley <--> Acocks Green <--> Olton <--> Solihull <--> Widney Manor <--> Dorridge <--> Stratford-upon-Avon Parkway <--> Stratford-upon-Avon <--> Lapworth <--> Hatton <--> Warwick <--> Leamington Spa
+
+MTR Information Centre
+
+Enter the number associated with your chosen menu option.
+1: List all termini in a specified line
+2: List all stations along a specific line
+3: Find a path between two stations
+4: Exit this application
+
+3
+Finds a path between two stations...
+Enter the name of the start station:
+a
+Enter the name of the end station:
+a
+One or both of the station names were not found
+
+MTR Information Centre
+
+Enter the number associated with your chosen menu option.
+1: List all termini in a specified line
+2: List all stations along a specific line
+3: Find a path between two stations
+4: Exit this application
+
+3
+Finds a path between two stations...
+Enter the name of the start station:
+Birmingham New Street
+Enter the name of the end station:
+Birmingham Snow Hill
+Duration: 17 / Current Station: Birmingham Snow Hill / Route Len: 5
+Birmingham New Street --> Birmingham Snow Hill / Duration: 17
+	Birmingham New Street
+	Smethwick Galton Bridge
+	The Hawthorns
+	Jewellery Quarter
+	Birmingham Snow Hill
+	
+
+MTR Information Centre
+
+Enter the number associated with your chosen menu option.
+1: List all termini in a specified line
+2: List all stations along a specific line
+3: Find a path between two stations
+4: Exit this application
+
+4
+Goodbye!
+
+Process finished with exit code 0

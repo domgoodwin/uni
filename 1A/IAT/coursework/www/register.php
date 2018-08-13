@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = prune($_POST["firstname"]);
     $lastname = prune($_POST["lastname"]);
     $type = prune($_POST["user_type"]);
-    $email = "todo";
+    $email = prune($_POST["email"]);
     $returned = registerUser($username, $password, $firstname, $lastname, $type, $email);
     if(is_numeric($returned)){
         $_SESSION['message'] = "Account has been created";

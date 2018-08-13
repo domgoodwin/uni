@@ -16,3 +16,16 @@ function clearFilters(){
     document.getElementById('popularity-filter').value = "ascending";
     return true;
 }
+
+
+function validateEmail(){
+    email = document.getElementById("email-field").value;
+    rx = /[A-Za-z0-9]*@[A-Za-z0-9]*[\.]{1}[A-Za-z.]*/;
+    if(rx.test(String(email).toLowerCase())){
+        document.getElementById("email-field").style.borderColor = "green";
+        return true;
+    } else {
+        document.getElementById("email-field").style.borderColor = "red";
+        return false;
+    }
+}

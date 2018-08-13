@@ -6,12 +6,13 @@
         $type = prune($_POST["type-filter"]);
         $dateF = prune($_POST["date-from"]);
         $dateT = prune($_POST["date-to"]);
+        $alpha = (prune($_POST["alpha-filter"]) == "on") ? true : false;
         $popularity = (prune($_POST["popularity-filter"]) == "ascending") ? true : false ;
         $org = prune($_POST["org-only"]) == "on" ?  $_SESSION['user_id'] : null;
         error_log($type.$dateF.$popularity);
-        $results = getEvents($type, $dateF, $dateT, $popularity, $org);
+        $results = getEvents($type, $dateF, $dateT, $popularity, $org, $alpha);
     } else {
-        $results = getEvents("all", null, null, true, null);
+        $results = getEvents("all", null, null, true, null, false);
         $_POST['cur-filter'] = "";
         echo "<script> clearFilters(); </script>";
     }
@@ -44,6 +45,10 @@
                     <option value='ascending'>Ascending</option>
                     <option value='descending'>Descending</option>
                 </select>
+            </div>
+            <div class="filter">
+                Alphabetical
+                <input type="checkbox" class="filter" name='alpha-filter' id='alpha-filter'>
             </div>
             <?php if($_SESSION['user_type'] == "org"){ ?>
                 <div class="filter">
