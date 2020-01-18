@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.LessonTimetable;
+import model.LessonSelection;
 import model.Users;
 import model.Lesson;
 
@@ -54,17 +55,49 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(false);
         
         String username = request.getParameter("username");
-        System.out.println("Checking login: "+username);
         
-        if (action.equals("/login") && (users.isValid(username, request.getParameter("password"))) != -1){
-            System.out.println("Valid user login: "+username);
-            session = request.getSession();
-            session.setAttribute("user", username);
-            session.setAttribute("lessons", availableLessons.getLessons());
-            dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
+        if (action.equals("/login")){
+            Integer userID = users.isValid(username, request.getParameter("password"));
+            if (userID != -1) {
+                System.out.println("Valid user login: "+username);
+                session = request.getSession();
+                session.setAttribute("user", username);
+                session.setAttribute("selectedLessons", new LessonSelection(userID));
+                session.setAttribute("lessons", availableLessons.getLessons());
+                dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
+            } else {
+                dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+            }
+        } else if (session.getAttribute("user") != null) {
+            
+            if (action.equals("/viewTimetable")) {
+                dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
+            } 
+            else if (action.equals("/viewSelection")) {
+                dispatcher = this.getServletContext().getRequestDispatcher("/LessonSelectionView.jspx");
+            } 
+            else if (action.equals("/chooseLesson")) {
+                String lessonID = request.getParameter("id");
+                Lesson selectedLesson = this.availableLessons.getLesson(lessonID);
+                LessonSelection sel = (LessonSelection)session.getAttribute("selectedLessons");
+
+                // Check lesson isn't already selected
+                if (! sel.getChosenLessons().containsKey(lessonID)){
+                    sel.addLesson(selectedLesson);
+                }
+                dispatcher = this.getServletContext().getRequestDispatcher("/LessonSelectionView.jspx");
+            }
+            else if (action.equals("/finaliseBooking")){
+                LessonSelection sel = (LessonSelection)session.getAttribute("selectedLessons");
+                System.out.println("Finalising login for " + Integer.toString(sel.getOwner()));
+                sel.updateBooking();
+                dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
+            }
+            else if (action.equals("/logOut")) {
+                dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+                session.invalidate();
+            }
         }
-        
-        
         
         dispatcher.forward(request, response);
     }

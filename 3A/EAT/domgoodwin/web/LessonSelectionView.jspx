@@ -12,26 +12,25 @@
         <jsp:attribute name="lang">EN</jsp:attribute>
         <jsp:body>
             <jsp:include page="/nav.jspx" />
-            <h1>Timetable of free lessons</h1>
+            <h1>Selected Lessons</h1>
             <!-- TODO: Check scope -->
-            <jsp:useBean class="model.LessonTimetable" id="availableLessons" scope="application"/>
+            <jsp:useBean class="model.LessonSelection" id="selectedLessons" scope="session"/>
             <table border="1">
                 <tr>
-                    <th>Description</th><th>Start time</th><th>End time</th><th>Level</th><th>Book</th>
+                    <th>Description</th><th>Start time</th><th>End time</th><th>Level</th>
                 </tr>
-                <c:forEach var="entry" items="${availableLessons.lessons}">
-                    <form method="POST" action="chooseLesson">
+                <c:forEach var="entry" items="${selectedLessons.chosenLessons}">
                         <tr>
                             <td><c:out value="${entry.value.description}"/></td>
                             <td><c:out value="${entry.value.startTime}"/></td>
                             <td><c:out value="${entry.value.endTime}"/></td>
                             <td><c:out value="${entry.value.level}"/></td>
-                            <td><input type="hidden" name="id" value="${entry.key}"/>
-                            <input type="submit" value="Select lesson"/></td>
+                            <td><input type="hidden" name="id" value="${entry.key}"/></td>
                         </tr>
-                    </form>
                 </c:forEach>
+            
             </table>
+        <jsp:include page="/footer.jspx" />
         </jsp:body>
     </jsp:element>
 

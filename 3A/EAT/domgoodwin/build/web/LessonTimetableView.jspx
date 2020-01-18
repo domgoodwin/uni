@@ -11,16 +11,16 @@
     <jsp:element name="html">
         <jsp:attribute name="lang">EN</jsp:attribute>
         <jsp:body>
+            <jsp:include page="/nav.jspx" />
             <h1>Timetable of free lessons</h1>
-            <p>Greetings NAMETODO</p>
-
+            <!-- TODO: Check scope -->
             <jsp:useBean class="model.LessonTimetable" id="availableLessons" scope="application"/>
             <table border="1">
                 <tr>
                     <th>Description</th><th>Start time</th><th>End time</th><th>Level</th><th>Book</th>
                 </tr>
                 <c:forEach var="entry" items="${availableLessons.lessons}">
-                    <form method="POST" action="addItem">
+                    <form method="POST" action="chooseLesson">
                         <tr>
                             <td><c:out value="${entry.value.description}"/></td>
                             <td><c:out value="${entry.value.startTime}"/></td>
