@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root  xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:jsp="http://java.sun.com/JSP/Page" 
+       
+        version="2.0">
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+
+    <jsp:element name="text">
+        <jsp:attribute name="lang">EN</jsp:attribute>
+        <jsp:body>
+            <p>
+            <form method="POST" action="finaliseBooking">
+                <input type="submit" value="Finalise My Booking!"/>
+            </form>
+            </p>
+        </jsp:body>
+    </jsp:element>
+</jsp:root>

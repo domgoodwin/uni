@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" docBase="C:\Users\d0m18_000\repos\uni\3A\EAT\domgoodwin\build\web" path="/coursework">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/LessonDatabase" password="password" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/db" username="root"/>
+</Context>
