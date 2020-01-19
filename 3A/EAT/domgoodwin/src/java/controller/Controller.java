@@ -30,13 +30,13 @@ public class Controller extends HttpServlet {
     public void init() {
          users = new Users();
          availableLessons = new LessonTimetable();
-         // TODO Attach the lesson timetable to an appropriate scope
+         this.getServletContext().setAttribute("availableLessons", availableLessons);
          
         
     }
     
     public void destroy() {
-        
+        availableLessons = null;
     }
 
     /** 
@@ -54,49 +54,66 @@ public class Controller extends HttpServlet {
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
         HttpSession session = request.getSession(false);
         
-        String username = request.getParameter("username");
-        
-        if (action.equals("/login")){
-            Integer userID = users.isValid(username, request.getParameter("password"));
+        if (action.equals("/login") && users.isValid(request.getParameter("username"), request.getParameter("password")) != -1){
+            Integer userID = users.isValid(request.getParameter("username"), request.getParameter("password"));
             if (userID != -1) {
-                System.out.println("Valid user login: "+username);
+                System.out.println("Valid user login: "+request.getParameter("username"));
                 session = request.getSession();
-                session.setAttribute("user", username);
-                session.setAttribute("selectedLessons", new LessonSelection(userID));
+                session.setAttribute("user", request.getParameter("username"));
+                LessonSelection sel = new LessonSelection(userID);
+                session.setAttribute("selectedLessons", sel);
+                
                 session.setAttribute("lessons", availableLessons.getLessons());
-                dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
-            } else {
-                dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+                dispatcher = this.getServletContext().getRequestDispatcher("/do/viewTimetable");
             }
-        } else if (session.getAttribute("user") != null) {
-            
-            if (action.equals("/viewTimetable")) {
-                dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
-            } 
-            else if (action.equals("/viewSelection")) {
-                dispatcher = this.getServletContext().getRequestDispatcher("/LessonSelectionView.jspx");
-            } 
-            else if (action.equals("/chooseLesson")) {
-                String lessonID = request.getParameter("id");
-                Lesson selectedLesson = this.availableLessons.getLesson(lessonID);
-                LessonSelection sel = (LessonSelection)session.getAttribute("selectedLessons");
-
-                // Check lesson isn't already selected
-                if (! sel.getChosenLessons().containsKey(lessonID)){
-                    sel.addLesson(selectedLesson);
-                }
-                dispatcher = this.getServletContext().getRequestDispatcher("/LessonSelectionView.jspx");
-            }
-            else if (action.equals("/finaliseBooking")){
-                LessonSelection sel = (LessonSelection)session.getAttribute("selectedLessons");
-                System.out.println("Finalising login for " + Integer.toString(sel.getOwner()));
-                sel.updateBooking();
-                dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
-            }
-            else if (action.equals("/logOut")) {
-                dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+        }else if (session == null){
+            dispatcher = this.getServletContext().getRequestDispatcher("/do/viewTimetable");
+        } 
+        else if (session.getAttribute("user") != null) {
+            if (action.equals("/logOut")) {
                 session.invalidate();
+                dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+                request.getSession(false);
+            } else {
+                LessonSelection sel = (LessonSelection)session.getAttribute("selectedLessons");
+                session.setAttribute("selectedCount", sel.getNumChosen());
+                if (action.equals("/viewTimetable")) {
+                    session.setAttribute("selectedCount", sel.getNumChosen());
+                    dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
+                } 
+                else if (action.equals("/viewSelection")) {
+                    session.setAttribute("selectedCount", sel.getNumChosen());
+                    System.out.println("Number selected: "+Integer.toString(sel.getNumChosen()));
+                    dispatcher = this.getServletContext().getRequestDispatcher("/LessonSelectionView.jspx");
+                } 
+                else if (action.equals("/chooseLesson")) {
+                    String lessonID = request.getParameter("id");
+                    Lesson selectedLesson = this.availableLessons.getLesson(lessonID);
+
+                    // Check lesson isn't already selected
+                    if (! sel.getChosenLessons().containsKey(lessonID)){
+                        sel.addLesson(selectedLesson);
+                    }
+                    dispatcher = this.getServletContext().getRequestDispatcher("/LessonSelectionView.jspx");
+                }
+                else if (action.equals("/finaliseBooking")){
+                    System.out.println("Finalising login for " + Integer.toString(sel.getOwner()));
+                    sel.updateBooking();
+                    dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
+                }
+                else if (action.equals("/cancelSelection")){
+                    sel.removeLesson(request.getParameter("id"));
+                    dispatcher = this.getServletContext().getRequestDispatcher("/LessonSelectionView.jspx");
+                }
+                else if (action.equals("/logOut")) {
+                    dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+                    session.invalidate();
+                }
             }
+
+        } else {
+            session.invalidate();
+            dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
         }
         
         dispatcher.forward(request, response);

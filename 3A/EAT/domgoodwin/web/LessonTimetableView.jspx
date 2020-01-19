@@ -13,13 +13,11 @@
         <jsp:body>
             <jsp:include page="/nav.jspx" />
             <h1>Timetable of free lessons</h1>
-            <!-- TODO: Check scope -->
-            <jsp:useBean class="model.LessonTimetable" id="availableLessons" scope="application"/>
             <table border="1">
                 <tr>
                     <th>Description</th><th>Start time</th><th>End time</th><th>Level</th><th>Book</th>
                 </tr>
-                <c:forEach var="entry" items="${availableLessons.lessons}">
+                <c:forEach var="entry" items="${applicationScope.availableLessons.lessons}">
                     <form method="POST" action="chooseLesson">
                         <tr>
                             <td><c:out value="${entry.value.description}"/></td>
@@ -27,11 +25,24 @@
                             <td><c:out value="${entry.value.endTime}"/></td>
                             <td><c:out value="${entry.value.level}"/></td>
                             <td><input type="hidden" name="id" value="${entry.key}"/>
-                            <input type="submit" value="Select lesson"/></td>
+                            <input class="select ${entry.key}" type="submit" value="Select lesson"/></td>
                         </tr>
                     </form>
                 </c:forEach>
             </table>
+            <c:if test="${selectedCount >= 3}">
+                <script>buttons=document.getElementsByClassName("select");
+                        for (i in buttons) {
+                            buttons[i].disabled = true; 
+                        };
+                </script>
+            </c:if>
+            <jsp:useBean class="model.LessonSelection" id="selectedLessons" scope="session"/>
+            <c:forEach var="selected" items="${selectedLessons.chosenLessons}">
+                <script>
+                    document.getElementsByClassName("${selected.key}")[0].disabled = true;
+                </script>
+            </c:forEach>
         </jsp:body>
     </jsp:element>
 

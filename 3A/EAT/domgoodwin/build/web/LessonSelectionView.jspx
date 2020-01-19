@@ -17,18 +17,20 @@
             <jsp:useBean class="model.LessonSelection" id="selectedLessons" scope="session"/>
             <table border="1">
                 <tr>
-                    <th>Description</th><th>Start time</th><th>End time</th><th>Level</th>
+                    <th>Description</th><th>Start time</th><th>End time</th><th>Level</th><th></th>
                 </tr>
                 <c:forEach var="entry" items="${selectedLessons.chosenLessons}">
+                    <form method="POST" action="cancelSelection">    
                         <tr>
                             <td><c:out value="${entry.value.description}"/></td>
                             <td><c:out value="${entry.value.startTime}"/></td>
                             <td><c:out value="${entry.value.endTime}"/></td>
                             <td><c:out value="${entry.value.level}"/></td>
-                            <td><input type="hidden" name="id" value="${entry.key}"/></td>
+                            <td><input type="hidden" name="id" value="${entry.key}" /></td>
+                            <td><input class="select" type="submit" value="Cancel"/></td>
                         </tr>
+                    </form>
                 </c:forEach>
-            
             </table>
         <jsp:include page="/footer.jspx" />
         </jsp:body>

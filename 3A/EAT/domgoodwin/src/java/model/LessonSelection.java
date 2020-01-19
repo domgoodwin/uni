@@ -108,6 +108,10 @@ public class LessonSelection  {
         this.chosenLessons.put(l.getId(), i);
        
     }
+    
+    public void removeLesson(String lessonID) {
+        this.chosenLessons.remove(lessonID);  
+    }
 
     public Lesson getLesson(String id){
         return this.chosenLessons.get(id);
@@ -126,15 +130,7 @@ public class LessonSelection  {
     }
     
     public void updateBooking() {
-       
-      
-        // TODO get a connection to the database as in the method above
-        // TODO In the database, delete any existing lessons booked for this user in the table 'lessons_booked'
-        // REMEMBER to use executeUpdate, not executeQuery
-        // TODO - write and execute a query which, for each selected lesson, will insert into the correct table:
-                    // the owner id into the clientid field
-                    // the lesson ID into the lessonid field
-            
+
         try {
             // Obtain our environment naming context
             Context initCtx = new InitialContext();
