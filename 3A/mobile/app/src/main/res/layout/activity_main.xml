@@ -7,20 +7,43 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/mainMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Please select"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="welcome"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="27dp" />
+    <Button
+        android:id="@+id/btnHolidays"
+        android:layout_width="267dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="129dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="109dp"
+        android:onClick="showHolidays"
+        android:text="Holidays"
+        app:layout_constraintBottom_toTopOf="@+id/mainMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnGallery"
+        android:layout_width="267dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="129dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="109dp"
+        android:onClick="showGallery"
+        android:text="Gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainMessage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
