@@ -28,10 +28,20 @@ public class LessonTimetable {
   private ResultSet rs = null;
   private Statement st = null;
   
-  private Map lessons = null;
+  private HashMap<String, Lesson> lessons = null;
   
   private DataSource ds = null;
     
+    public void cleanUp(){
+        try { 
+            ds = null;
+            rs = null;
+            st = null;
+        }catch(Exception e){
+                System.out.println("Exception is ;"+e + ": message is " + e.getMessage());
+        }
+    }
+  
     public LessonTimetable() {
 
         // You don't need to make any changes to the try/catch code below
@@ -89,9 +99,12 @@ public class LessonTimetable {
         return (Lesson)this.lessons.get(itemID);
     }
 
-    public Map getLessons() {
-        
+    public HashMap<String, Lesson> getLessons() {
+        if (this.lessons == null){
+            this.lessons = new HashMap<String, Lesson>();
+        }
         return this.lessons;
+        
         
     }
     

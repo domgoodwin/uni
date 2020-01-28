@@ -41,8 +41,18 @@ public class Users {
         }
         
     }
-
-    public int isValid(String name, String pwd) {
+    
+     public void cleanUp(){
+        try { 
+            ds = null;
+            rs = null;
+            pstmt = null;
+        }catch(Exception e){
+                System.out.println("Exception is ;"+e + ": message is " + e.getMessage());
+        }
+    }
+    
+    public Integer isValid(String name, String pwd) {
        
         try {
             
@@ -58,7 +68,7 @@ public class Users {
                 String username = rs.getString("username");
                 System.out.println("Checking login results: "+username );
                 if ( username.equals(name) ) {
-                    System.out.println("Got client, id: "+ Integer.toString(rs.getInt("clientid")));
+                    System.out.println("Got client");
                     return rs.getInt("clientid");
                 }
             }

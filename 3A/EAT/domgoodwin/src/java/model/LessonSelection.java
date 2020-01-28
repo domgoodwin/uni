@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -27,7 +29,7 @@ public class LessonSelection  {
     private HashMap<String, Lesson> chosenLessons;
     private int ownerID;
     
-    private DataSource ds = null;
+
     
     private ResultSet rs = null;
     private Statement st = null;
@@ -37,11 +39,20 @@ public class LessonSelection  {
         chosenLessons = new HashMap<String, Lesson>();
     }
     
+    public void cleanUp(){
+        try { 
+            rs = null;
+            st = null;
+        }catch(Exception e){
+                System.out.println("Exception is ;"+e + ": message is " + e.getMessage());
+        }
+    }
+    
     public LessonSelection(int owner) {
         
         chosenLessons = new HashMap<String, Lesson>();
         this.ownerID = owner;
-
+        DataSource ds = null;
         // You don't need to make any changes to the try/catch code below
         try {
             // Obtain our environment naming context
@@ -130,7 +141,9 @@ public class LessonSelection  {
     }
     
     public void updateBooking() {
-
+        System.out.println("Updating booking with:");
+        System.out.println(this.getOwner());
+        DataSource ds = null;
         try {
             // Obtain our environment naming context
             Context initCtx = new InitialContext();
@@ -144,9 +157,9 @@ public class LessonSelection  {
         
         // Connect to the database - this is a pooled connection, so you don't need to close it afterwards
         try {
-
+            System.out.println("Getting connection");
             Connection connection = ds.getConnection();
-
+            System.out.println("Got connection");
              try {
 
                 if (connection != null) {

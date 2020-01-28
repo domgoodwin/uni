@@ -12,8 +12,8 @@
             <p>
                 Greetings <c:out value="${user}"/>
             </p>
-            <p>
-                [ <a href="viewTimetable"> View Timetable</a> |<a href="viewSelection"> View Selection</a> | <a href="logOut"> Log Out</a>  ]
+            <p style="display: inline;" >
+                [ <a href="viewTimetable"> View Timetable</a> |<a href="viewSelection"> View Selection</a> | <form style="display: inline" method="POST" action="logOut"><input type="submit" value="Logout"/> </form>  ]
             </p>
         </jsp:body>
     </jsp:element>

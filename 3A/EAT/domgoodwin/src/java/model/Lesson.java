@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -8,14 +9,14 @@ import java.util.Calendar;
  *
  * @author bastinl
  */
-public class Lesson {
+public class Lesson implements Serializable {
     
         
     protected String description;
     protected String startTime;
     protected String date;
     protected String endTime;
-    protected int level;
+    protected Integer level;
     
     protected String ID;
     

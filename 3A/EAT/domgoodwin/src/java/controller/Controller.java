@@ -36,7 +36,15 @@ public class Controller extends HttpServlet {
     }
     
     public void destroy() {
+        availableLessons.cleanUp();
         availableLessons = null;
+        users.cleanUp();
+        users = null;
+        if (availableLessons != null){
+            availableLessons.cleanUp();
+        }
+        availableLessons = null;
+        
     }
 
     /** 
@@ -48,35 +56,45 @@ public class Controller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (availableLessons == null) {
+            availableLessons = new LessonTimetable();
+        }
         System.out.println("Controller started");
         String action = request.getPathInfo();
         System.out.println("Action: "+action);
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
         HttpSession session = request.getSession(false);
         
-        if (action.equals("/login") && users.isValid(request.getParameter("username"), request.getParameter("password")) != -1){
+        if (action.equals("/login")){
             Integer userID = users.isValid(request.getParameter("username"), request.getParameter("password"));
             if (userID != -1) {
                 System.out.println("Valid user login: "+request.getParameter("username"));
                 session = request.getSession();
                 session.setAttribute("user", request.getParameter("username"));
+                session.setAttribute("userID", userID);
                 LessonSelection sel = new LessonSelection(userID);
                 session.setAttribute("selectedLessons", sel);
                 
                 session.setAttribute("lessons", availableLessons.getLessons());
                 dispatcher = this.getServletContext().getRequestDispatcher("/do/viewTimetable");
+            } else {
+                dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
             }
-        }else if (session == null){
-            dispatcher = this.getServletContext().getRequestDispatcher("/do/viewTimetable");
+        }else if (session == null || session.getAttribute("user").equals("")){
+            dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
         } 
         else if (session.getAttribute("user") != null) {
             if (action.equals("/logOut")) {
+                System.out.println("Logging user out");
                 session.invalidate();
                 dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
                 request.getSession(false);
             } else {
-                LessonSelection sel = (LessonSelection)session.getAttribute("selectedLessons");
-                session.setAttribute("selectedCount", sel.getNumChosen());
+                LessonSelection sel = (LessonSelection) session.getAttribute("selectedLessons");
+                if (sel != null) {
+                    Integer numChosen = sel.getNumChosen();
+                    session.setAttribute("selectedCount", numChosen);
+                }
                 if (action.equals("/viewTimetable")) {
                     session.setAttribute("selectedCount", sel.getNumChosen());
                     dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
@@ -92,13 +110,20 @@ public class Controller extends HttpServlet {
 
                     // Check lesson isn't already selected
                     if (! sel.getChosenLessons().containsKey(lessonID)){
-                        sel.addLesson(selectedLesson);
+                        sel.addLesson(new Lesson(selectedLesson));
                     }
                     dispatcher = this.getServletContext().getRequestDispatcher("/LessonSelectionView.jspx");
                 }
                 else if (action.equals("/finaliseBooking")){
-                    System.out.println("Finalising login for " + Integer.toString(sel.getOwner()));
-                    sel.updateBooking();
+                    System.out.println("Finalising booking");
+                    if (sel != null) {
+                        sel.updateBooking();
+                    } else {
+                        System.out.println("Selection was null");
+                    }
+                    Integer userID = (Integer) session.getAttribute("userID");
+                    LessonSelection selNew = new LessonSelection(userID);
+                    session.setAttribute("selectedLessons", selNew);
                     dispatcher = this.getServletContext().getRequestDispatcher("/LessonTimetableView.jspx");
                 }
                 else if (action.equals("/cancelSelection")){
@@ -111,8 +136,11 @@ public class Controller extends HttpServlet {
                 }
             }
 
-        } else {
-            session.invalidate();
+        } else if (action.equals("/logOut")) {
+            System.out.println("Logging user out and invalidating session");
+            if (session != null){
+              session.invalidate();  
+            }
             dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
         }
         
