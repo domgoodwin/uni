@@ -4,20 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".HolidayActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="247dp"
-        android:layout_height="268dp"
-        android:layout_marginStart="91dp"
-        android:layout_marginTop="208dp"
-        android:layout_marginEnd="73dp"
-        android:layout_marginBottom="255dp"
-        android:contentDescription="Your holiday images"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/txtHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Add a holiday"
+        android:textAppearance="@style/AppHeader"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/field_holiday_name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtHeader" />
+
+    <EditText
+        android:id="@+id/txtStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:focusableInTouchMode="false"
+        android:inputType="date"
+        android:onClick="onDateSelect"
+        android:hint="@string/field_start_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+    <EditText
+        android:id="@+id/txtEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:focusableInTouchMode="false"
+        android:inputType="date"
+        android:onClick="onDateSelect"
+        android:hint="End Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtStartDate" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="238dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorAccent"
+        android:onClick="onHolidayAdd"
+        android:text="Add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEndDate" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

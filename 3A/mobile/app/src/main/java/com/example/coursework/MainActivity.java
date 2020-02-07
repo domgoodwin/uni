@@ -27,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
     public void showHolidays(View view) {
         TextView welcome = findViewById(R.id.mainMessage);
         welcome.setText("Going to holidays");
+        Intent intent = new Intent(this, HolidaysActivity.class);
+        startActivity(intent);
+    }
+
+    public void addHoliday(View view) {
+        TextView welcome = findViewById(R.id.mainMessage);
+        welcome.setText("Going to add holiday");
         Intent intent = new Intent(this, HolidayActivity.class);
         startActivity(intent);
     }

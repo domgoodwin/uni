@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Coursework</string>
+    <string name="field_start_date">Start Date</string>
+    <string name="field_holiday_name">Holiday Name</string>
 </resources>
