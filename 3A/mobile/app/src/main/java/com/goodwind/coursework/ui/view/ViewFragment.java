@@ -214,8 +214,10 @@ public class ViewFragment extends Fragment {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        Toast.makeText(getActivity(), "Yaay", Toast.LENGTH_SHORT).show();
-                        // TODO: Delete and save holidays
+                        holidayFile.deleteHoliday(holidayIndex, getActivity());
+                        Toast.makeText(getActivity(), "Holiday deleted", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_home);
+
                     }})
                 .setNegativeButton(android.R.string.no, null).show();
     }
