@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btnViewMap"
+        android:layout_width="238dp"
+        android:layout_height="51dp"
+        android:background="@color/colorAccent"
+        android:text="View on Map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEndDate" />
+
     <TextView
         android:id="@+id/txtHeader"
         android:layout_width="wrap_content"
@@ -99,6 +110,6 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEndDate" />
+        app:layout_constraintTop_toBottomOf="@+id/btnViewMap" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

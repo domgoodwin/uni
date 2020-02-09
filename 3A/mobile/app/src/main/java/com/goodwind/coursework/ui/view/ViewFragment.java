@@ -1,5 +1,6 @@
 package com.goodwind.coursework.ui.view;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -18,6 +19,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
@@ -67,6 +69,15 @@ public class ViewFragment extends Fragment {
             @Override
             public void onClick(View v){
                 deleteHoliday(v);
+            }
+        });
+        final Button viewOnMap = root.findViewById(R.id.btnViewMap);
+        viewOnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("holidayIndex", holidayIndex);
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_map, bundle);
             }
         });
         return root;
