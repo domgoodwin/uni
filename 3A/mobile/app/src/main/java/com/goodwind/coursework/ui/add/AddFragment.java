@@ -219,8 +219,10 @@ public class AddFragment extends Fragment {
             DateFormat storeDf = new SimpleDateFormat("yyyymmdd");
             holidayJSON.put("startDate", storeDf.format(df.parse(holidayStart.getText().toString())));
             holidayJSON.put("endDate",  storeDf.format(df.parse(holidayEnd.getText().toString())));
+            holidayJSON.put("images", new JSONArray());
             JSONObject placeJSON = new JSONObject();
             placeJSON.put("name", placeName.getText());
+            placeJSON.put("images", new JSONArray());
             holidayJSON.put("date",  storeDf.format(df.parse(placeDate.getText().toString())));
             JSONObject coOrdJSON = new JSONObject();
             coOrdJSON.put("long", holLocation.getLongitude());
@@ -239,22 +241,7 @@ public class AddFragment extends Fragment {
 
         Log.i("add fragment", "Writing holidays back: " + holidaysJSON.toString());
 
-        String fileName = holidaySaveLocation;
-
-        boolean successCreate = false;
-        try {
-
-            FileOutputStream fileOut = getActivity().openFileOutput(fileName, Context.MODE_PRIVATE);
-            OutputStreamWriter outStream = new OutputStreamWriter(fileOut);
-            outStream.write(holidaysJSON.toString());
-            outStream.flush();
-            outStream.close();
-            successCreate = true;
-        } catch (java.io.IOException e) {
-            System.out.println("Exception creating file: "+ e.getMessage());
-        }
-
-        if (successCreate) {
+        if (holidayFile.saveHolidays(holidaysJSON, getActivity())) {
             // TODO
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_home);
         } else {

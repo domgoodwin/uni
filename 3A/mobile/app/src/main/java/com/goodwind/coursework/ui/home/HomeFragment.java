@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.Button;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,8 +16,6 @@ import com.goodwind.coursework.HolidayAdapter;
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.json.JSONArray;
 
 public class HomeFragment extends Fragment {
 
@@ -38,7 +33,7 @@ public class HomeFragment extends Fragment {
 
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
 
-        RecyclerView rView = root.findViewById(R.id.holidayList);
+        RecyclerView rView = root.findViewById(R.id.imgPreviews);
         rView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         HolidayAdapter adapter = new HolidayAdapter(holidayFile.getHolidaysArray());

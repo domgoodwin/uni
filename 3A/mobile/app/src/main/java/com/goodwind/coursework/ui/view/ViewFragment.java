@@ -1,9 +1,9 @@
 package com.goodwind.coursework.ui.view;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +23,6 @@ import androidx.navigation.Navigation;
 
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
-import com.goodwind.coursework.ui.add.AddViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
@@ -50,14 +49,13 @@ public class ViewFragment extends Fragment {
         viewViewModel =
                 ViewModelProviders.of(this).get(ViewViewModel.class);
         View root = inflater.inflate(R.layout.fragment_holiday_view, container, false);
-        final TextView textView = root.findViewById(R.id.txtHeader);
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
         holidayIndex = getArguments().getInt("holidayIndex");
         holiday = holidayFile.getHolidayByIndex(holidayIndex);
         v = root;
         populateFields(holiday);
 
-        final FloatingActionButton fabEdit = root.findViewById(R.id.fab_edit);
+        final FloatingActionButton fabEdit = root.findViewById(R.id.fab_add);
         fabEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -71,6 +69,13 @@ public class ViewFragment extends Fragment {
                 deleteHoliday(v);
             }
         });
+        final FloatingActionButton fabShare = root.findViewById(R.id.fab_share);
+        fabShare.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                shareHoliday(v);
+            }
+        });
         final Button viewOnMap = root.findViewById(R.id.btnViewMap);
         viewOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,14 +85,25 @@ public class ViewFragment extends Fragment {
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_map, bundle);
             }
         });
+        final Button viewPhotos = root.findViewById(R.id.btnPhotos);
+        viewPhotos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("holidayIndex", holidayIndex);
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_gallery_specific, bundle);
+            }
+        });
         return root;
     }
 
     private void enableEdit(View v){
+        EditText title = getView().findViewById(R.id.txtHolidayName);
         EditText start = getView().findViewById(R.id.txtStartDate);
         EditText end = getView().findViewById(R.id.txtEndDate);
         start.setEnabled(true);
         end.setEnabled(true);
+        title.setEnabled(true);
         start.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -100,7 +116,7 @@ public class ViewFragment extends Fragment {
                 onDateSelect(v);
             }
         });
-        FloatingActionButton fabEdit = getView().findViewById(R.id.fab_edit);
+        FloatingActionButton fabEdit = getView().findViewById(R.id.fab_add);
         FloatingActionButton fabDelete = getView().findViewById(R.id.fab_delete);
         fabDelete.hide();
         fabEdit.setImageResource(R.drawable.ic_menu_send);
@@ -126,16 +142,19 @@ public class ViewFragment extends Fragment {
     }
 
     private void cancelEdit(){
+        EditText title = getView().findViewById(R.id.txtHolidayName);
         EditText start = getView().findViewById(R.id.txtStartDate);
         EditText end = getView().findViewById(R.id.txtEndDate);
         start.setEnabled(false);
         end.setEnabled(false);
+        title.setEnabled(false);
+
         start.setOnClickListener(null);
         end.setOnClickListener(null);
         populateFields(holiday);
 
 
-        FloatingActionButton fabEdit = getView().findViewById(R.id.fab_edit);
+        FloatingActionButton fabEdit = getView().findViewById(R.id.fab_add);
         FloatingActionButton fabDelete = getView().findViewById(R.id.fab_delete);
         fabDelete.show();
         fabEdit.setImageResource(R.drawable.ic_menu_manage);
@@ -148,7 +167,43 @@ public class ViewFragment extends Fragment {
     }
 
     private void saveChanges(View v){
-        // TODO: Implement
+        String holidayName = ((TextView)getView().findViewById(R.id.txtHolidayName)).getText().toString();
+        String startDate = ((TextView)getView().findViewById(R.id.txtStartDate)).getText().toString();
+        String endDate = ((TextView)getView().findViewById(R.id.txtEndDate)).getText().toString();
+        try {
+            holiday.put("name", holidayName);
+            holiday.put("startDate", startDate);
+            holiday.put("endDate", endDate);
+             holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
+        } catch (JSONException e){
+            Log.e("view", e.getMessage());
+        }
+        cancelEdit();
+    }
+
+
+    private void shareHoliday(View v){
+        Intent sendIntent = new Intent();
+        String shareText = "";
+        try {
+            // TODO: Format date properly
+            shareText = String.format("I went on holiday, %s, between %s and %s and has a blast!",
+                    holiday.getString("name"),
+                    holiday.getString("startDate"),
+                    holiday.getString("endDate"));
+
+        } catch (JSONException e) {
+            Log.e("aaa", e.getMessage());
+        }
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        sendIntent.setType("text/plain");
+
+
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+
     }
 
     private void deleteHoliday(View v){
@@ -169,7 +224,7 @@ public class ViewFragment extends Fragment {
         try {
             SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
             SimpleDateFormat store = new SimpleDateFormat("yyyymmdd");
-            ((TextView)v.findViewById(R.id.txtHeader)).setText(holiday.getString("name"));
+            ((EditText)v.findViewById(R.id.txtHolidayName)).setText(holiday.getString("name"));
             Date start = store.parse(holiday.getString("startDate"));
             Date end = store.parse(holiday.getString("endDate"));
             ((EditText)v.findViewById(R.id.txtStartDate)).setText(df.format(start));

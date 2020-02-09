@@ -28,24 +28,6 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.goodwind.coursework.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.goodwind.coursework.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
-
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="com.goodwind.coursework.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
         android:id="@+id/nav_add"
         android:name="com.goodwind.coursework.ui.add.AddFragment"
         android:label="@string/menu_send"
@@ -67,6 +49,20 @@
         tools:layout="@layout/fragment_map">
         <argument
             android:name="holidayIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_gallery_specific"
+        android:name="com.goodwind.coursework.ui.gallerySpecific.GallerySpecificFragment"
+        android:label="Gallery Specific"
+        tools:layout="@layout/fragment_gallery_specific">
+        <argument
+            android:name="holidayIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="placeIndex"
             app:argType="integer"
             android:defaultValue="-1" />
     </fragment>

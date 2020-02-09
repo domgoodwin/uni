@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_home" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/holidayList"
+        android:id="@+id/imgPreviews"
         android:layout_width="332dp"
         android:layout_height="540dp"
         android:layout_marginTop="50dp"

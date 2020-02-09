@@ -2,6 +2,9 @@ package com.goodwind.coursework;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -12,15 +15,20 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HolidayFile {
 
     private String fileDir;
     private Context ctx;
     private Activity activity;
+    static final public String holidaySaveLocation = "holidays.json";
 
     public HolidayFile(String dir, Context context, Activity act){
         fileDir = dir;
@@ -31,6 +39,16 @@ public class HolidayFile {
     public JSONObject getHolidayByIndex(int index){
         try{
             return getHolidaysArray().getJSONObject(index);
+        } catch (JSONException e){
+            Log.e("add fragment", "JSON Array Parse error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public JSONObject getHolidayPlaceByIndex(int holIndex, int placeIndex){
+        JSONObject holiday = getHolidayByIndex(holIndex);
+        try{
+            return holiday.getJSONArray("places").getJSONObject(placeIndex);
         } catch (JSONException e){
             Log.e("add fragment", "JSON Array Parse error: " + e.getMessage());
         }
@@ -70,6 +88,38 @@ public class HolidayFile {
         return jObj;
     }
 
+    public void updateHoliday(JSONObject holiday, int holidayIndex, Activity act){
+        JSONObject holidays = getHolidays();
+        try {
+            JSONArray holidaysArr = holidays.getJSONArray("holidays");
+            holidaysArr.put(holidayIndex, holiday);
+            holidays.put("holidays", holidaysArr);
+        } catch (JSONException e) {
+            System.out.println("Exception updating holiday: "+ e.getMessage());
+        }
+
+        saveHolidays(holidays, act);
+
+    }
+
+    public boolean saveHolidays(JSONObject holidaysJSON, Activity act){
+        String fileName = holidaySaveLocation;
+
+        boolean successCreate = false;
+        try {
+
+            FileOutputStream fileOut = act.openFileOutput(fileName, Context.MODE_PRIVATE);
+            OutputStreamWriter outStream = new OutputStreamWriter(fileOut);
+            outStream.write(holidaysJSON.toString());
+            outStream.flush();
+            outStream.close();
+            successCreate = true;
+        } catch (java.io.IOException e) {
+            System.out.println("Exception creating file: "+ e.getMessage());
+        }
+        return successCreate;
+    }
+
     public String readHolidaysFile(){
         File file = new File(activity.getFilesDir(), fileDir);
         String out = "";
@@ -107,5 +157,25 @@ public class HolidayFile {
         }
 
         return out;
+    }
+
+    public List<Bitmap> getImages(JSONObject holiday, int placeIndex){
+        ArrayList<Bitmap> images = new ArrayList<Bitmap>();
+        try {
+            JSONArray imagesToGet;
+            if (placeIndex == -1) {
+                imagesToGet = holiday.getJSONArray("images");
+            } else {
+                imagesToGet = holiday.getJSONArray("places").getJSONObject(placeIndex).getJSONArray("images");
+            }
+            for (int i = 0; i <= imagesToGet.length(); i++) {
+                JSONObject imageJSON = imagesToGet.getJSONObject(i);
+                Bitmap b = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imageJSON.getString("file")), 200, 200);
+                images.add(b);
+            }
+        } catch (JSONException e) {
+            Log.e("", e.getMessage());
+        }
+        return images;
     }
 }
