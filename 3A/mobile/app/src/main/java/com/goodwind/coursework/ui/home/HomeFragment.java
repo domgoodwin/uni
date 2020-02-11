@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
 
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
 
-        RecyclerView rView = root.findViewById(R.id.imgPreviews);
+        RecyclerView rView = root.findViewById(R.id.lvPlaces);
         rView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         HolidayAdapter adapter = new HolidayAdapter(holidayFile.getHolidaysArray());

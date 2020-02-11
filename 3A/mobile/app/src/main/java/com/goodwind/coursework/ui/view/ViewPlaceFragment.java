@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
-import com.goodwind.coursework.ui.gallerySpecific.GalleryAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
@@ -36,7 +32,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ViewFragment extends Fragment {
+public class ViewPlaceFragment extends Fragment {
 
     HolidayFile holidayFile;
 
@@ -44,7 +40,9 @@ public class ViewFragment extends Fragment {
     EditText dateView;
     final String holidaySaveLocation = "holidays.json";
     private JSONObject holiday;
+    private JSONObject place;
     private int holidayIndex;
+    private int placeIndex;
     View v;
 
 
@@ -52,12 +50,14 @@ public class ViewFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         viewViewModel =
                 ViewModelProviders.of(this).get(ViewViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_holiday_view, container, false);
+        View root = inflater.inflate(R.layout.fragment_holiday_place_view, container, false);
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
         holidayIndex = getArguments().getInt("holidayIndex");
+        placeIndex = getArguments().getInt("placeIndex");
         holiday = holidayFile.getHolidayByIndex(holidayIndex);
+        place = holidayFile.getHolidayPlaceByIndex(holidayIndex, placeIndex);
         v = root;
-        populateFields(holiday);
+        populateFields(place);
 
         final FloatingActionButton fabEdit = root.findViewById(R.id.fab_add);
         fabEdit.setOnClickListener(new View.OnClickListener(){
@@ -237,16 +237,14 @@ public class ViewFragment extends Fragment {
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
-    private void populateFields(JSONObject holiday){
+    private void populateFields(JSONObject place){
         try {
             SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
             SimpleDateFormat store = new SimpleDateFormat("yyyymmdd");
-            ((EditText)v.findViewById(R.id.txtHolidayName)).setText(holiday.getString("name"));
-            Date start = store.parse(holiday.getString("startDate"));
-            Date end = store.parse(holiday.getString("endDate"));
-            ((EditText)v.findViewById(R.id.txtStartDate)).setText(df.format(start));
-            ((EditText)v.findViewById(R.id.txtEndDate)).setText(df.format(end));
-            ((EditText)v.findViewById(R.id.txtDebug)).setText(holiday.toString());
+            ((EditText)v.findViewById(R.id.txtPlaceName)).setText(place.getString("name"));
+            Date date = store.parse(place.getString("date"));
+            ((EditText)v.findViewById(R.id.txtDate)).setText(df.format(date));
+            ((EditText)v.findViewById(R.id.txtPlaceLocation)).setText(place.getString("name"));
         } catch (JSONException e){
             Log.e("view", "JSON parse exception: "+e.getMessage());
 

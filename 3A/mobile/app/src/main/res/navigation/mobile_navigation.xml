@@ -66,4 +66,18 @@
             app:argType="integer"
             android:defaultValue="-1" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_holiday_places_list"
+        android:name="com.goodwind.coursework.ui.view.ViewPlacesFragment"
+        android:label="View places"
+        tools:layout="@layout/fragment_holiday_places_list">
+        <argument
+            android:name="holidayIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="placeIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 </navigation>

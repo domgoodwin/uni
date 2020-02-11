@@ -1,48 +1,32 @@
 package com.goodwind.coursework.ui.gallerySpecific;
 
 import android.Manifest;
-import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -50,16 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 
 public class GallerySpecificFragment extends Fragment {
@@ -95,7 +72,7 @@ public class GallerySpecificFragment extends Fragment {
             place = holidayFile.getHolidayPlaceByIndex(holidayIndex, placeIndex);
         }
 
-        RecyclerView imgPreviewsView = root.findViewById(R.id.imgPreviews);
+        RecyclerView imgPreviewsView = root.findViewById(R.id.lvPlaces);
         imgPreviewsView.setLayoutManager(new LinearLayoutManager(getActivity()));
         imgPreviews = new GalleryAdapter(holidayFile.getImages(holiday, placeIndex), getContext());
         imgPreviewsView.setAdapter(imgPreviews);

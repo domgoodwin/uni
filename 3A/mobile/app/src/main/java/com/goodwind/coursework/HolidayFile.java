@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HolidayFile {
 
@@ -86,6 +88,21 @@ public class HolidayFile {
 
 
         return jObj;
+    }
+
+    public Map<Integer, String> getPlaces(int holidayIndex){
+        HashMap<Integer, String> places = new HashMap<Integer, String>();
+        try {
+            JSONObject holiday = getHolidayByIndex(holidayIndex);
+            JSONArray placesJSON = holiday.getJSONArray("places");
+            for (int i = 0; i <= placesJSON.length(); i++) {
+                JSONObject place = placesJSON.getJSONObject(i);
+                places.put(i, place.getString("name"));
+            }
+        } catch (JSONException e) {
+            System.out.println("Exception getting places: "+ e.getMessage());
+        }
+        return places;
     }
 
     public void updateHoliday(JSONObject holiday, int holidayIndex, Activity act){
