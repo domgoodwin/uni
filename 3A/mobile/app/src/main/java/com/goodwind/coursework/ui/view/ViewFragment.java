@@ -133,7 +133,10 @@ public class ViewFragment extends Fragment {
         });
         FloatingActionButton fabEdit = getView().findViewById(R.id.fab_add);
         FloatingActionButton fabDelete = getView().findViewById(R.id.fab_delete);
+        FloatingActionButton fabShare = getView().findViewById(R.id.fab_share);
         fabDelete.hide();
+        fabShare.hide();
+
         fabEdit.setImageResource(R.drawable.ic_menu_send);
         fabEdit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -171,7 +174,9 @@ public class ViewFragment extends Fragment {
 
         FloatingActionButton fabEdit = getView().findViewById(R.id.fab_add);
         FloatingActionButton fabDelete = getView().findViewById(R.id.fab_delete);
+        FloatingActionButton fabShare = getView().findViewById(R.id.fab_share);
         fabDelete.show();
+        fabShare.show();
         fabEdit.setImageResource(R.drawable.ic_menu_manage);
         fabEdit.setOnClickListener(new View.OnClickListener(){
             @Override

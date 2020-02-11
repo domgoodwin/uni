@@ -8,11 +8,11 @@
     android:layout_margin="10dp">
 
     <TextView
-        android:id="@+id/txtPlaceName"
-        android:padding="10dp"
+        android:id="@+id/txtPlaceListName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:padding="10dp"
         android:text="@string/element_text"
         android:textColor="#FFFFFF" />
 </FrameLayout>

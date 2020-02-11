@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,20 +21,27 @@ import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class ViewPlaceFragment extends Fragment {
 
@@ -43,6 +54,9 @@ public class ViewPlaceFragment extends Fragment {
     private JSONObject place;
     private int holidayIndex;
     private int placeIndex;
+    private final int REQUEST_LOCATION_PERMISSION = 1;
+    Location holLocation;
+
     View v;
 
 
@@ -57,7 +71,6 @@ public class ViewPlaceFragment extends Fragment {
         holiday = holidayFile.getHolidayByIndex(holidayIndex);
         place = holidayFile.getHolidayPlaceByIndex(holidayIndex, placeIndex);
         v = root;
-        populateFields(place);
 
         final FloatingActionButton fabEdit = root.findViewById(R.id.fab_add);
         fabEdit.setOnClickListener(new View.OnClickListener(){
@@ -70,7 +83,7 @@ public class ViewPlaceFragment extends Fragment {
         fabDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                deleteHoliday(v);
+                deletePlace(v);
             }
         });
         final FloatingActionButton fabShare = root.findViewById(R.id.fab_share);
@@ -86,6 +99,7 @@ public class ViewPlaceFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("holidayIndex", holidayIndex);
+                bundle.putInt("placeIndex", placeIndex);
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_map, bundle);
             }
         });
@@ -99,41 +113,46 @@ public class ViewPlaceFragment extends Fragment {
             }
         });
 
-        final Button viewPlaces = root.findViewById(R.id.btnPlaces);
-        viewPlaces.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("holidayIndex", holidayIndex);
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_holiday_places_list, bundle);
-            }
-        });
+        // Allow empty edit, eg. add
+        if (placeIndex != -1){
+            Log.d("aaa", "place: " + place.toString());
+            populateFields(place, root);
+        } else {
+            enableEdit(root);
+        }
 
         return root;
     }
 
     private void enableEdit(View v){
-        EditText title = getView().findViewById(R.id.txtHolidayName);
-        EditText start = getView().findViewById(R.id.txtStartDate);
-        EditText end = getView().findViewById(R.id.txtEndDate);
-        start.setEnabled(true);
-        end.setEnabled(true);
-        title.setEnabled(true);
-        start.setOnClickListener(new View.OnClickListener(){
+
+        EditText name = v.findViewById(R.id.txtPlaceName);
+        EditText date = v.findViewById(R.id.txtDate);
+        EditText location = v.findViewById(R.id.txtPlaceLocation);
+        EditText notes = v.findViewById(R.id.txtNotes);
+        name.setEnabled(true);
+        date.setEnabled(true);
+        location.setEnabled(true);
+        notes.setEnabled(true);
+
+        date.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 onDateSelect(v);
             }
         });
-        end.setOnClickListener(new View.OnClickListener(){
+        location.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                onDateSelect(v);
+                getLocation();
             }
         });
-        FloatingActionButton fabEdit = getView().findViewById(R.id.fab_add);
-        FloatingActionButton fabDelete = getView().findViewById(R.id.fab_delete);
+
+        FloatingActionButton fabEdit = v.findViewById(R.id.fab_add);
+        FloatingActionButton fabDelete = v.findViewById(R.id.fab_delete);
+        FloatingActionButton fabShare = v.findViewById(R.id.fab_share);
         fabDelete.hide();
+        fabShare.hide();
         fabEdit.setImageResource(R.drawable.ic_menu_send);
         fabEdit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -141,6 +160,11 @@ public class ViewPlaceFragment extends Fragment {
                 saveChanges(v);
             }
         });
+
+        Button btnMap = v.findViewById(R.id.btnViewMap);
+        Button btnPhotos = v.findViewById(R.id.btnPhotos);
+        btnMap.setVisibility(View.GONE);
+        btnPhotos.setVisibility(View.GONE);
 
         // Set back button to cancel edit instead of going back fragments
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -157,21 +181,29 @@ public class ViewPlaceFragment extends Fragment {
     }
 
     private void cancelEdit(){
-        EditText title = getView().findViewById(R.id.txtHolidayName);
-        EditText start = getView().findViewById(R.id.txtStartDate);
-        EditText end = getView().findViewById(R.id.txtEndDate);
-        start.setEnabled(false);
-        end.setEnabled(false);
-        title.setEnabled(false);
+        EditText name = getView().findViewById(R.id.txtPlaceName);
+        EditText date = getView().findViewById(R.id.txtDate);
+        EditText location = getView().findViewById(R.id.txtPlaceLocation);
+        EditText notes = getView().findViewById(R.id.txtNotes);
+        name.setEnabled(false);
+        date.setEnabled(false);
+        location.setEnabled(false);
+        notes.setEnabled(false);
 
-        start.setOnClickListener(null);
-        end.setOnClickListener(null);
-        populateFields(holiday);
+        date.setOnClickListener(null);
+        populateFields(place, getView());
+
+        Button btnMap = getView().findViewById(R.id.btnViewMap);
+        Button btnPhotos = getView().findViewById(R.id.btnPhotos);
+        btnMap.setVisibility(View.VISIBLE);
+        btnPhotos.setVisibility(View.VISIBLE);
 
 
         FloatingActionButton fabEdit = getView().findViewById(R.id.fab_add);
         FloatingActionButton fabDelete = getView().findViewById(R.id.fab_delete);
+        FloatingActionButton fabShare = getView().findViewById(R.id.fab_share);
         fabDelete.show();
+        fabShare.show();
         fabEdit.setImageResource(R.drawable.ic_menu_manage);
         fabEdit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -182,17 +214,29 @@ public class ViewPlaceFragment extends Fragment {
     }
 
     private void saveChanges(View v){
-        String holidayName = ((TextView)getView().findViewById(R.id.txtHolidayName)).getText().toString();
-        String startDate = ((TextView)getView().findViewById(R.id.txtStartDate)).getText().toString();
-        String endDate = ((TextView)getView().findViewById(R.id.txtEndDate)).getText().toString();
+        String name = ((TextView)getView().findViewById(R.id.txtPlaceName)).getText().toString();
+        String date = ((TextView)getView().findViewById(R.id.txtDate)).getText().toString();
+        String location = ((TextView)getView().findViewById(R.id.txtPlaceLocation)).getText().toString();
+        String notes = ((TextView)getView().findViewById(R.id.txtNotes)).getText().toString();
         try {
-            holiday.put("name", holidayName);
-            holiday.put("startDate", startDate);
-            holiday.put("endDate", endDate);
-             holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
+            if (placeIndex == -1){
+                place = new JSONObject();
+                placeIndex = holiday.getJSONArray("places").length();
+            }
+            place.put("name", name);
+            place.put("date", "20200101"); //todo proper formatting
+            JSONObject coOrdJSON = new JSONObject();
+            coOrdJSON.put("long", holLocation.getLongitude());
+            coOrdJSON.put("lat", holLocation.getLatitude());
+            coOrdJSON.put("display", getLocationDisplay(holLocation));
+            place.put("location", coOrdJSON);
+            place.put("notes", notes);
+            holiday.getJSONArray("places").put(placeIndex, place);
+            holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
         } catch (JSONException e){
             Log.e("view", e.getMessage());
         }
+
         cancelEdit();
     }
 
@@ -202,10 +246,9 @@ public class ViewPlaceFragment extends Fragment {
         String shareText = "";
         try {
             // TODO: Format date properly
-            shareText = String.format("I went on holiday, %s, between %s and %s and has a blast!",
+            shareText = String.format("I went to, %s, on %s and had a blast!",
                     holiday.getString("name"),
-                    holiday.getString("startDate"),
-                    holiday.getString("endDate"));
+                    holiday.getString("date"));
 
         } catch (JSONException e) {
             Log.e("aaa", e.getMessage());
@@ -221,30 +264,33 @@ public class ViewPlaceFragment extends Fragment {
 
     }
 
-    private void deleteHoliday(View v){
+    private void deletePlace(View v){
         new AlertDialog.Builder(getContext())
                 .setTitle("Confirm")
-                .setMessage("Do you really want to delete this Holiday?")
+                .setMessage("Do you really want to delete this Place from your holiday?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        holidayFile.deleteHoliday(holidayIndex, getActivity());
-                        Toast.makeText(getActivity(), "Holiday deleted", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_home);
+                        holidayFile.deletePlace(holidayIndex, placeIndex, getActivity());
+                        Toast.makeText(getActivity(), "Place deleted", Toast.LENGTH_SHORT).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("holidayIndex", holidayIndex);
+                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_holiday_places_list, bundle);
 
                     }})
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
-    private void populateFields(JSONObject place){
+    private void populateFields(JSONObject place, View v){
         try {
             SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
             SimpleDateFormat store = new SimpleDateFormat("yyyymmdd");
             ((EditText)v.findViewById(R.id.txtPlaceName)).setText(place.getString("name"));
             Date date = store.parse(place.getString("date"));
             ((EditText)v.findViewById(R.id.txtDate)).setText(df.format(date));
-            ((EditText)v.findViewById(R.id.txtPlaceLocation)).setText(place.getString("name"));
+            ((EditText)v.findViewById(R.id.txtNotes)).setText(place.getString("notes"));
+            ((EditText)v.findViewById(R.id.txtPlaceLocation)).setText(place.getJSONObject("location").getString("display"));
         } catch (JSONException e){
             Log.e("view", "JSON parse exception: "+e.getMessage());
 
@@ -264,4 +310,69 @@ public class ViewPlaceFragment extends Fragment {
         } , 2020, 0, 01);
         picker.show();
     }
+
+
+
+    private void getLocation() {
+        Log.d("add fragment", "getLocation");
+        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+        } else {
+            Log.d("add fragment", "getLocation: permissions granted");
+            getLastLocation();
+        }
+    }
+
+    private void getLastLocation(){
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        fusedLocationClient.getLastLocation().addOnSuccessListener(
+                new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null){
+                            holLocation = location;
+                            ((TextView)getView().findViewById(R.id.txtPlaceLocation)).setText(getLocationDisplay(holLocation));
+                        }
+                    }
+                }
+        );
+    }
+
+    private String getLocationDisplay(Location loc){
+        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+        List<Address> addressList = null;
+        try {
+            addressList = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+        }catch (IOException e){
+            Log.e("tag", e.getMessage());
+        }
+        if (addressList != null && !addressList.isEmpty()) {
+
+            Address adr = addressList.get(0);
+            String address = "";
+            for (int i = 0; i <= adr.getMaxAddressLineIndex(); i++) {
+                address = address + adr.getAddressLine(i);
+            }
+            return address;
+        }
+        return "";
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION_PERMISSION:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                } else {
+                    Toast.makeText(getContext(),
+                            "Cannot get locaton permissions",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
 }

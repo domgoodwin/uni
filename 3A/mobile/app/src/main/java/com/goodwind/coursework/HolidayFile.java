@@ -131,6 +131,20 @@ public class HolidayFile {
         saveHolidays(holidays, act);
     }
 
+    public void deletePlace(int holidayIndex, int placeIndex, Activity act){
+        JSONObject holidays = getHolidays();
+        JSONObject holiday = getHolidayByIndex(holidayIndex);
+        try {
+            JSONArray placesArr = holiday.getJSONArray("places");
+            placesArr.remove(placeIndex);
+
+        } catch (JSONException e) {
+            System.out.println("Exception deleting place: "+ e.getMessage());
+        }
+
+        saveHolidays(holidays, act);
+    }
+
     public boolean saveHolidays(JSONObject holidaysJSON, Activity act){
         String fileName = holidaySaveLocation;
 

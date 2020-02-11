@@ -59,6 +59,7 @@ public class MapFragment extends Fragment {
     final String holidaySaveLocation = "holidays.json";
     private HolidayFile holidayFile;
     private int holidayIndex;
+    private int placeIndex;
     private JSONObject holiday;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -70,6 +71,7 @@ public class MapFragment extends Fragment {
 
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
         holidayIndex = getArguments().getInt("holidayIndex");
+        placeIndex = getArguments().getInt("placeIndex");
         holiday = holidayFile.getHolidayByIndex(holidayIndex);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.frg);
@@ -93,8 +95,21 @@ public class MapFragment extends Fragment {
         try {
             JSONArray places = holiday.getJSONArray("places");
             Log.d("aaa", places.toString());
-            for (int j = 0; j < places.length(); j++) {
-                JSONObject place = places.getJSONObject(j);
+            if (placeIndex == -1) {
+                for (int j = 0; j < places.length(); j++) {
+                    JSONObject place = places.getJSONObject(j);
+                    JSONObject placeLocation = place.getJSONObject("location");
+                    Log.d("aaa", "Added point to map: " + placeLocation.getDouble("lat") + placeLocation.getDouble("long"));
+                    MarkerOptions marker = new MarkerOptions()
+                            .position(new LatLng(placeLocation.getDouble("lat"), placeLocation.getDouble("long")))
+                            .title(place.getString("name"));
+                    map.addMarker(marker);
+                    // Pan camera to include all points
+                    builder.include(marker.getPosition());
+
+                }
+            } else {
+                JSONObject place = places.getJSONObject(placeIndex);
                 JSONObject placeLocation = place.getJSONObject("location");
                 Log.d("aaa", "Added point to map: " + placeLocation.getDouble("lat") + placeLocation.getDouble("long"));
                 MarkerOptions marker = new MarkerOptions()
@@ -103,8 +118,8 @@ public class MapFragment extends Fragment {
                 map.addMarker(marker);
                 // Pan camera to include all points
                 builder.include(marker.getPosition());
-
             }
+
         } catch (JSONException e){
             Log.e("aaa", e.getMessage());
         }

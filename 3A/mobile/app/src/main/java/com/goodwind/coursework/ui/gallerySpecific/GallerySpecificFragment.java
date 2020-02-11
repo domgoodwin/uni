@@ -73,7 +73,7 @@ public class GallerySpecificFragment extends Fragment {
         }
 
         RecyclerView imgPreviewsView = root.findViewById(R.id.lvPlaces);
-        imgPreviewsView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        imgPreviewsView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         imgPreviews = new GalleryAdapter(holidayFile.getImages(holiday, placeIndex), getContext());
         imgPreviewsView.setAdapter(imgPreviews);
 

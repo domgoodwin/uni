@@ -1,5 +1,6 @@
 package com.goodwind.coursework.ui.view;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -57,10 +58,25 @@ public class ViewPlacesFragment extends Fragment {
 
 
         RecyclerView lvPlaces = root.findViewById(R.id.lvPlaces);
-        lvPlaces.setLayoutManager(new LinearLayoutManager(getActivity()));
-        lvPlaces.setAdapter(new PlacesAdapter(holidayFile.getPlaces(holidayIndex), getContext()));
+        lvPlaces.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        lvPlaces.setAdapter(new PlacesAdapter(holidayFile.getPlaces(holidayIndex), holidayIndex, getContext()));
+
+        final FloatingActionButton fabShare = root.findViewById(R.id.fab_add);
+        fabShare.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                addPlace();
+            }
+        });
 
         return root;
+    }
+
+    public void addPlace(){
+        Toast.makeText(getContext(), "Adding place", Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putInt("holidayIndex", holidayIndex);
+        Navigation.findNavController((Activity)getContext(), R.id.nav_host_fragment).navigate(R.id.nav_holiday_place_view, bundle);
     }
 
 

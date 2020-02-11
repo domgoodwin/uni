@@ -188,7 +188,7 @@ public class AddFragment extends Fragment {
         TextView header = getView().findViewById(R.id.txtHeader);
 
         TextView placeDate = getView().findViewById(R.id.txtPlaceDate);
-        TextView placeName = getView().findViewById(R.id.txtPlaceName);
+        TextView placeName = getView().findViewById(R.id.txtPlaceNameIn);
 
         JSONObject holidaysJSON = holidayFile.getHolidays();
         JSONArray holidaysArrJSON = null;
@@ -223,7 +223,8 @@ public class AddFragment extends Fragment {
             JSONObject placeJSON = new JSONObject();
             placeJSON.put("name", placeName.getText());
             placeJSON.put("images", new JSONArray());
-            holidayJSON.put("date",  storeDf.format(df.parse(placeDate.getText().toString())));
+            placeJSON.put("date",  storeDf.format(df.parse(placeDate.getText().toString())));
+            placeJSON.put("notes", "");
             JSONObject coOrdJSON = new JSONObject();
             coOrdJSON.put("long", holLocation.getLongitude());
             coOrdJSON.put("lat", holLocation.getLatitude());

@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
 
         RecyclerView rView = root.findViewById(R.id.lvPlaces);
         rView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         HolidayAdapter adapter = new HolidayAdapter(holidayFile.getHolidaysArray());
         rView.setLayoutManager(layoutManager);
         rView.setAdapter(adapter);
