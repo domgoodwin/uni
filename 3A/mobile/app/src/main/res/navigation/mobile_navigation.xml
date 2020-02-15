@@ -22,12 +22,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.goodwind.coursework.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
         android:id="@+id/nav_add"
         android:name="com.goodwind.coursework.ui.add.AddFragment"
         android:label="@string/menu_send"
@@ -57,10 +51,10 @@
             android:defaultValue="-1" />
     </fragment>
     <fragment
-        android:id="@+id/nav_gallery_specific"
-        android:name="com.goodwind.coursework.ui.gallerySpecific.GallerySpecificFragment"
-        android:label="Gallery Specific"
-        tools:layout="@layout/fragment_gallery_specific">
+        android:id="@+id/nav_gallery"
+        android:name="com.goodwind.coursework.ui.gallery.GalleryFragment"
+        android:label="Gallery"
+        tools:layout="@layout/fragment_gallery">
         <argument
             android:name="holidayIndex"
             app:argType="integer"
@@ -93,5 +87,24 @@
             android:name="placeIndex"
             app:argType="integer"
             android:defaultValue="-1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_img_view"
+        android:name="com.goodwind.coursework.ui.gallery.ImageFragment"
+        android:label="View image"
+        tools:layout="@layout/fragment_holiday_place_view">
+        <argument
+            android:name="holidayIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="placeIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="filePath"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
 </navigation>

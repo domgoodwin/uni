@@ -20,6 +20,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,7 +96,7 @@ public class HolidayFile {
         try {
             JSONObject holiday = getHolidayByIndex(holidayIndex);
             JSONArray placesJSON = holiday.getJSONArray("places");
-            for (int i = 0; i <= placesJSON.length(); i++) {
+            for (int i = 0; i < placesJSON.length(); i++) {
                 JSONObject place = placesJSON.getJSONObject(i);
                 places.put(i, place.getString("name"));
             }
@@ -202,6 +203,71 @@ public class HolidayFile {
         return out;
     }
 
+
+    public List<Bitmap> getImages(){
+        ArrayList<Bitmap> images = new ArrayList<Bitmap>();
+        try {
+            JSONArray allHolidays = getHolidaysArray();
+            ArrayList<String> filesToGet = new ArrayList<>();
+            // For all holidays
+            for (int i = 0; i < allHolidays.length(); i++) {
+                JSONArray imagesToGet = allHolidays.getJSONObject(i).getJSONArray("images");
+                // get all holiday images
+                for (int j = 0; j < imagesToGet.length(); j++) {
+                    filesToGet.add(imagesToGet.getJSONObject(j).getString("file"));
+                }
+                JSONArray places = allHolidays.getJSONObject(i).getJSONArray("places");
+                for (int j = 0; j < places.length(); j++) {
+                    JSONArray placesImagesToGet = places.getJSONObject(j).getJSONArray("images");
+                    for (int k = 0; k < placesImagesToGet.length(); k++) {
+                        filesToGet.add(placesImagesToGet.getJSONObject(k).getString("file"));
+                    }
+                }
+            }
+
+
+            for (int i = 0; i < filesToGet.size(); i++) {
+                String filePath = filesToGet.get(i);
+                Bitmap b = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(filePath), 200, 200);
+                images.add(b);
+            }
+        } catch (JSONException e) {
+            Log.e("getImages()", e.getMessage());
+        }
+        return images;
+    }
+
+    public List<String> getImageFilePaths(){
+        ArrayList<String> images = new ArrayList<String>();
+        try {
+            JSONArray allHolidays = getHolidaysArray();
+            ArrayList<String> filesToGet = new ArrayList<>();
+            // For all holidays
+            for (int i = 0; i < allHolidays.length(); i++) {
+                JSONArray imagesToGet = allHolidays.getJSONObject(i).getJSONArray("images");
+                // get all holiday images
+                for (int j = 0; j < imagesToGet.length(); j++) {
+                    filesToGet.add(imagesToGet.getJSONObject(j).getString("file"));
+                }
+                JSONArray places = allHolidays.getJSONObject(i).getJSONArray("places");
+                for (int j = 0; j < places.length(); j++) {
+                    JSONArray placesImagesToGet = places.getJSONObject(j).getJSONArray("images");
+                    for (int k = 0; k < placesImagesToGet.length(); k++) {
+                        filesToGet.add(placesImagesToGet.getJSONObject(k).getString("file"));
+                    }
+                }
+            }
+
+
+            for (int i = 0; i < filesToGet.size(); i++) {
+                images.add(filesToGet.get(i));
+            }
+        } catch (JSONException e) {
+            Log.e("getImageFilePaths", e.getMessage());
+        }
+        return images;
+    }
+
     public List<Bitmap> getImages(JSONObject holiday, int placeIndex){
         ArrayList<Bitmap> images = new ArrayList<Bitmap>();
         try {
@@ -211,7 +277,7 @@ public class HolidayFile {
             } else {
                 imagesToGet = holiday.getJSONArray("places").getJSONObject(placeIndex).getJSONArray("images");
             }
-            for (int i = 0; i <= imagesToGet.length(); i++) {
+            for (int i = 0; i < imagesToGet.length(); i++) {
                 JSONObject imageJSON = imagesToGet.getJSONObject(i);
                 Bitmap b = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imageJSON.getString("file")), 200, 200);
                 images.add(b);
@@ -220,5 +286,24 @@ public class HolidayFile {
             Log.e("", e.getMessage());
         }
         return images;
+    }
+
+    public List<String> getImageFilePaths(JSONObject holiday, int placeIndex){
+        ArrayList<String> imageFilePaths = new ArrayList<String>();
+        try {
+            JSONArray imagesToGet;
+            if (placeIndex == -1) {
+                imagesToGet = holiday.getJSONArray("images");
+            } else {
+                imagesToGet = holiday.getJSONArray("places").getJSONObject(placeIndex).getJSONArray("images");
+            }
+            for (int i = 0; i < imagesToGet.length(); i++) {
+                JSONObject imageJSON = imagesToGet.getJSONObject(i);
+                imageFilePaths.add(imageJSON.getString("file"));
+            }
+        } catch (JSONException e) {
+            Log.e("", e.getMessage());
+        }
+        return imageFilePaths;
     }
 }

@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -109,7 +110,8 @@ public class ViewPlaceFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("holidayIndex", holidayIndex);
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_gallery_specific, bundle);
+                bundle.putInt("placeIndex", placeIndex);
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_gallery, bundle);
             }
         });
 
@@ -225,6 +227,7 @@ public class ViewPlaceFragment extends Fragment {
             }
             place.put("name", name);
             place.put("date", "20200101"); //todo proper formatting
+            place.put("images", new JSONArray());
             JSONObject coOrdJSON = new JSONObject();
             coOrdJSON.put("long", holLocation.getLongitude());
             coOrdJSON.put("lat", holLocation.getLatitude());
@@ -247,11 +250,13 @@ public class ViewPlaceFragment extends Fragment {
         try {
             // TODO: Format date properly
             shareText = String.format("I went to, %s, on %s and had a blast!",
-                    holiday.getString("name"),
-                    holiday.getString("date"));
+                    place.getString("name"),
+                    place.getString("date"));
 
         } catch (JSONException e) {
+            Toast.makeText(getActivity(), "Place invalid", Toast.LENGTH_SHORT).show();
             Log.e("aaa", e.getMessage());
+            return;
         }
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);

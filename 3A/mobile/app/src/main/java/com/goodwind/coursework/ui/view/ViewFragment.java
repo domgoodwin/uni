@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
-import com.goodwind.coursework.ui.gallerySpecific.GalleryAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
@@ -95,7 +91,7 @@ public class ViewFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("holidayIndex", holidayIndex);
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_gallery_specific, bundle);
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_gallery, bundle);
             }
         });
 
