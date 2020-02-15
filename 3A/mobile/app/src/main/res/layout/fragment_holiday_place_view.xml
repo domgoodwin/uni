@@ -15,7 +15,18 @@
         android:text="View on Map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNotes" />
+        app:layout_constraintTop_toBottomOf="@+id/fragLocationComplete" />
+
+    <Button
+        android:id="@+id/btnGetCurLocation"
+        android:layout_width="238dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAccent"
+        android:text="Get Current Location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewMap" />
 
     <Button
         android:id="@+id/btnPhotos"
@@ -26,7 +37,7 @@
         android:text="Photos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnViewMap" />
+        app:layout_constraintTop_toBottomOf="@+id/btnGetCurLocation" />
 
     <EditText
         android:id="@+id/txtDate"
@@ -88,6 +99,14 @@
         app:layout_constraintEnd_toStartOf="@+id/txtNotes"
         app:layout_constraintTop_toTopOf="@+id/txtNotes" />
 
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="60dp"
+        android:layout_height="24dp"
+        android:text="Location"
+        app:layout_constraintEnd_toStartOf="@+id/fragLocationComplete"
+        app:layout_constraintTop_toTopOf="@+id/fragLocationComplete" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
         android:layout_width="wrap_content"
@@ -142,6 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:clickable="false"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Notes"
@@ -154,12 +174,25 @@
         android:id="@+id/txtPlaceName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
         android:text="Place Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="26dp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <fragment
+        android:id="@+id/fragLocationComplete"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNotes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

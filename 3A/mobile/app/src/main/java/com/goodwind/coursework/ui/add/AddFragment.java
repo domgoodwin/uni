@@ -27,20 +27,24 @@ import androidx.navigation.Navigation;
 
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,7 +55,9 @@ public class AddFragment extends Fragment {
     private final int REQUEST_LOCATION_PERMISSION = 1;
 
     private AddViewModel addViewModel;
-    Location holLocation;
+    Location curLocation;
+    Place selectedPlace;
+    LatLng selectedLocation;
     EditText dateView;
     final String holidaySaveLocation = "holidays.json";
 
@@ -90,17 +96,40 @@ public class AddFragment extends Fragment {
                 onHolidayAdd(v);
             }
         });
-        final TextView textLocation = root.findViewById(R.id.txtPlaceLocation);
-        textLocation.setOnClickListener(new View.OnClickListener(){
+        final Button btnLocation = (Button) root.findViewById(R.id.btnGetLocation);
+        btnLocation.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 getLocation();
             }
         });
 
+        setupLocationAutocomplete();
+
+
 
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
         return root;
+    }
+
+    private void setupLocationAutocomplete(){
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.fragLocationComplete);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                selectedPlace = place;
+                selectedLocation = place.getLatLng();
+                Log.i("add", "Place: " + place.getName() + ", " + place.getId());
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.i("add", "An error occurred: " + status);
+            }
+        });
+
+        getLocation();
     }
 
 
@@ -132,8 +161,11 @@ public class AddFragment extends Fragment {
                     @Override
                     public void onSuccess(Location location) {
                         if (location != null){
-                            holLocation = location;
-                            ((TextView)getView().findViewById(R.id.txtPlaceLocation)).setText(getLocationDisplay(holLocation));
+                            curLocation = location;
+                            selectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                            AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.fragLocationComplete);
+                            autocompleteFragment.setText(getLocationDisplay(curLocation));
+                            //((TextEdit)getView().findViewById(R.id.txtPlaceLocation)).setText(getLocationDisplay(curLocation));
                         }
                     }
                 }
@@ -226,9 +258,9 @@ public class AddFragment extends Fragment {
             placeJSON.put("date",  storeDf.format(df.parse(placeDate.getText().toString())));
             placeJSON.put("notes", "");
             JSONObject coOrdJSON = new JSONObject();
-            coOrdJSON.put("long", holLocation.getLongitude());
-            coOrdJSON.put("lat", holLocation.getLatitude());
-            coOrdJSON.put("display", getLocationDisplay(holLocation));
+            coOrdJSON.put("long", selectedLocation.longitude);
+            coOrdJSON.put("lat", selectedLocation.latitude);
+            coOrdJSON.put("display", getLocationDisplay(curLocation));
             placeJSON.put("location", coOrdJSON);
             JSONArray placesJSON = new JSONArray();
             placesJSON.put(placeJSON);
