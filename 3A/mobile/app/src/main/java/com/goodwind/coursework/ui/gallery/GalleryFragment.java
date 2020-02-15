@@ -129,7 +129,9 @@ public class GalleryFragment extends Fragment {
         imgPreviews.addBm(curPhotoPath, b);
         try {
             JSONObject imgJSON = new JSONObject();
-            imgJSON.put("name", "TODO");
+            JSONObject locationJSON = new JSONObject();
+            imgJSON.put("location", locationJSON);
+            imgJSON.put("tags", "");
             imgJSON.put("file", curPhotoPath);
             if (placeIndex == -1){
                 JSONArray images = holiday.getJSONArray("images");

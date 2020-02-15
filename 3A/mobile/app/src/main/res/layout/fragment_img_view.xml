@@ -34,10 +34,22 @@
         app:rippleColor="#ffffff"
         app:srcCompat="@drawable/ic_menu_share" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginEnd="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fab_share"
+        app:srcCompat="@drawable/ic_menu_manage" />
+
     <ImageView
         android:id="@+id/imgMain"
         android:layout_width="414dp"
         android:layout_height="735dp"
+        android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

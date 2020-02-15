@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -106,7 +108,22 @@ public class HolidayFile {
         return places;
     }
 
+    public JSONObject getImage(int holidayIndex, int placeIndex, int imageIndex) {
+        try {
+            if (placeIndex == -1){
+                return getHolidayByIndex(holidayIndex).getJSONArray("images").getJSONObject(imageIndex);
+            } else {
+                return getHolidayPlaceByIndex(holidayIndex, placeIndex).getJSONArray("images").getJSONObject(imageIndex);
+            }
+        }
+        catch (JSONException e) {
+            Log.e("file", e.getMessage());
+            return null;
+        }
+    }
+
     public void updateHoliday(JSONObject holiday, int holidayIndex, Activity act){
+        Log.d("file", "Updating holiday for index: "+holidayIndex);
         JSONObject holidays = getHolidays();
         try {
             JSONArray holidaysArr = holidays.getJSONArray("holidays");
@@ -305,5 +322,25 @@ public class HolidayFile {
             Log.e("", e.getMessage());
         }
         return imageFilePaths;
+    }
+
+    public  HashMap<LatLng,String> getAllPlaces(){
+        JSONArray allHolidays = getHolidaysArray();
+        HashMap<LatLng, String> placePoints = new HashMap<>();
+        try{
+            // For all holidays
+            for (int i = 0; i < allHolidays.length(); i++) {
+                JSONArray places = allHolidays.getJSONObject(i).getJSONArray("places");
+                // Get all locations from places
+                for (int j = 0; j < places.length(); j++) {
+                    JSONObject loc = places.getJSONObject(j).getJSONObject("location");
+                    placePoints.put(new LatLng(loc.getDouble("lat"), loc.getDouble("long")), places.getJSONObject(j).getString("name"));
+                }
+            }
+        } catch (JSONException e) {
+            Log.d("file", e.getMessage());
+        }
+        return placePoints;
+
     }
 }

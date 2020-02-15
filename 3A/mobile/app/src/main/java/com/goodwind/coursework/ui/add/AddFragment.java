@@ -82,13 +82,13 @@ public class AddFragment extends Fragment {
                 onDateSelect(v);
             }
         });
-        final TextView textPlaceDate = root.findViewById(R.id.txtPlaceDate);
-        textPlaceDate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                onDateSelect(v);
-            }
-        });
+//        final TextView textPlaceDate = root.findViewById(R.id.txtPlaceDate);
+//        textPlaceDate.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                onDateSelect(v);
+//            }
+//        });
         final Button btnSubmit = (Button) root.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -96,15 +96,15 @@ public class AddFragment extends Fragment {
                 onHolidayAdd(v);
             }
         });
-        final Button btnLocation = (Button) root.findViewById(R.id.btnGetLocation);
-        btnLocation.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                getLocation();
-            }
-        });
+//        final Button btnLocation = (Button) root.findViewById(R.id.btnGetLocation);
+//        btnLocation.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                getLocation();
+//            }
+//        });
 
-        setupLocationAutocomplete();
+
 
 
 
@@ -112,25 +112,6 @@ public class AddFragment extends Fragment {
         return root;
     }
 
-    private void setupLocationAutocomplete(){
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.fragLocationComplete);
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                selectedPlace = place;
-                selectedLocation = place.getLatLng();
-                Log.i("add", "Place: " + place.getName() + ", " + place.getId());
-            }
-
-            @Override
-            public void onError(Status status) {
-                Log.i("add", "An error occurred: " + status);
-            }
-        });
-
-        getLocation();
-    }
 
 
     public void onDateSelect(View view){
@@ -144,83 +125,23 @@ public class AddFragment extends Fragment {
         picker.show();
     }
 
-    private void getLocation() {
-        Log.d("add fragment", "getLocation");
-        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
-        } else {
-            Log.d("add fragment", "getLocation: permissions granted");
-            getLastLocation();
-        }
-    }
-
-    private void getLastLocation(){
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        fusedLocationClient.getLastLocation().addOnSuccessListener(
-                new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null){
-                            curLocation = location;
-                            selectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                            AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.fragLocationComplete);
-                            autocompleteFragment.setText(getLocationDisplay(curLocation));
-                            //((TextEdit)getView().findViewById(R.id.txtPlaceLocation)).setText(getLocationDisplay(curLocation));
-                        }
-                    }
-                }
-        );
-    }
-
-    private String getLocationDisplay(Location loc){
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        List<Address> addressList = null;
-        try {
-            addressList = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-        }catch (IOException e){
-            Log.e("tag", e.getMessage());
-        }
-        if (addressList != null && !addressList.isEmpty()) {
-
-            Address adr = addressList.get(0);
-            String address = "";
-            for (int i = 0; i <= adr.getMaxAddressLineIndex(); i++) {
-                address = address + adr.getAddressLine(i);
-            }
-            return address;
-        }
-        return "";
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_LOCATION_PERMISSION:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
-                } else {
-                    Toast.makeText(getContext(),
-                            "Cannot get locaton permissions",
-                            Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-    }
 
     public void onHolidayAdd(View view){
         // Hide keyboard on submit
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-
+        TextView txtMessage = getView().findViewById(R.id.txtMessage);
         TextView holidayName = getView().findViewById(R.id.txtName);
         TextView holidayStart = getView().findViewById(R.id.txtStartDate);
         TextView holidayEnd = getView().findViewById(R.id.txtEndDate);
         TextView header = getView().findViewById(R.id.txtHeader);
+        TextView notes = getView().findViewById(R.id.txtNotes);
+        TextView companions = getView().findViewById(R.id.txtCompanions);
 
-        TextView placeDate = getView().findViewById(R.id.txtPlaceDate);
-        TextView placeName = getView().findViewById(R.id.txtPlaceNameIn);
+        if(holidayName.getText().toString().equals("") || holidayStart.getText().toString().equals("") || holidayEnd.getText().toString().equals("")){
+            txtMessage.setText("Mandatory fields not completed: Name, startdate and enddate");
+            return;
+        }
 
         JSONObject holidaysJSON = holidayFile.getHolidays();
         JSONArray holidaysArrJSON = null;
@@ -247,23 +168,25 @@ public class AddFragment extends Fragment {
             JSONObject holidayJSON = new JSONObject();
             holidayJSON.put("name", holidayName.getText());
             // TODO: Nicer date formatting based on local settings
-            DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+            DateFormat df = DateFormat.getDateInstance();
             DateFormat storeDf = new SimpleDateFormat("yyyymmdd");
             holidayJSON.put("startDate", storeDf.format(df.parse(holidayStart.getText().toString())));
             holidayJSON.put("endDate",  storeDf.format(df.parse(holidayEnd.getText().toString())));
             holidayJSON.put("images", new JSONArray());
-            JSONObject placeJSON = new JSONObject();
-            placeJSON.put("name", placeName.getText());
-            placeJSON.put("images", new JSONArray());
-            placeJSON.put("date",  storeDf.format(df.parse(placeDate.getText().toString())));
-            placeJSON.put("notes", "");
-            JSONObject coOrdJSON = new JSONObject();
-            coOrdJSON.put("long", selectedLocation.longitude);
-            coOrdJSON.put("lat", selectedLocation.latitude);
-            coOrdJSON.put("display", getLocationDisplay(curLocation));
-            placeJSON.put("location", coOrdJSON);
+            holidayJSON.put("notes", notes.getText());
+            holidayJSON.put("companions", companions.getText());
+//            JSONObject placeJSON = new JSONObject();
+//            placeJSON.put("name", placeName.getText());
+//            placeJSON.put("images", new JSONArray());
+//            placeJSON.put("date",  storeDf.format(df.parse(placeDate.getText().toString())));
+//            placeJSON.put("notes", "");
+//            JSONObject coOrdJSON = new JSONObject();
+//            coOrdJSON.put("long", selectedLocation.longitude);
+//            coOrdJSON.put("lat", selectedLocation.latitude);
+//            coOrdJSON.put("display", getLocationDisplay(curLocation));
+//            placeJSON.put("location", coOrdJSON);
             JSONArray placesJSON = new JSONArray();
-            placesJSON.put(placeJSON);
+//            placesJSON.put(placeJSON);
             holidayJSON.put("places", placesJSON);
             holidaysArrJSON.put(holidayJSON);
         } catch (JSONException e){
@@ -282,21 +205,5 @@ public class AddFragment extends Fragment {
         }
 
     }
-    private class FetchAddressTask extends AsyncTask<Location, Void, String> {
-        private final String TAG = FetchAddressTask.class.getSimpleName();
-        private Context mContext;
 
-        FetchAddressTask(Context applicationContext) {
-            mContext = applicationContext;
-        }
-
-        @Override
-        protected String doInBackground(Location... locations) {
-            return null;
-        }
-        @Override
-        protected void onPostExecute(String address) {
-            super.onPostExecute(address);
-        }
-    }
 }

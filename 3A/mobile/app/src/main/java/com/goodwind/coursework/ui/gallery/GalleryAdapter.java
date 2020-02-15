@@ -80,6 +80,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
                 bundle.putString("filePath", filePaths.get(position));
                 bundle.putInt("holidayIndex", holidayIndex);
                 bundle.putInt("placeIndex", placeIndex);
+                bundle.putInt("imageIndex", position);
                 Navigation.findNavController((Activity)v.getContext(), R.id.nav_host_fragment).navigate(R.id.nav_img_view, bundle);
             }
         });

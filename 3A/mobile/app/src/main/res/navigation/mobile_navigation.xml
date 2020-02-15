@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/nav_add"
         android:name="com.goodwind.coursework.ui.add.AddFragment"
-        android:label="@string/menu_send"
+        android:label="Add Holiday"
         tools:layout="@layout/fragment_add" />
     <fragment
         android:id="@+id/nav_view"
@@ -91,15 +91,41 @@
 
     <fragment
         android:id="@+id/nav_img_view"
-        android:name="com.goodwind.coursework.ui.gallery.ImageFragment"
+        android:name="com.goodwind.coursework.ui.gallery.ImageViewFragment"
         android:label="View image"
-        tools:layout="@layout/fragment_holiday_place_view">
+        tools:layout="@layout/fragment_img_view">
         <argument
             android:name="holidayIndex"
             app:argType="integer"
             android:defaultValue="-1" />
         <argument
             android:name="placeIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="filePath"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="imageIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_img_edit"
+        android:name="com.goodwind.coursework.ui.gallery.ImageEditFragment"
+        android:label="Edit image data"
+        tools:layout="@layout/fragment_img_edit">
+        <argument
+            android:name="holidayIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="placeIndex"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="imageIndex"
             app:argType="integer"
             android:defaultValue="-1" />
         <argument

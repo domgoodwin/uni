@@ -32,6 +32,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -111,6 +112,8 @@ public class ViewFragment extends Fragment {
             }
         });
 
+        Log.d("view", "Creating view for holiday index: "+holidayIndex);
+
         return root;
     }
 
@@ -118,9 +121,13 @@ public class ViewFragment extends Fragment {
         EditText title = getView().findViewById(R.id.txtHolidayName);
         EditText start = getView().findViewById(R.id.txtStartDate);
         EditText end = getView().findViewById(R.id.txtEndDate);
+        EditText notes = getView().findViewById(R.id.txtNotes);
+        EditText companions = getView().findViewById(R.id.txtCompanions);
         start.setEnabled(true);
         end.setEnabled(true);
         title.setEnabled(true);
+        notes.setEnabled(true);
+        companions.setEnabled(true);
         start.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -165,9 +172,13 @@ public class ViewFragment extends Fragment {
         EditText title = getView().findViewById(R.id.txtHolidayName);
         EditText start = getView().findViewById(R.id.txtStartDate);
         EditText end = getView().findViewById(R.id.txtEndDate);
+        EditText notes = getView().findViewById(R.id.txtNotes);
+        EditText companions = getView().findViewById(R.id.txtCompanions);
         start.setEnabled(false);
         end.setEnabled(false);
         title.setEnabled(false);
+        notes.setEnabled(false);
+        companions.setEnabled(false);
 
         start.setOnClickListener(null);
         end.setOnClickListener(null);
@@ -192,12 +203,28 @@ public class ViewFragment extends Fragment {
         String holidayName = ((TextView)getView().findViewById(R.id.txtHolidayName)).getText().toString();
         String startDate = ((TextView)getView().findViewById(R.id.txtStartDate)).getText().toString();
         String endDate = ((TextView)getView().findViewById(R.id.txtEndDate)).getText().toString();
+        String notes = ((TextView)getView().findViewById(R.id.txtNotes)).getText().toString();
+        String companions = ((TextView)getView().findViewById(R.id.txtCompanions)).getText().toString();
+        DateFormat df = DateFormat.getDateInstance();
+        DateFormat storeDf = new SimpleDateFormat("yyyymmdd");
+        TextView txtMessage = getView().findViewById(R.id.txtMessage);
+
+
+        if(holidayName.equals("") || startDate.equals("") || endDate.equals("")){
+            txtMessage.setText("Mandatory fields not completed: Name, startdate and enddate");
+            return;
+        }
+
         try {
             holiday.put("name", holidayName);
-            holiday.put("startDate", startDate);
-            holiday.put("endDate", endDate);
-             holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
+            holiday.put("startDate", storeDf.format(df.parse(startDate)));
+            holiday.put("endDate", storeDf.format(df.parse(endDate)));
+            holiday.put("notes", notes);
+            holiday.put("companions", companions);
+            holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
         } catch (JSONException e){
+            Log.e("view", e.getMessage());
+        } catch (ParseException e) {
             Log.e("view", e.getMessage());
         }
         cancelEdit();
@@ -246,13 +273,15 @@ public class ViewFragment extends Fragment {
 
     private void populateFields(JSONObject holiday){
         try {
-            SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-            SimpleDateFormat store = new SimpleDateFormat("yyyymmdd");
+            DateFormat df = DateFormat.getDateInstance();
+            DateFormat storeDf = new SimpleDateFormat("yyyymmdd");
             ((EditText)v.findViewById(R.id.txtHolidayName)).setText(holiday.getString("name"));
-            Date start = store.parse(holiday.getString("startDate"));
-            Date end = store.parse(holiday.getString("endDate"));
+            Date start = storeDf.parse(holiday.getString("startDate"));
+            Date end = storeDf.parse(holiday.getString("endDate"));
             ((EditText)v.findViewById(R.id.txtStartDate)).setText(df.format(start));
             ((EditText)v.findViewById(R.id.txtEndDate)).setText(df.format(end));
+            ((EditText)v.findViewById(R.id.txtNotes)).setText(getTextIfExists(holiday, "notes"));
+            ((EditText)v.findViewById(R.id.txtCompanions)).setText(getTextIfExists(holiday, "companions"));
         } catch (JSONException e){
             Log.e("view", "JSON parse exception: "+e.getMessage());
 
@@ -260,6 +289,16 @@ public class ViewFragment extends Fragment {
             Log.e("view", "Date parse exception: "+e.getMessage());
 
         }
+    }
+
+    private String getTextIfExists(JSONObject element, String key){
+        String ret = "";
+        try {
+            ret = element.getString(key);
+        } catch (JSONException e){
+            Log.d("view", "Field not present but not mandatory, "+key);
+        }
+        return ret;
     }
 
     public void onDateSelect(View view){

@@ -1,6 +1,7 @@
 package com.goodwind.coursework.ui.gallery;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -23,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class ImageFragment extends Fragment {
+public class ImageViewFragment extends Fragment {
 
     final String holidaySaveLocation = "holidays.json";
     GalleryViewModel galViewModel;
@@ -51,6 +53,7 @@ public class ImageFragment extends Fragment {
     FloatingActionButton fabShare;
     private int holidayIndex;
     private int placeIndex;
+    private int imageIndex;
     final int REQUEST_IMAGE_CAPTURE = 2;
 
 
@@ -63,10 +66,23 @@ public class ImageFragment extends Fragment {
         curPhotoPath = getArguments().getString("filePath");
         holidayIndex = getArguments().getInt("holidayIndex");
         placeIndex = getArguments().getInt("placeIndex");
+        imageIndex = getArguments().getInt("imageIndex");
 
         if (curPhotoPath != null) {
             mainImage = root.findViewById(R.id.imgMain);
             mainImage.setImageBitmap(BitmapFactory.decodeFile(curPhotoPath));
+            FloatingActionButton fabEdit = root.findViewById(R.id.fab_add);
+            fabEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("filePath", curPhotoPath);
+                    bundle.putInt("holidayIndex", holidayIndex);
+                    bundle.putInt("placeIndex", placeIndex);
+                    bundle.putInt("imageIndex", imageIndex);
+                    Navigation.findNavController((Activity)v.getContext(), R.id.nav_host_fragment).navigate(R.id.nav_img_edit, bundle);
+                }
+            });
         } else {
             Log.e("image", "How are you here with no image");
         }

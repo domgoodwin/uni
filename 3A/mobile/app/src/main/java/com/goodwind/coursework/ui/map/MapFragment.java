@@ -50,6 +50,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -72,7 +73,9 @@ public class MapFragment extends Fragment {
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
         holidayIndex = getArguments().getInt("holidayIndex");
         placeIndex = getArguments().getInt("placeIndex");
-        holiday = holidayFile.getHolidayByIndex(holidayIndex);
+        if (holidayIndex != -1){
+            holiday = holidayFile.getHolidayByIndex(holidayIndex);
+        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.frg);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -92,12 +95,36 @@ public class MapFragment extends Fragment {
     private void addHolidayMapMarkers(GoogleMap map) {
         map.clear(); //clear old markers
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        try {
-            JSONArray places = holiday.getJSONArray("places");
-            Log.d("aaa", places.toString());
-            if (placeIndex == -1) {
-                for (int j = 0; j < places.length(); j++) {
-                    JSONObject place = places.getJSONObject(j);
+        if (holidayIndex == -1) {
+            HashMap<LatLng, String> places = holidayFile.getAllPlaces();
+            for (HashMap.Entry<LatLng, String> place : places.entrySet()) {
+                LatLng loc = place.getKey();
+                MarkerOptions marker = new MarkerOptions()
+                        .position(new LatLng(loc.latitude, loc.longitude))
+                        .title(place.getValue());
+                map.addMarker(marker);
+                builder.include(marker.getPosition());
+            }
+        } else {
+            try {
+                // No holiday so view all places
+                 if (placeIndex == -1) {
+                    JSONArray places = holiday.getJSONArray("places");
+                    for (int j = 0; j < places.length(); j++) {
+                        JSONObject place = places.getJSONObject(j);
+                        JSONObject placeLocation = place.getJSONObject("location");
+                        Log.d("aaa", "Added point to map: " + placeLocation.getDouble("lat") + placeLocation.getDouble("long"));
+                        MarkerOptions marker = new MarkerOptions()
+                                .position(new LatLng(placeLocation.getDouble("lat"), placeLocation.getDouble("long")))
+                                .title(place.getString("name"));
+                        map.addMarker(marker);
+                        // Pan camera to include all points
+                        builder.include(marker.getPosition());
+
+                    }
+                } else {
+                    JSONArray places = holiday.getJSONArray("places");
+                    JSONObject place = places.getJSONObject(placeIndex);
                     JSONObject placeLocation = place.getJSONObject("location");
                     Log.d("aaa", "Added point to map: " + placeLocation.getDouble("lat") + placeLocation.getDouble("long"));
                     MarkerOptions marker = new MarkerOptions()
@@ -106,22 +133,10 @@ public class MapFragment extends Fragment {
                     map.addMarker(marker);
                     // Pan camera to include all points
                     builder.include(marker.getPosition());
-
                 }
-            } else {
-                JSONObject place = places.getJSONObject(placeIndex);
-                JSONObject placeLocation = place.getJSONObject("location");
-                Log.d("aaa", "Added point to map: " + placeLocation.getDouble("lat") + placeLocation.getDouble("long"));
-                MarkerOptions marker = new MarkerOptions()
-                        .position(new LatLng(placeLocation.getDouble("lat"), placeLocation.getDouble("long")))
-                        .title(place.getString("name"));
-                map.addMarker(marker);
-                // Pan camera to include all points
-                builder.include(marker.getPosition());
+            } catch (JSONException e){
+                Log.e("aaa", e.getMessage());
             }
-
-        } catch (JSONException e){
-            Log.e("aaa", e.getMessage());
         }
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(builder.build(), 0);
         map.moveCamera(cu);

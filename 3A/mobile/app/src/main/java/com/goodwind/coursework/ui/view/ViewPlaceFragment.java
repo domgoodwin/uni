@@ -45,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -152,23 +153,15 @@ public class ViewPlaceFragment extends Fragment {
 
         EditText name = v.findViewById(R.id.txtPlaceName);
         EditText date = v.findViewById(R.id.txtDate);
-        EditText location = v.findViewById(R.id.txtPlaceLocation);
         EditText notes = v.findViewById(R.id.txtNotes);
         name.setEnabled(true);
         date.setEnabled(true);
-        location.setEnabled(true);
         notes.setEnabled(true);
 
         date.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 onDateSelect(v);
-            }
-        });
-        location.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                getLocation();
             }
         });
 
@@ -211,11 +204,9 @@ public class ViewPlaceFragment extends Fragment {
     private void cancelEdit(){
         EditText name = getView().findViewById(R.id.txtPlaceName);
         EditText date = getView().findViewById(R.id.txtDate);
-        EditText location = getView().findViewById(R.id.txtPlaceLocation);
         EditText notes = getView().findViewById(R.id.txtNotes);
         name.setEnabled(false);
         date.setEnabled(false);
-        location.setEnabled(false);
         notes.setEnabled(false);
 
         date.setOnClickListener(null);
@@ -247,13 +238,23 @@ public class ViewPlaceFragment extends Fragment {
         String name = ((TextView)getView().findViewById(R.id.txtPlaceName)).getText().toString();
         String date = ((TextView)getView().findViewById(R.id.txtDate)).getText().toString();
         String notes = ((TextView)getView().findViewById(R.id.txtNotes)).getText().toString();
+        DateFormat df = DateFormat.getDateInstance();
+        DateFormat storeDf = new SimpleDateFormat("yyyymmdd");
+
+        TextView txtMessage = getView().findViewById(R.id.txtMessage);
+
+
+        if(name.equals("") || date.equals("") || selectedLocation == null){
+            txtMessage.setText("Mandatory fields not completed: Name, date, location");
+            return;
+        }
         try {
             if (placeIndex == -1){
                 place = new JSONObject();
                 placeIndex = holiday.getJSONArray("places").length();
             }
             place.put("name", name);
-            place.put("date", "20200101"); //todo proper formatting
+            place.put("date", storeDf.format(df.parse(date)));
             place.put("images", new JSONArray());
             JSONObject coOrdJSON = new JSONObject();
             coOrdJSON.put("lat", selectedLocation.latitude);
@@ -264,6 +265,8 @@ public class ViewPlaceFragment extends Fragment {
             holiday.getJSONArray("places").put(placeIndex, place);
             holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
         } catch (JSONException e){
+            Log.e("view", e.getMessage());
+        } catch (ParseException e){
             Log.e("view", e.getMessage());
         }
 
@@ -323,7 +326,6 @@ public class ViewPlaceFragment extends Fragment {
             ((EditText)v.findViewById(R.id.txtDate)).setText(df.format(date));
             ((EditText)v.findViewById(R.id.txtNotes)).setText(place.getString("notes"));
             JSONObject location = place.getJSONObject("location");
-            ((EditText)v.findViewById(R.id.txtPlaceLocation)).setText(location.getString("display"));
             selectedLocation = new LatLng(location.getDouble("lat"), location.getDouble("long"));
         } catch (JSONException e){
             Log.e("view", "JSON parse exception: "+e.getMessage());
