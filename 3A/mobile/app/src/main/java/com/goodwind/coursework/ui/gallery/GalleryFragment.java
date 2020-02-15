@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,7 +65,7 @@ public class GalleryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
 
         RecyclerView imgPreviewsView = root.findViewById(R.id.lvPlaces);
-        imgPreviewsView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        imgPreviewsView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
         holidayIndex = getArguments().getInt("holidayIndex");
@@ -90,6 +91,10 @@ public class GalleryFragment extends Fragment {
                 addImage();
             }
         });
+
+        if (holidayIndex == -1){
+            fabAdd.hide();
+        }
 
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
         return root;

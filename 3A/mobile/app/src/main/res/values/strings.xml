@@ -18,4 +18,12 @@
     <string name="menu_send">Send</string>
     <string name="element_text">todo</string><string name="location_text">"Latitude: %1$.4f \n Longitude: %2$.4f
 \n Timestamp: %3$tr"</string>
+    <string-array name="filter_types">
+        <item>Date from</item>
+        <item>Date to</item>
+        <item>Tag</item>
+        <item>Holiday</item>
+        <item>Place</item>
+        <item>Location</item>
+    </string-array>
 </resources>

@@ -32,8 +32,36 @@
         android:id="@+id/lvPlaces"
         android:layout_width="332dp"
         android:layout_height="540dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnType" />
+
+    <Spinner
+        android:id="@+id/spnType"
+        android:layout_width="154dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
+        android:entries="@array/filter_types"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtHeader" />
+
+    <Spinner
+        android:id="@+id/spnValue"
+        android:layout_width="146dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/spnType"
+        app:layout_constraintTop_toTopOf="@+id/spnType" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        app:layout_constraintEnd_toStartOf="@+id/spnType"
+        app:layout_constraintTop_toTopOf="@+id/spnType" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

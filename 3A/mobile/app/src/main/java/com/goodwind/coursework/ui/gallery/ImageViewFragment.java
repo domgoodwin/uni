@@ -67,11 +67,13 @@ public class ImageViewFragment extends Fragment {
         holidayIndex = getArguments().getInt("holidayIndex");
         placeIndex = getArguments().getInt("placeIndex");
         imageIndex = getArguments().getInt("imageIndex");
+        FloatingActionButton fabEdit;
+        fabEdit = root.findViewById(R.id.fab_add);
 
         if (curPhotoPath != null) {
             mainImage = root.findViewById(R.id.imgMain);
             mainImage.setImageBitmap(BitmapFactory.decodeFile(curPhotoPath));
-            FloatingActionButton fabEdit = root.findViewById(R.id.fab_add);
+
             fabEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -101,6 +103,12 @@ public class ImageViewFragment extends Fragment {
                 shareImage(v);
             }
         });
+
+        // Set read only mode if no in holiday context
+        if (holidayIndex == -1) {
+            fabDelete.hide();
+            fabEdit.hide();
+        }
 
         return root;
     }
