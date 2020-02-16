@@ -1,6 +1,8 @@
 package com.goodwind.coursework.ui.nearby;
 
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,15 +31,20 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
+import com.goodwind.coursework.ui.view.PlacesAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,6 +55,7 @@ public class NearbyFragment extends Fragment  {
     Button btnSearch;
     Spinner spnType;
     Location curLocation;
+    RecyclerView lvPlaces;
     private final int REQUEST_LOCATION_PERMISSION = 1;
 
 
@@ -66,18 +76,22 @@ public class NearbyFragment extends Fragment  {
 
         spnType = root.findViewById(R.id.spnType);
 
+        lvPlaces = root.findViewById(R.id.lvPlaces);
+        lvPlaces.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        lvPlaces.setAdapter(new NearbyAdapter(getContext()));
+
 
         return root;
     }
 
     private void searchNearby(View v){
-        final TextView textView = getView().findViewById(R.id.txtOutput);
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         String key = getString(R.string.google_maps_key);
         String latLong = "52.47819,-1.89984";
         latLong = curLocation.getLatitude() + "," + curLocation.getLongitude();
         String type = spnType.getSelectedItem().toString();
+        type = type.toLowerCase().replace(" ", "_");
         int radius = 1500;
         String url = String.format(Locale.getDefault(),
                 "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%d&type=%s&key=%s",
@@ -91,12 +105,13 @@ public class NearbyFragment extends Fragment  {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        textView.setText(response);
+                        processResponse(response);
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                textView.setText("That didn't work!");
+                Log.e("nearby", "Failed: "+error);
             }
         });
         queue.add(stringRequest);
@@ -144,5 +159,23 @@ public class NearbyFragment extends Fragment  {
                 break;
         }
     }
+
+    private void processResponse(String response){
+        NearbyAdapter adapter = (NearbyAdapter)lvPlaces.getAdapter();
+        try {
+            JSONArray results = new JSONObject(response).getJSONArray("results");
+            for (int i = 0; i < results.length(); i++) {
+                JSONObject place = results.getJSONObject(i);
+                adapter.placeNames.add(place.getString("name"));
+                adapter.iconLinks.add(place.getString("icon"));
+                adapter.placeLinks.add("placeholder");
+                adapter.getPlaceByPlaceID(place.getString("place_id"), adapter.placeNames.size()-1);
+            }
+        } catch (JSONException e){
+            Log.e("nearby", e.getMessage());
+        }
+        adapter.notifyItemInserted(adapter.placeLinks.size() - 1);
+    }
+
 
 }
