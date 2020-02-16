@@ -28,4 +28,14 @@
         <item>Place</item>
         <item>Location</item>
     </string-array>
+
+    <string-array name="nearby_types">
+        <item>restaurant</item>
+        <item>shopping_mall</item>
+        <item>church</item>
+        <item>bar</item>
+        <item>cafe</item>
+        <item>university</item>
+        <item>tourist_attraction</item>
+    </string-array>
 </resources>

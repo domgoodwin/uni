@@ -2,53 +2,36 @@ package com.goodwind.coursework.ui.add;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.icu.util.Calendar;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.goodwind.coursework.HolidayFile;
 import com.goodwind.coursework.R;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 
 public class AddFragment extends Fragment {
@@ -84,13 +67,7 @@ public class AddFragment extends Fragment {
                 onDateSelect(v);
             }
         });
-//        final TextView textPlaceDate = root.findViewById(R.id.txtPlaceDate);
-//        textPlaceDate.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                onDateSelect(v);
-//            }
-//        });
+
         final Button btnSubmit = (Button) root.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -98,13 +75,6 @@ public class AddFragment extends Fragment {
                 onHolidayAdd(v);
             }
         });
-//        final Button btnLocation = (Button) root.findViewById(R.id.btnGetLocation);
-//        btnLocation.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                getLocation();
-//            }
-//        });
 
 
 

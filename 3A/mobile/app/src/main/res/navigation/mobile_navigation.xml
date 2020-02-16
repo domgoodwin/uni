@@ -15,7 +15,7 @@
             app:destination="@id/nav_gallery" />
         <action
             android:id="@+id/action_nav_home_to_nav_slideshow"
-            app:destination="@id/nav_slideshow" />
+            app:destination="@id/nav_nearby" />
         <action
             android:id="@+id/action_nav_home_to_nav_add"
             app:destination="@id/nav_add" />
@@ -162,5 +162,11 @@
             android:name="filePath"
             app:argType="string"
             android:defaultValue="null" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_nearby"
+        android:name="com.goodwind.coursework.ui.nearby.NearbyFragment"
+        android:label="Nearby"
+        tools:layout="@layout/fragment_nearby">
     </fragment>
 </navigation>

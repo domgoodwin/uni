@@ -1,4 +1,4 @@
-package com.goodwind.coursework.ui.view;
+package com.goodwind.coursework.ui.nearby;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,12 +17,12 @@ import com.goodwind.coursework.R;
 
 import java.util.Map;
 
-public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesViewHolder> {
+public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.NearbyViewHolder> {
 
-    public static class PlacesViewHolder extends RecyclerView.ViewHolder {
+    public static class NearbyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         String fileName;
-        public PlacesViewHolder(View v){
+        public NearbyViewHolder(View v){
             super(v);
 
             textView = v.findViewById(R.id.txtPlaceListName);
@@ -34,7 +34,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesView
     private int holidayIndex;
 
 
-    public PlacesAdapter(Map<Integer, String> placeNames, int holidayIndex, Context ctx){
+    public NearbyAdapter(Map<Integer, String> placeNames, int holidayIndex, Context ctx){
         this.places = placeNames;
         this.context = ctx;
         this.holidayIndex = holidayIndex;
@@ -44,17 +44,17 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesView
 
     @NonNull
     @Override
-    public PlacesAdapter.PlacesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NearbyAdapter.PlacesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create a new view
 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.place_text_view, parent, false);
-        PlacesAdapter.PlacesViewHolder vh = new PlacesAdapter.PlacesViewHolder(v);
+        NearbyAdapter.PlacesViewHolder vh = new NearbyAdapter.PlacesViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlacesAdapter.PlacesViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull NearbyAdapter.NearbyViewHolder holder, final int position) {
         String holidayName = places.get(position);
         holder.textView.setText(holidayName);
         holder.textView.setOnClickListener(new View.OnClickListener() {
