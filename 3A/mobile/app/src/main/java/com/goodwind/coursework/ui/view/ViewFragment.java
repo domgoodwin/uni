@@ -63,7 +63,15 @@ public class ViewFragment extends Fragment {
         holidayIndex = getArguments().getInt("holidayIndex");
         holiday = holidayFile.getHolidayByIndex(holidayIndex);
         v = root;
-        populateFields(holiday);
+
+        if (holiday != null){
+            populateFields(holiday);
+        } else {
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_home);
+            return root;
+        }
+
+
 
         btnEdit = root.findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener(new View.OnClickListener() {

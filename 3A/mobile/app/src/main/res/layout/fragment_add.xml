@@ -73,18 +73,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCompanions" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/txtPlaceDate"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:ems="10"-->
-<!--        android:focusableInTouchMode="false"-->
-<!--        android:hint="Date"-->
-<!--        android:inputType="date"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/txtPlaceNameIn" />-->
 
     <Button
         android:id="@+id/btnSubmit"
@@ -102,58 +90,11 @@
         android:id="@+id/txtMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtHeader" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <EditText-->
-<!--        android:id="@+id/txtPlaceLocation"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:ems="10"-->
-<!--        android:focusableInTouchMode="false"-->
-<!--        android:hint="Location"-->
-<!--        android:inputType="textMultiLine"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/txtPlaceNameIn" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/btnGetLocation"-->
-<!--        android:layout_width="238dp"-->
-<!--        android:layout_height="51dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:background="@color/colorAccent"-->
-<!--        android:text="Set Location to current"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.497"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/fragLocationComplete" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/txtPlaceNameIn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:hint="Name"-->
-<!--        android:inputType="textPersonName"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:layout_editor_absoluteY="216dp" />-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/fragLocationComplete"-->
-<!--        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/txtPlaceDate" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -155,6 +155,7 @@ public class HolidayFile {
         try {
             JSONArray placesArr = holiday.getJSONArray("places");
             placesArr.remove(placeIndex);
+            holidays.getJSONArray("holidays").put(holidayIndex, holiday);
 
         } catch (JSONException e) {
             System.out.println("Exception deleting place: "+ e.getMessage());
@@ -324,9 +325,9 @@ public class HolidayFile {
         return imageFilePaths;
     }
 
-    public  HashMap<LatLng,String> getAllPlaces(){
+    public  HashMap<LatLng,int[]> getAllPlaces(){
         JSONArray allHolidays = getHolidaysArray();
-        HashMap<LatLng, String> placePoints = new HashMap<>();
+        HashMap<LatLng, int[]> placePoints = new HashMap<>();
         try{
             // For all holidays
             for (int i = 0; i < allHolidays.length(); i++) {
@@ -334,7 +335,10 @@ public class HolidayFile {
                 // Get all locations from places
                 for (int j = 0; j < places.length(); j++) {
                     JSONObject loc = places.getJSONObject(j).getJSONObject("location");
-                    placePoints.put(new LatLng(loc.getDouble("lat"), loc.getDouble("long")), places.getJSONObject(j).getString("name"));
+                    placePoints.put(
+                            new LatLng(loc.getDouble("lat"), loc.getDouble("long")),
+                            new int[]{i, j});
+                            //allHolidays.getJSONObject(i).getString("name") + ": " + places.getJSONObject(j).getString("name"));
                 }
             }
         } catch (JSONException e) {

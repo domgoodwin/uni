@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -48,6 +49,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        if (adapter.getItemCount() == 0){
+            ((TextView)root.findViewById(R.id.text_home)).setText("No saved holidays\nClick add to create one!");
+        }
 
         return root;
     }

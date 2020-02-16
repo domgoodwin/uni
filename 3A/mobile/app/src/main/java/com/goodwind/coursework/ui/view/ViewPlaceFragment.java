@@ -26,6 +26,8 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -83,6 +85,8 @@ public class ViewPlaceFragment extends Fragment {
         viewViewModel =
                 ViewModelProviders.of(this).get(ViewViewModel.class);
         View root = inflater.inflate(R.layout.fragment_holiday_place_view, container, false);
+
+
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
         holidayIndex = getArguments().getInt("holidayIndex");
         placeIndex = getArguments().getInt("placeIndex");
@@ -143,9 +147,15 @@ public class ViewPlaceFragment extends Fragment {
 
         // Allow empty edit, eg. add
         if (placeIndex != -1){
-            Log.d("aaa", "place: " + place.toString());
-            populateFields(place, root);
-            setupLocationAutocomplete(false);
+            if (place != null){
+                Log.d("aaa", "place: " + place.toString());
+                populateFields(place, root);
+                setupLocationAutocomplete(false);
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putInt("holidayIndex", holidayIndex);
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_view, bundle);
+            }
         } else {
             getLocation();
             enableEdit();
@@ -313,7 +323,6 @@ public class ViewPlaceFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         bundle.putInt("holidayIndex", holidayIndex);
                         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_holiday_places_list, bundle);
-
                     }})
                 .setNegativeButton(android.R.string.no, null).show();
     }
