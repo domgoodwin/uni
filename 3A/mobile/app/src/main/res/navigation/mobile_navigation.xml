@@ -19,6 +19,12 @@
         <action
             android:id="@+id/action_nav_home_to_nav_add"
             app:destination="@id/nav_add" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_view"
+            app:destination="@id/nav_view" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_map"
+            app:destination="@id/nav_map" />
     </fragment>
 
     <fragment
@@ -35,6 +41,15 @@
             android:name="holidayIndex"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_nav_view_to_nav_holiday_places_list"
+            app:destination="@id/nav_holiday_places_list" />
+        <action
+            android:id="@+id/action_nav_view_to_nav_map"
+            app:destination="@id/nav_map" />
+        <action
+            android:id="@+id/action_nav_view_to_nav_gallery"
+            app:destination="@id/nav_gallery" />
     </fragment>
     <fragment
         android:id="@+id/nav_map"
@@ -63,6 +78,9 @@
             android:name="placeIndex"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_nav_gallery_to_nav_img_view"
+            app:destination="@id/nav_img_view" />
     </fragment>
     <fragment
         android:id="@+id/nav_holiday_places_list"
@@ -73,6 +91,9 @@
             android:name="holidayIndex"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_nav_holiday_places_list_to_nav_holiday_place_view"
+            app:destination="@id/nav_holiday_place_view" />
     </fragment>
     <fragment
         android:id="@+id/nav_holiday_place_view"
@@ -87,6 +108,12 @@
             android:name="placeIndex"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_nav_holiday_place_view_to_nav_map"
+            app:destination="@id/nav_map" />
+        <action
+            android:id="@+id/action_nav_holiday_place_view_to_nav_gallery"
+            app:destination="@id/nav_gallery" />
     </fragment>
 
     <fragment
@@ -110,6 +137,9 @@
             android:name="imageIndex"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_nav_img_view_to_nav_img_edit"
+            app:destination="@id/nav_img_edit" />
     </fragment>
     <fragment
         android:id="@+id/nav_img_edit"

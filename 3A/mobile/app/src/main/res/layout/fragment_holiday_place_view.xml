@@ -10,147 +10,133 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="80dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnViewMap"
-        android:layout_width="238dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorAccent"
-        android:text="View on Map"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragLocationComplete" />
+            <Button
+                android:id="@+id/btnViewMap"
+                android:layout_width="238dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/colorAccent"
+                android:text="View on Map"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragLocationComplete" />
 
-    <Button
-        android:id="@+id/btnGetCurLocation"
-        android:layout_width="238dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorAccent"
-        android:text="Get Current Location"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnViewMap" />
+            <Button
+                android:id="@+id/btnGetCurLocation"
+                android:layout_width="238dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorAccent"
+                android:text="Get Current Location"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnViewMap" />
 
-    <Button
-        android:id="@+id/btnPhotos"
-        android:layout_width="238dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorAccent"
-        android:text="Photos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGetCurLocation" />
+            <Button
+                android:id="@+id/btnPhotos"
+                android:layout_width="238dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorAccent"
+                android:text="Photos"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnGetCurLocation" />
 
-    <EditText
-        android:id="@+id/txtDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:enabled="false"
-        android:focusableInTouchMode="false"
-        android:hint="Date"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPlaceName" />
-
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Place name"
-        app:layout_constraintEnd_toStartOf="@+id/txtPlaceName"
-        app:layout_constraintTop_toTopOf="@+id/txtPlaceName" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="60dp"
-        android:layout_height="24dp"
-        android:text="Date"
-        app:layout_constraintEnd_toStartOf="@+id/txtDate"
-        app:layout_constraintTop_toTopOf="@+id/txtDate" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="60dp"
-        android:layout_height="24dp"
-        android:text="Notes"
-        app:layout_constraintEnd_toStartOf="@+id/txtNotes"
-        app:layout_constraintTop_toTopOf="@+id/txtNotes" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="60dp"
-        android:layout_height="24dp"
-        android:text="Location"
-        app:layout_constraintEnd_toStartOf="@+id/fragLocationComplete"
-        app:layout_constraintTop_toTopOf="@+id/fragLocationComplete" />
+            <EditText
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:ems="10"
+                android:enabled="false"
+                android:focusableInTouchMode="false"
+                android:hint="Date"
+                android:inputType="date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPlaceName" />
 
 
-    <EditText
-        android:id="@+id/txtDebug"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:enabled="false"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Place name"
+                app:layout_constraintEnd_toStartOf="@+id/txtPlaceName"
+                app:layout_constraintTop_toTopOf="@+id/txtPlaceName" />
 
-    <EditText
-        android:id="@+id/txtNotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:clickable="false"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Notes"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="60dp"
+                android:layout_height="24dp"
+                android:text="Date"
+                app:layout_constraintEnd_toStartOf="@+id/txtDate"
+                app:layout_constraintTop_toTopOf="@+id/txtDate" />
 
-    <EditText
-        android:id="@+id/txtPlaceName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:enabled="false"
-        android:clickable="false"
-        android:inputType="textPersonName"
-        android:text="Place Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtMessage" />
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="60dp"
+                android:layout_height="24dp"
+                android:text="Notes"
+                app:layout_constraintEnd_toStartOf="@+id/txtNotes"
+                app:layout_constraintTop_toTopOf="@+id/txtNotes" />
 
-    <fragment
-        android:id="@+id/fragLocationComplete"
-        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNotes" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="60dp"
+                android:layout_height="24dp"
+                android:text="Location"
+                app:layout_constraintEnd_toStartOf="@+id/fragLocationComplete"
+                app:layout_constraintTop_toTopOf="@+id/fragLocationComplete" />
+
+
+            <EditText
+                android:id="@+id/txtNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:clickable="false"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Notes"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+
+            <EditText
+                android:id="@+id/txtPlaceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clickable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="Place Name"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtMessage" />
+
+            <fragment
+                android:id="@+id/fragLocationComplete"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="80dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtNotes" />
 
             <TextView
                 android:id="@+id/txtMessage"
@@ -161,46 +147,49 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:layout_width="236dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="64dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnPhotos">
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="119dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:minWidth="100dp"
+                    android:text="Edit"
+                    app:layout_constraintStart_toStartOf="@+id/btnDelete" />
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/quantum_vanillaredA700"
+                    android:minWidth="119dp"
+                    android:text="Delete"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-
+            </LinearLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_marginBottom="24dp"
+                app:backgroundTint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:rippleColor="#ffffff"
+                app:srcCompat="@drawable/ic_menu_share" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginEnd="44dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_menu_manage" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginBottom="24dp"
-        app:backgroundTint="@android:color/background_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fab_add"
-        app:rippleColor="#ffffff"
-        app:srcCompat="@android:drawable/ic_delete" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginBottom="24dp"
-        app:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fab_delete"
-        app:rippleColor="#ffffff"
-        app:srcCompat="@drawable/ic_menu_share" />
 </androidx.constraintlayout.widget.ConstraintLayout>

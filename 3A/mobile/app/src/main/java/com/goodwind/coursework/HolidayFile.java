@@ -33,7 +33,7 @@ public class HolidayFile {
     private String fileDir;
     private Context ctx;
     private Activity activity;
-    static final public String holidaySaveLocation = "holidays.json";
+    static public String holidaySaveLocation = "holidays.json";
 
     public HolidayFile(String dir, Context context, Activity act){
         fileDir = dir;

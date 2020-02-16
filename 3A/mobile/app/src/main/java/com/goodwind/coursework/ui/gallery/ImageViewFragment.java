@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -45,11 +46,12 @@ import java.util.Date;
 
 public class ImageViewFragment extends Fragment {
 
-    final String holidaySaveLocation = "holidays.json";
+    final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     GalleryViewModel galViewModel;
     ImageView mainImage;
     String curPhotoPath;
-    FloatingActionButton fabDelete;
+    Button btnDelete;
+    Button btnEdit;
     FloatingActionButton fabShare;
     private int holidayIndex;
     private int placeIndex;
@@ -67,14 +69,15 @@ public class ImageViewFragment extends Fragment {
         holidayIndex = getArguments().getInt("holidayIndex");
         placeIndex = getArguments().getInt("placeIndex");
         imageIndex = getArguments().getInt("imageIndex");
-        FloatingActionButton fabEdit;
-        fabEdit = root.findViewById(R.id.fab_add);
+
+        btnEdit = root.findViewById(R.id.btnEdit);
+        btnDelete = root.findViewById(R.id.btnDelete);
 
         if (curPhotoPath != null) {
             mainImage = root.findViewById(R.id.imgMain);
             mainImage.setImageBitmap(BitmapFactory.decodeFile(curPhotoPath));
 
-            fabEdit.setOnClickListener(new View.OnClickListener() {
+            btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
@@ -89,8 +92,7 @@ public class ImageViewFragment extends Fragment {
             Log.e("image", "How are you here with no image");
         }
 
-        fabDelete = root.findViewById(R.id.fab_delete);
-        fabDelete.setOnClickListener(new View.OnClickListener(){
+        btnDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 deleteImage(v);
@@ -106,8 +108,8 @@ public class ImageViewFragment extends Fragment {
 
         // Set read only mode if no in holiday context
         if (holidayIndex == -1) {
-            fabDelete.hide();
-            fabEdit.hide();
+            btnDelete.setVisibility(View.GONE);
+            btnEdit.setVisibility(View.GONE);
         }
 
         return root;

@@ -57,7 +57,7 @@ import java.util.List;
 public class MapFragment extends Fragment {
 
     private MapViewModel mapViewModel;
-    final String holidaySaveLocation = "holidays.json";
+    final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     private HolidayFile holidayFile;
     private int holidayIndex;
     private int placeIndex;

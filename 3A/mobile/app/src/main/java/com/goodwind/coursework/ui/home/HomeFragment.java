@@ -21,7 +21,7 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private HolidayFile holidayFile;
-    final String holidaySaveLocation = "holidays.json";
+    final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,

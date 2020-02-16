@@ -14,8 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -51,11 +54,13 @@ public class GalleryFragment extends Fragment {
     JSONObject holiday;
     JSONObject place;
     EditText dateView;
-    final String holidaySaveLocation = "holidays.json";
+    final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     final int REQUEST_IMAGE_CAPTURE = 2;
     ImageView lastImage;
     String curPhotoPath;
     GalleryAdapter imgPreviews;
+    Spinner spnType;
+    Spinner spnValue;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -66,18 +71,37 @@ public class GalleryFragment extends Fragment {
 
         RecyclerView imgPreviewsView = root.findViewById(R.id.lvPlaces);
         imgPreviewsView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        final String[] types = getResources().getStringArray(R.array.filter_types);
 
         holidayFile = new HolidayFile(holidaySaveLocation, getContext(), getActivity());
         holidayIndex = getArguments().getInt("holidayIndex");
         placeIndex = getArguments().getInt("placeIndex");
+
+        spnType = root.findViewById(R.id.spnType);
+        spnValue = root.findViewById(R.id.spnValue);
+
         if (holidayIndex != -1){
             holiday = holidayFile.getHolidayByIndex(holidayIndex);
             if (placeIndex != -1) {
                 place = holidayFile.getHolidayPlaceByIndex(holidayIndex, placeIndex);
             }
             imgPreviews = new GalleryAdapter(holidayFile.getImageFilePaths(holiday, placeIndex), holidayFile.getImages(holiday, placeIndex), getContext(), holidayIndex, placeIndex);
+            spnType.setVisibility(View.GONE);
+            spnValue.setVisibility(View.GONE);
+            ((TextView)root.findViewById(R.id.txtFilerLabel)).setVisibility(View.GONE);
         } else {
             imgPreviews = new GalleryAdapter(holidayFile.getImageFilePaths(), holidayFile.getImages(), getContext());
+            spnType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    Log.d("gallery", "got:"+types[position]);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
 
 

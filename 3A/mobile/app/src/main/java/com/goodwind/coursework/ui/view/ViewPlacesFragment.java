@@ -41,7 +41,7 @@ public class ViewPlacesFragment extends Fragment {
 
     private ViewViewModel viewViewModel;
     EditText dateView;
-    final String holidaySaveLocation = "holidays.json";
+    final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     private JSONObject holiday;
     private int holidayIndex;
     View v;

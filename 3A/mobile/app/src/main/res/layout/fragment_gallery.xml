@@ -57,7 +57,7 @@
         app:layout_constraintTop_toTopOf="@+id/spnType" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtFilerLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Filter"

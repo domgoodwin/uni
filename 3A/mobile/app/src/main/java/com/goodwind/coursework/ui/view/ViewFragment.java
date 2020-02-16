@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,9 +45,12 @@ public class ViewFragment extends Fragment {
 
     private ViewViewModel viewViewModel;
     EditText dateView;
-    final String holidaySaveLocation = "holidays.json";
+    final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     private JSONObject holiday;
     private int holidayIndex;
+    Button btnEdit;
+    Button btnDelete;
+    FloatingActionButton fabShare;
     View v;
 
 
@@ -61,21 +65,23 @@ public class ViewFragment extends Fragment {
         v = root;
         populateFields(holiday);
 
-        final FloatingActionButton fabEdit = root.findViewById(R.id.fab_add);
-        fabEdit.setOnClickListener(new View.OnClickListener(){
+        btnEdit = root.findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 enableEdit(v);
             }
         });
-        final FloatingActionButton fabDelete = root.findViewById(R.id.fab_delete);
-        fabDelete.setOnClickListener(new View.OnClickListener(){
+
+        btnDelete = root.findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 deleteHoliday(v);
             }
         });
-        final FloatingActionButton fabShare = root.findViewById(R.id.fab_share);
+
+        fabShare = root.findViewById(R.id.fab_share);
         fabShare.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -140,16 +146,15 @@ public class ViewFragment extends Fragment {
                 onDateSelect(v);
             }
         });
-        FloatingActionButton fabEdit = getView().findViewById(R.id.fab_add);
-        FloatingActionButton fabDelete = getView().findViewById(R.id.fab_delete);
-        FloatingActionButton fabShare = getView().findViewById(R.id.fab_share);
-        fabDelete.hide();
+
         fabShare.hide();
 
-        fabEdit.setImageResource(R.drawable.ic_menu_send);
-        fabEdit.setOnClickListener(new View.OnClickListener(){
+        btnDelete.setVisibility(View.GONE);
+
+        btnEdit.setText("Save");
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 saveChanges(v);
             }
         });
@@ -185,15 +190,15 @@ public class ViewFragment extends Fragment {
         populateFields(holiday);
 
 
-        FloatingActionButton fabEdit = getView().findViewById(R.id.fab_add);
-        FloatingActionButton fabDelete = getView().findViewById(R.id.fab_delete);
-        FloatingActionButton fabShare = getView().findViewById(R.id.fab_share);
-        fabDelete.show();
         fabShare.show();
-        fabEdit.setImageResource(R.drawable.ic_menu_manage);
-        fabEdit.setOnClickListener(new View.OnClickListener(){
+
+
+        btnDelete.setVisibility(View.VISIBLE);
+
+        btnEdit.setText("Edit");
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 enableEdit(v);
             }
         });
@@ -306,7 +311,10 @@ public class ViewFragment extends Fragment {
         DatePickerDialog picker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker dpView, int year, int month, int dayOfMonth) {
-                dateView.setText(dayOfMonth + "/" + (month+1) + "/" + year);
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, dayOfMonth);
+                DateFormat df = DateFormat.getDateInstance();
+                dateView.setText(df.format(c.getTime()));
             }
         } , 2020, 0, 01);
         picker.show();

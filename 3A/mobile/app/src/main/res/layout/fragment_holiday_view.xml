@@ -10,9 +10,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="80dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -41,6 +39,35 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnPlaces" />
+
+            <LinearLayout
+                android:layout_width="236dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="64dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnPhotos">
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="119dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:minWidth="100dp"
+                    android:text="Edit"
+                    app:layout_constraintStart_toStartOf="@+id/btnDelete" />
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/quantum_vanillaredA700"
+                    android:minWidth="119dp"
+                    android:text="Delete"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnPlaces"
@@ -175,43 +202,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:layout_marginBottom="16dp"
+                app:backgroundTint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:rippleColor="#ffffff"
+                app:srcCompat="@drawable/ic_menu_share" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-android:id="@+id/fab_add"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="bottom|end"
-android:layout_margin="@dimen/fab_margin"
-android:layout_marginEnd="44dp"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintEnd_toEndOf="parent"
-app:srcCompat="@drawable/ic_menu_manage" />
 
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-android:id="@+id/fab_delete"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="bottom|end"
-android:layout_margin="@dimen/fab_margin"
-android:layout_marginBottom="24dp"
-app:backgroundTint="@android:color/background_dark"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintEnd_toStartOf="@+id/fab_add"
-app:rippleColor="#ffffff"
-app:srcCompat="@android:drawable/ic_delete" />
 
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-android:id="@+id/fab_share"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="bottom|end"
-android:layout_margin="@dimen/fab_margin"
-android:layout_marginBottom="24dp"
-app:backgroundTint="@color/colorAccent"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintEnd_toStartOf="@+id/fab_delete"
-app:rippleColor="#ffffff"
-app:srcCompat="@drawable/ic_menu_share" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

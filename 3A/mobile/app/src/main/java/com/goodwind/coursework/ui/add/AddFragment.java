@@ -3,6 +3,7 @@ package com.goodwind.coursework.ui.add;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.icu.util.Calendar;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -45,6 +46,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -59,7 +61,7 @@ public class AddFragment extends Fragment {
     Place selectedPlace;
     LatLng selectedLocation;
     EditText dateView;
-    final String holidaySaveLocation = "holidays.json";
+    final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -119,7 +121,11 @@ public class AddFragment extends Fragment {
         DatePickerDialog picker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker dpView, int year, int month, int dayOfMonth) {
-                dateView.setText(dayOfMonth + "/" + (month+1) + "/" + year);
+//                dateView.setText(dayOfMonth + "/" + (month+1) + "/" + year);
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, dayOfMonth);
+                DateFormat df = DateFormat.getDateInstance();
+                dateView.setText(df.format(c.getTime()));
             }
         } , 2020, 0, 01);
         picker.show();
@@ -175,18 +181,7 @@ public class AddFragment extends Fragment {
             holidayJSON.put("images", new JSONArray());
             holidayJSON.put("notes", notes.getText());
             holidayJSON.put("companions", companions.getText());
-//            JSONObject placeJSON = new JSONObject();
-//            placeJSON.put("name", placeName.getText());
-//            placeJSON.put("images", new JSONArray());
-//            placeJSON.put("date",  storeDf.format(df.parse(placeDate.getText().toString())));
-//            placeJSON.put("notes", "");
-//            JSONObject coOrdJSON = new JSONObject();
-//            coOrdJSON.put("long", selectedLocation.longitude);
-//            coOrdJSON.put("lat", selectedLocation.latitude);
-//            coOrdJSON.put("display", getLocationDisplay(curLocation));
-//            placeJSON.put("location", coOrdJSON);
             JSONArray placesJSON = new JSONArray();
-//            placesJSON.put(placeJSON);
             holidayJSON.put("places", placesJSON);
             holidaysArrJSON.put(holidayJSON);
         } catch (JSONException e){

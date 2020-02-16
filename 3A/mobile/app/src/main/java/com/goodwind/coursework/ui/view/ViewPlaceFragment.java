@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.icu.util.Calendar;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -59,7 +60,7 @@ public class ViewPlaceFragment extends Fragment {
 
     private ViewViewModel viewViewModel;
     EditText dateView;
-    final String holidaySaveLocation = "holidays.json";
+    final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     private JSONObject holiday;
     private JSONObject place;
     private int holidayIndex;
@@ -68,6 +69,10 @@ public class ViewPlaceFragment extends Fragment {
     Location curLocation;
     Place selectedPlace;
     LatLng selectedLocation;
+
+    Button btnEdit;
+    Button btnDelete;
+    FloatingActionButton fabShare;
 
     View v;
     Button btnCurLocation;
@@ -85,21 +90,22 @@ public class ViewPlaceFragment extends Fragment {
         place = holidayFile.getHolidayPlaceByIndex(holidayIndex, placeIndex);
         v = root;
 
-        final FloatingActionButton fabEdit = root.findViewById(R.id.fab_add);
-        fabEdit.setOnClickListener(new View.OnClickListener(){
+        btnEdit = root.findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 enableEdit();
             }
         });
-        final FloatingActionButton fabDelete = root.findViewById(R.id.fab_delete);
-        fabDelete.setOnClickListener(new View.OnClickListener(){
+
+        btnDelete = root.findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 deletePlace(v);
             }
         });
-        final FloatingActionButton fabShare = root.findViewById(R.id.fab_share);
+        fabShare = root.findViewById(R.id.fab_share);
         fabShare.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -165,13 +171,11 @@ public class ViewPlaceFragment extends Fragment {
             }
         });
 
-        FloatingActionButton fabEdit = v.findViewById(R.id.fab_add);
-        FloatingActionButton fabDelete = v.findViewById(R.id.fab_delete);
-        FloatingActionButton fabShare = v.findViewById(R.id.fab_share);
-        fabDelete.hide();
+        btnDelete.setVisibility(View.GONE);
+
         fabShare.hide();
-        fabEdit.setImageResource(R.drawable.ic_menu_send);
-        fabEdit.setOnClickListener(new View.OnClickListener(){
+        btnEdit.setText("Save");
+        btnEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 saveChanges(v);
@@ -220,13 +224,10 @@ public class ViewPlaceFragment extends Fragment {
 
         setupLocationAutocomplete(false);
 
-        FloatingActionButton fabEdit = getView().findViewById(R.id.fab_add);
-        FloatingActionButton fabDelete = getView().findViewById(R.id.fab_delete);
-        FloatingActionButton fabShare = getView().findViewById(R.id.fab_share);
-        fabDelete.show();
+        btnDelete.setVisibility(View.VISIBLE);
         fabShare.show();
-        fabEdit.setImageResource(R.drawable.ic_menu_manage);
-        fabEdit.setOnClickListener(new View.OnClickListener(){
+        btnEdit.setText("Edit");
+        btnEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 enableEdit();
@@ -319,7 +320,7 @@ public class ViewPlaceFragment extends Fragment {
 
     private void populateFields(JSONObject place, View v){
         try {
-            SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+            DateFormat df = DateFormat.getDateInstance();
             SimpleDateFormat store = new SimpleDateFormat("yyyymmdd");
             ((EditText)v.findViewById(R.id.txtPlaceName)).setText(place.getString("name"));
             Date date = store.parse(place.getString("date"));
@@ -341,8 +342,10 @@ public class ViewPlaceFragment extends Fragment {
         DatePickerDialog picker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker dpView, int year, int month, int dayOfMonth) {
-                dateView.setText(dayOfMonth + "/" + (month+1) + "/" + year);
-            }
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, dayOfMonth);
+                DateFormat df = DateFormat.getDateInstance();
+                dateView.setText(df.format(c.getTime()));            }
         } , 2020, 0, 01);
         picker.show();
     }

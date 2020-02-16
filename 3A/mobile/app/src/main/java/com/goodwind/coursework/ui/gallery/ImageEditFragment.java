@@ -55,7 +55,7 @@ import java.util.Locale;
 public class ImageEditFragment extends Fragment {
 
     HolidayFile holidayFile;
-    final String holidaySaveLocation = "holidays.json";
+    final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     GalleryViewModel galViewModel;
     String curPhotoPath;
 
