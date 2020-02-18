@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.media.ExifInterface;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +38,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -98,6 +100,22 @@ public class ImageEditFragment extends Fragment {
         return root;
     }
 
+    private void processImageLocation(){
+
+        try {
+            ExifInterface exif = new ExifInterface(curPhotoPath);
+            float[] latLng = new float[]{0, 0};
+            if (exif.getLatLong(latLng)){
+                selectedLocation = new LatLng(latLng[0], latLng[1]);
+            } else {
+                getLocation();
+            }
+        } catch (IOException e){
+            Log.e("image_edit", e.getMessage());
+        }
+
+    }
+
     private void populateFields(View v, JSONObject image) {
         try {
             ((EditText) v.findViewById(R.id.txtTags)).setText(image.getString("tags"));
@@ -105,7 +123,7 @@ public class ImageEditFragment extends Fragment {
             selectedLocation = new LatLng(location.getDouble("lat"), location.getDouble("long"));
         } catch (JSONException e) {
             Log.e("view", "JSON parse exception: " + e.getMessage());
-
+            processImageLocation();
         }
     }
 
@@ -190,10 +208,10 @@ public class ImageEditFragment extends Fragment {
             case REQUEST_LOCATION_PERMISSION:
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
+                    //getLocation();
                 } else {
                     Toast.makeText(getContext(),
-                            "Cannot get locaton permissions",
+                            "Cannot get location permissions",
                             Toast.LENGTH_SHORT).show();
                 }
                 break;

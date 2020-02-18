@@ -170,6 +170,9 @@ public class NearbyFragment extends Fragment  {
                 adapter.iconLinks.add(place.getString("icon"));
                 adapter.placeLinks.add("placeholder");
                 adapter.getPlaceByPlaceID(place.getString("place_id"), adapter.placeNames.size()-1);
+                if (adapter.placeNames.size() >= 5) {
+                    break;
+                }
             }
         } catch (JSONException e){
             Log.e("nearby", e.getMessage());
