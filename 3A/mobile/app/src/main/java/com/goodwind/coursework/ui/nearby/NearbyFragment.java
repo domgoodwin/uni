@@ -59,7 +59,7 @@ public class NearbyFragment extends Fragment  {
     Location curLocation;
     RecyclerView lvPlaces;
     private final int REQUEST_LOCATION_PERMISSION = 1;
-
+    NearbyAdapter adapter;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -80,7 +80,8 @@ public class NearbyFragment extends Fragment  {
 
         lvPlaces = root.findViewById(R.id.lvPlaces);
         lvPlaces.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        lvPlaces.setAdapter(new NearbyAdapter(getContext()));
+        adapter = new NearbyAdapter(getContext());
+        lvPlaces.setAdapter(adapter);
 
 
         return root;
@@ -90,6 +91,7 @@ public class NearbyFragment extends Fragment  {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         String key = getString(R.string.google_maps_key);
+        adapter.clearData();
         String latLong = "52.47819,-1.89984";
         latLong = curLocation.getLatitude() + "," + curLocation.getLongitude();
         String type = spnType.getSelectedItem().toString();
@@ -163,7 +165,6 @@ public class NearbyFragment extends Fragment  {
     }
 
     private void processResponse(String response){
-        NearbyAdapter adapter = (NearbyAdapter)lvPlaces.getAdapter();
         try {
             JSONArray results = new JSONObject(response).getJSONArray("results");
             for (int i = 0; i < results.length(); i++) {

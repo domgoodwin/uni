@@ -245,13 +245,16 @@ public class ViewFragment extends Fragment {
         Intent sendIntent = new Intent();
         String shareText = "";
         try {
-            // TODO: Format date properly
-            shareText = String.format("I went on holiday, %s, between %s and %s and has a blast!",
+            DateFormat df = DateFormat.getDateInstance();
+            DateFormat storeDf = new SimpleDateFormat("yyyymmdd");
+            shareText = String.format("I went on holiday, %s, between %s and %s and had a blast!",
                     holiday.getString("name"),
-                    holiday.getString("startDate"),
-                    holiday.getString("endDate"));
+                    df.format(storeDf.parse(holiday.getString("startDate"))),
+                    df.format(storeDf.parse(holiday.getString("endDate"))));
 
         } catch (JSONException e) {
+            Log.e(TAG, e.getMessage());
+        } catch (ParseException e){
             Log.e(TAG, e.getMessage());
         }
         sendIntent.setAction(Intent.ACTION_SEND);

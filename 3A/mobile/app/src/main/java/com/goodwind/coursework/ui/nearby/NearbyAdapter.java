@@ -111,6 +111,13 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.NearbyView
         });
     }
 
+    public void clearData(){
+        placeNames.clear();
+        placeLinks.clear();
+        iconLinks.clear();
+        notifyDataSetChanged();
+    }
+
 
     public void getPlaceByPlaceID(String placeID, final int position){
         //https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJrTLr-GyuEmsRBfy61i59si0&key=YOUR_API_KEY

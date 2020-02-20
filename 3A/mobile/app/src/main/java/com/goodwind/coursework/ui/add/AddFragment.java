@@ -87,13 +87,12 @@ public class AddFragment extends Fragment {
     }
 
 
-
+    // Listener for datepicker
     public void onDateSelect(View view){
         dateView = (EditText) view;
         DatePickerDialog picker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker dpView, int year, int month, int dayOfMonth) {
-//                dateView.setText(dayOfMonth + "/" + (month+1) + "/" + year);
                 Calendar c = Calendar.getInstance();
                 c.set(year, month, dayOfMonth);
                 DateFormat df = DateFormat.getDateInstance();
@@ -104,6 +103,7 @@ public class AddFragment extends Fragment {
     }
 
 
+    // Listener for save button
     public void onHolidayAdd(View view){
         // Hide keyboard on submit
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

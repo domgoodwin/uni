@@ -289,12 +289,17 @@ public class ViewPlaceFragment extends Fragment {
         Intent sendIntent = new Intent();
         String shareText = "";
         try {
-            // TODO: Format date properly
+            DateFormat df = DateFormat.getDateInstance();
+            DateFormat storeDf = new SimpleDateFormat("yyyymmdd");
             shareText = String.format("I went to, %s, on %s and had a blast!",
                     place.getString("name"),
-                    place.getString("date"));
+                    df.format(storeDf.parse(place.getString("date"))));
 
         } catch (JSONException e) {
+            Toast.makeText(getActivity(), "Place invalid", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, e.getMessage());
+            return;
+        } catch (ParseException e){
             Toast.makeText(getActivity(), "Place invalid", Toast.LENGTH_SHORT).show();
             Log.e(TAG, e.getMessage());
             return;
