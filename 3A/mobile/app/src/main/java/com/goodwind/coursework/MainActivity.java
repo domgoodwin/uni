@@ -18,6 +18,8 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -42,18 +44,6 @@ public class MainActivity extends AppCompatActivity {
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         PlacesClient placesClient = Places.createClient(this);
 
-
-//
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.show();
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.nav_add);
-////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-////                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override

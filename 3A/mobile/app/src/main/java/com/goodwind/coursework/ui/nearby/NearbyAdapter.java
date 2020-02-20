@@ -40,6 +40,8 @@ import java.util.Map;
 
 public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.NearbyViewHolder> {
 
+    private static final String TAG = "NearbyAdapter";
+
     public static class NearbyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView icon;
@@ -120,7 +122,7 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.NearbyView
                 placeID,
                 key
         );
-        Log.d("nearby", "Getting place: "+url);
+        Log.d(TAG, "Getting place: "+url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -130,7 +132,7 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.NearbyView
                             placeLinks.set(position, res.getJSONObject("result").getString("url"));
 
                         } catch (JSONException e){
-                            Log.e("nearby", e.getMessage());
+                            Log.e(TAG, e.getMessage());
                         }
 
 
@@ -138,7 +140,7 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.NearbyView
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("nearby", "Failed: "+error);
+                Log.e(TAG, "Failed: "+error);
             }
         });
         queue.add(stringRequest);
@@ -154,18 +156,18 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.NearbyView
                 placeID,
                 key
         );
-        Log.d("nearby", "Getting place: "+url);
+        Log.d(TAG, "Getting place: "+url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Log.d("nearby", response);
+                            Log.d(TAG, response);
                             JSONObject res = new JSONObject(response);
                             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(res.getJSONObject("result").getString("url")));
                             context.startActivity(browserIntent);
                         } catch (JSONException e){
-                            Log.e("nearby", e.getMessage());
+                            Log.e(TAG, e.getMessage());
                         }
 
 
@@ -173,7 +175,7 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.NearbyView
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("nearby", "Failed: "+error);
+                Log.e(TAG, "Failed: "+error);
             }
         });
         queue.add(stringRequest);
@@ -197,7 +199,7 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.NearbyView
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 bmp = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
-                Log.e("Error", e.getMessage());
+                Log.e(TAG, e.getMessage());
                 e.printStackTrace();
             }
             return bmp;

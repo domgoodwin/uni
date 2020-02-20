@@ -47,6 +47,8 @@ import java.util.Locale;
 
 public class ImageEditFragment extends Fragment {
 
+    private static final String TAG = "ImageEditFragment";
+
     HolidayFile holidayFile;
     final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     GalleryViewModel galViewModel;
@@ -82,7 +84,7 @@ public class ImageEditFragment extends Fragment {
             imgPreview = root.findViewById(R.id.imgPreview);
             imgPreview.setImageBitmap(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curPhotoPath), 200, 200));
         } else {
-            Log.e("image", "How are you here with no image");
+            Log.e(TAG, "How are you here with no image");
         }
 
         txtTags = root.findViewById(R.id.txtTags);
@@ -111,7 +113,7 @@ public class ImageEditFragment extends Fragment {
                 getLocation();
             }
         } catch (IOException e){
-            Log.e("image_edit", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
 
     }
@@ -122,7 +124,7 @@ public class ImageEditFragment extends Fragment {
             JSONObject location = image.getJSONObject("location");
             selectedLocation = new LatLng(location.getDouble("lat"), location.getDouble("long"));
         } catch (JSONException e) {
-            Log.e("view", "JSON parse exception: " + e.getMessage());
+            Log.e(TAG, "JSON parse exception: " + e.getMessage());
             processImageLocation();
         }
     }
@@ -147,7 +149,7 @@ public class ImageEditFragment extends Fragment {
                 holiday.getJSONArray("places").getJSONObject(placeIndex).getJSONArray("images").put(imageIndex, image);
             }
         } catch (JSONException e){
-            Log.e("img_edit", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
         getActivity().onBackPressed();
@@ -155,11 +157,11 @@ public class ImageEditFragment extends Fragment {
 
 
     private void getLocation() {
-        Log.d("add fragment", "getLocation");
+        Log.d(TAG, "getLocation");
         if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
         } else {
-            Log.d("add fragment", "getLocation: permissions granted");
+            Log.d(TAG, "getLocation: permissions granted");
             getLastLocation();
         }
     }
@@ -187,7 +189,7 @@ public class ImageEditFragment extends Fragment {
         try {
             addressList = geocoder.getFromLocation(lat, lng, 1);
         }catch (IOException e){
-            Log.e("tag", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         if (addressList != null && !addressList.isEmpty()) {
 
@@ -225,12 +227,12 @@ public class ImageEditFragment extends Fragment {
             public void onPlaceSelected(Place place) {
                 selectedPlace = place;
                 selectedLocation = place.getLatLng();
-                Log.i("add", "Place: " + place.getName() + ", " + place.getId());
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
             }
 
             @Override
             public void onError(Status status) {
-                Log.i("add", "An error occurred: " + status);
+                Log.i(TAG, "An error occurred: " + status);
             }
         });
         AppCompatEditText originEditText = (AppCompatEditText) autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input);

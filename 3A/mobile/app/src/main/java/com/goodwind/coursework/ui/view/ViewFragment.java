@@ -36,6 +36,8 @@ import java.util.Date;
 
 public class ViewFragment extends Fragment {
 
+    private static final String TAG = "ViewFragment";
+
     HolidayFile holidayFile;
 
     private ViewViewModel viewViewModel;
@@ -121,7 +123,7 @@ public class ViewFragment extends Fragment {
             }
         });
 
-        Log.d("view", "Creating view for holiday index: "+holidayIndex);
+        Log.d(TAG, "Creating view for holiday index: "+holidayIndex);
 
         return root;
     }
@@ -231,9 +233,9 @@ public class ViewFragment extends Fragment {
             holiday.put("companions", companions);
             holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
         } catch (JSONException e){
-            Log.e("view", e.getMessage());
+            Log.e(TAG, e.getMessage());
         } catch (ParseException e) {
-            Log.e("view", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         cancelEdit();
     }
@@ -250,7 +252,7 @@ public class ViewFragment extends Fragment {
                     holiday.getString("endDate"));
 
         } catch (JSONException e) {
-            Log.e("aaa", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
@@ -291,10 +293,10 @@ public class ViewFragment extends Fragment {
             ((EditText)v.findViewById(R.id.txtNotes)).setText(getTextIfExists(holiday, "notes"));
             ((EditText)v.findViewById(R.id.txtCompanions)).setText(getTextIfExists(holiday, "companions"));
         } catch (JSONException e){
-            Log.e("view", "JSON parse exception: "+e.getMessage());
+            Log.e(TAG, "JSON parse exception: "+e.getMessage());
 
         } catch (ParseException e){
-            Log.e("view", "Date parse exception: "+e.getMessage());
+            Log.e(TAG, "Date parse exception: "+e.getMessage());
 
         }
     }
@@ -304,7 +306,7 @@ public class ViewFragment extends Fragment {
         try {
             ret = element.getString(key);
         } catch (JSONException e){
-            Log.d("view", "Field not present but not mandatory, "+key);
+            Log.d(TAG, "Field not present but not mandatory, "+key);
         }
         return ret;
     }

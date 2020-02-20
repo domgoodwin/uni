@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 public class HolidayAdapter extends RecyclerView.Adapter<HolidayAdapter.HolidayViewHolder> {
     private JSONArray holidays;
+    private static final String TAG = "HolidayAdapter";
 
     public static class HolidayViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
@@ -27,7 +28,7 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayAdapter.HolidayV
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("holiday adapter", "Element clicked: "+getAdapterPosition());
+                    Log.d(TAG, "Element clicked: "+getAdapterPosition());
                     Bundle bundle = new Bundle();
                     bundle.putInt("holidayIndex", getAdapterPosition());
                     Navigation.findNavController((Activity)v.getContext(), R.id.nav_host_fragment).navigate(R.id.nav_view, bundle);
@@ -60,7 +61,7 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayAdapter.HolidayV
             holder.textView.setText(holiday.getString("name"));
         }
         catch (JSONException e){
-            Log.e("home fragment", "JSON Array Parse error: " + e.getMessage());
+            Log.e(TAG, "JSON Array Parse error: " + e.getMessage());
         }
     }
 

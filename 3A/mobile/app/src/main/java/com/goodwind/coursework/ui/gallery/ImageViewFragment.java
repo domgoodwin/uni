@@ -31,6 +31,8 @@ import java.io.File;
 
 public class ImageViewFragment extends Fragment {
 
+    private static final String TAG = "ImageViewFragment";
+
     final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     GalleryViewModel galViewModel;
     ImageView mainImage;
@@ -74,7 +76,7 @@ public class ImageViewFragment extends Fragment {
                 }
             });
         } else {
-            Log.e("image", "How are you here with no image");
+            Log.e(TAG, "How are you here with no image");
         }
 
         btnDelete.setOnClickListener(new View.OnClickListener(){

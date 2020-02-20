@@ -44,6 +44,8 @@ import java.util.Date;
 
 public class GalleryFragment extends Fragment {
 
+    private static final String TAG = "GalleryFragment";
+
     HolidayFile holidayFile;
     private final int REQUEST_LOCATION_PERMISSION = 1;
 
@@ -93,7 +95,7 @@ public class GalleryFragment extends Fragment {
             spnType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d("gallery", "got:"+types[position]);
+                    Log.d(TAG, "got:"+types[position]);
                 }
 
                 @Override
@@ -130,12 +132,12 @@ public class GalleryFragment extends Fragment {
             try {
                 photoFile = createImageFile();
             } catch (IOException e){
-                Log.e("aaa", e.getMessage());
+                Log.e(TAG, e.getMessage());
                 e.printStackTrace();
             }
             if (photoFile != null){
                 Uri photoURI = FileProvider.getUriForFile(getContext(), "com.goodwind.coursework", photoFile);
-                Log.d("addImage", "Saving photo: "+photoFile.getAbsolutePath());
+                Log.d(TAG, "Saving photo: "+photoFile.getAbsolutePath());
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 takePictureIntent.putExtra("return-data", false);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -145,13 +147,6 @@ public class GalleryFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        switch (requestCode) {
-//            case REQUEST_IMAGE_CAPTURE:
-//                Bundle extras = data.getExtras();
-//                Bitmap imageBitmap = (Bitmap) extras.get("data");
-//                lastImage.setImageBitmap(imageBitmap);
-//                break;
-//        }
         Bitmap b = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(curPhotoPath), 200, 200);
 
         imgPreviews.addBm(curPhotoPath, b);
@@ -173,7 +168,7 @@ public class GalleryFragment extends Fragment {
             }
             holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
         } catch (JSONException e) {
-            Log.e("save img", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
 
     }
@@ -185,12 +180,12 @@ public class GalleryFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_CAPTURE);
         }
-        Log.d("create img file", "extStorage: permissions granted");
+        Log.d(TAG, "extStorage: permissions granted");
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        Log.d("aaa", "File create location: "+storageDir.getAbsolutePath());
+        Log.d(TAG, "File create location: "+storageDir.getAbsolutePath());
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */

@@ -20,6 +20,8 @@ import java.util.List;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
 
+    private static final String TAG = "GalleryAdapter";
+
     public static class GalleryViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;

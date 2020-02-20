@@ -29,6 +29,8 @@ import java.util.Map;
 
 public class HolidayFile {
 
+    private static final String TAG = "HolidayFile";
+
     private String fileDir;
     private Context ctx;
     private Activity activity;
@@ -44,7 +46,7 @@ public class HolidayFile {
         try{
             return getHolidaysArray().getJSONObject(index);
         } catch (JSONException e){
-            Log.e("add fragment", "JSON Array Parse error: " + e.getMessage());
+            Log.e(TAG, "JSON Array Parse error: " + e.getMessage());
         }
         return null;
     }
@@ -54,7 +56,7 @@ public class HolidayFile {
         try{
             return holiday.getJSONArray("places").getJSONObject(placeIndex);
         } catch (JSONException e){
-            Log.e("add fragment", "JSON Array Parse error: " + e.getMessage());
+            Log.e(TAG, "JSON Array Parse error: " + e.getMessage());
         }
         return null;
     }
@@ -64,7 +66,7 @@ public class HolidayFile {
         try{
             jArr = getHolidays().getJSONArray("holidays");
         } catch (JSONException e){
-            Log.e("add fragment", "JSON Array Parse error: " + e.getMessage());
+            Log.e(TAG, "JSON Array Parse error: " + e.getMessage());
         }
         return jArr;
 
@@ -73,19 +75,19 @@ public class HolidayFile {
 
     public JSONObject getHolidays(){
         String holidaysRaw = readHolidaysFile();
-        Log.i("add fragment", "Holidays file input: " + holidaysRaw);
+        Log.i(TAG, "Holidays file input: " + holidaysRaw);
         JSONObject jObj = null;
         try {
             jObj = new JSONObject(holidaysRaw);
         } catch (JSONException e ){
-            Log.e("add fragment", "JSON Parse error: " + e.getMessage());
+            Log.e(TAG, "JSON Parse error: " + e.getMessage());
         }
         try{
             if (! jObj.has("holidays")){
                 jObj.put("holidays", new JSONArray());
             }
         } catch (JSONException e){
-            Log.e("add fragment", "JSON Array Parse error: " + e.getMessage());
+            Log.e(TAG, "JSON Array Parse error: " + e.getMessage());
         }
 
 
@@ -116,13 +118,13 @@ public class HolidayFile {
             }
         }
         catch (JSONException e) {
-            Log.e("file", e.getMessage());
+            Log.e(TAG, e.getMessage());
             return null;
         }
     }
 
     public void updateHoliday(JSONObject holiday, int holidayIndex, Activity act){
-        Log.d("file", "Updating holiday for index: "+holidayIndex);
+        Log.d(TAG, "Updating holiday for index: "+holidayIndex);
         JSONObject holidays = getHolidays();
         try {
             JSONArray holidaysArr = holidays.getJSONArray("holidays");
@@ -193,7 +195,7 @@ public class HolidayFile {
                 bw.write(out);
                 bw.close();
             } catch (IOException e){
-                Log.e("add fragment", "Initial file creation error: "+ e.getMessage());
+                Log.e(TAG, "Initial file creation error: "+ e.getMessage());
             }
         } else {
             try {
@@ -208,9 +210,9 @@ public class HolidayFile {
 
 
             }catch (FileNotFoundException e) {
-                Log.e("add fragment", "File not found: " + e.getMessage());
+                Log.e(TAG, "File not found: " + e.getMessage());
             } catch ( IOException e){
-                Log.e("add fragment", "File read exception: " + e.getMessage());
+                Log.e(TAG, "File read exception: " + e.getMessage());
             }
         }
         if (out.equals("")|| out == null){
@@ -249,7 +251,7 @@ public class HolidayFile {
                 images.add(b);
             }
         } catch (JSONException e) {
-            Log.e("getImages()", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         return images;
     }
@@ -280,7 +282,7 @@ public class HolidayFile {
                 images.add(filesToGet.get(i));
             }
         } catch (JSONException e) {
-            Log.e("getImageFilePaths", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         return images;
     }
@@ -300,7 +302,7 @@ public class HolidayFile {
                 images.add(b);
             }
         } catch (JSONException e) {
-            Log.e("", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         return images;
     }
@@ -319,7 +321,7 @@ public class HolidayFile {
                 imageFilePaths.add(imageJSON.getString("file"));
             }
         } catch (JSONException e) {
-            Log.e("", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         return imageFilePaths;
     }
@@ -341,7 +343,7 @@ public class HolidayFile {
                 }
             }
         } catch (JSONException e) {
-            Log.d("file", e.getMessage());
+            Log.d(TAG, e.getMessage());
         }
         return placePoints;
 

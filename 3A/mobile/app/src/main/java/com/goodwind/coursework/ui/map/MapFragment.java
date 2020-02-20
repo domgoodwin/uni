@@ -35,6 +35,8 @@ import java.util.HashMap;
 
 public class MapFragment extends Fragment  implements OnMapReadyCallback,  GoogleMap.OnMarkerClickListener {
 
+    private static final String TAG = "MapFragment";
+
     private MapViewModel mapViewModel;
     final String holidaySaveLocation = HolidayFile.holidaySaveLocation;
     private HolidayFile holidayFile;
@@ -119,7 +121,7 @@ public class MapFragment extends Fragment  implements OnMapReadyCallback,  Googl
                     for (int j = 0; j < places.length(); j++) {
                         JSONObject place = places.getJSONObject(j);
                         JSONObject placeLocation = place.getJSONObject("location");
-                        Log.d("aaa", "Added point to map: " + placeLocation.getDouble("lat") + placeLocation.getDouble("long"));
+                        Log.d(TAG, "Added point to map: " + placeLocation.getDouble("lat") + placeLocation.getDouble("long"));
                         MarkerOptions markerOptions = new MarkerOptions()
                                 .position(new LatLng(placeLocation.getDouble("lat"), placeLocation.getDouble("long")))
                                 .title(place.getString("name"));
@@ -133,7 +135,7 @@ public class MapFragment extends Fragment  implements OnMapReadyCallback,  Googl
                     JSONArray places = holiday.getJSONArray("places");
                     JSONObject place = places.getJSONObject(placeIndex);
                     JSONObject placeLocation = place.getJSONObject("location");
-                    Log.d("aaa", "Added point to map: " + placeLocation.getDouble("lat") + placeLocation.getDouble("long"));
+                    Log.d(TAG, "Added point to map: " + placeLocation.getDouble("lat") + placeLocation.getDouble("long"));
                     MarkerOptions markerOptions = new MarkerOptions()
                             .position(new LatLng(placeLocation.getDouble("lat"), placeLocation.getDouble("long")))
                             .title(place.getString("name"));
@@ -143,7 +145,7 @@ public class MapFragment extends Fragment  implements OnMapReadyCallback,  Googl
                     builder.include(marker.getPosition());
                 }
             } catch (JSONException e){
-                Log.e("aaa", e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
         }
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(builder.build(), 0);

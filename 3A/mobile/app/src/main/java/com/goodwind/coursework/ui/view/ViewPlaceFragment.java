@@ -56,6 +56,8 @@ import java.util.Locale;
 
 public class ViewPlaceFragment extends Fragment {
 
+    private static final String TAG = "ViewPlaceFragment";
+
     HolidayFile holidayFile;
 
     private ViewViewModel viewViewModel;
@@ -146,7 +148,7 @@ public class ViewPlaceFragment extends Fragment {
         // Allow empty edit, eg. add
         if (placeIndex != -1){
             if (place != null){
-                Log.d("aaa", "place: " + place.toString());
+                Log.d(TAG, "place: " + place.toString());
                 populateFields(place, root);
                 setupLocationAutocomplete(false);
             } else {
@@ -274,9 +276,9 @@ public class ViewPlaceFragment extends Fragment {
             holiday.getJSONArray("places").put(placeIndex, place);
             holidayFile.updateHoliday(holiday, holidayIndex, getActivity());
         } catch (JSONException e){
-            Log.e("view", e.getMessage());
+            Log.e(TAG, e.getMessage());
         } catch (ParseException e){
-            Log.e("view", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
 
         cancelEdit();
@@ -294,7 +296,7 @@ public class ViewPlaceFragment extends Fragment {
 
         } catch (JSONException e) {
             Toast.makeText(getActivity(), "Place invalid", Toast.LENGTH_SHORT).show();
-            Log.e("aaa", e.getMessage());
+            Log.e(TAG, e.getMessage());
             return;
         }
         sendIntent.setAction(Intent.ACTION_SEND);
@@ -336,10 +338,10 @@ public class ViewPlaceFragment extends Fragment {
             JSONObject location = place.getJSONObject("location");
             selectedLocation = new LatLng(location.getDouble("lat"), location.getDouble("long"));
         } catch (JSONException e){
-            Log.e("view", "JSON parse exception: "+e.getMessage());
+            Log.e(TAG, "JSON parse exception: "+e.getMessage());
 
         } catch (ParseException e){
-            Log.e("view", "Date parse exception: "+e.getMessage());
+            Log.e(TAG, "Date parse exception: "+e.getMessage());
 
         }
     }
@@ -360,11 +362,11 @@ public class ViewPlaceFragment extends Fragment {
 
 
     private void getLocation() {
-        Log.d("add fragment", "getLocation");
+        Log.d(TAG, "getLocation");
         if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
         } else {
-            Log.d("add fragment", "getLocation: permissions granted");
+            Log.d(TAG, "getLocation: permissions granted");
             getLastLocation();
         }
     }
@@ -392,7 +394,7 @@ public class ViewPlaceFragment extends Fragment {
         try {
             addressList = geocoder.getFromLocation(lat, lng, 1);
         }catch (IOException e){
-            Log.e("tag", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         if (addressList != null && !addressList.isEmpty()) {
 
@@ -430,12 +432,12 @@ public class ViewPlaceFragment extends Fragment {
             public void onPlaceSelected(Place place) {
                 selectedPlace = place;
                 selectedLocation = place.getLatLng();
-                Log.i("add", "Place: " + place.getName() + ", " + place.getId());
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
             }
 
             @Override
             public void onError(Status status) {
-                Log.i("add", "An error occurred: " + status);
+                Log.i(TAG, "An error occurred: " + status);
             }
         });
         AppCompatEditText originEditText = (AppCompatEditText) autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input);

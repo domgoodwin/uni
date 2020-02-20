@@ -51,6 +51,8 @@ import java.util.Locale;
 
 public class NearbyFragment extends Fragment  {
 
+    private static final String TAG = "NearbyFragment";
+
     private NearbyViewModel nearbyViewModel;
     Button btnSearch;
     Spinner spnType;
@@ -100,7 +102,7 @@ public class NearbyFragment extends Fragment  {
                 type,
                 key
                 );
-        Log.d("nearby", "Getting nearby: "+url);
+        Log.d(TAG, "Getting nearby: "+url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -111,7 +113,7 @@ public class NearbyFragment extends Fragment  {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("nearby", "Failed: "+error);
+                Log.e(TAG, "Failed: "+error);
             }
         });
         queue.add(stringRequest);
@@ -120,11 +122,11 @@ public class NearbyFragment extends Fragment  {
 
 
     private void getLocation() {
-        Log.d("add fragment", "getLocation");
+        Log.d(TAG, "getLocation");
         if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
         } else {
-            Log.d("add fragment", "getLocation: permissions granted");
+            Log.d(TAG, "getLocation: permissions granted");
             getLastLocation();
         }
     }
@@ -175,7 +177,7 @@ public class NearbyFragment extends Fragment  {
                 }
             }
         } catch (JSONException e){
-            Log.e("nearby", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         adapter.notifyItemInserted(adapter.placeLinks.size() - 1);
     }

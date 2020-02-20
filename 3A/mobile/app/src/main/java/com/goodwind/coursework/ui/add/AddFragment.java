@@ -36,6 +36,8 @@ import java.text.SimpleDateFormat;
 
 public class AddFragment extends Fragment {
 
+    private static final String TAG = "AddFragment";
+
     HolidayFile holidayFile;
     private final int REQUEST_LOCATION_PERMISSION = 1;
 
@@ -124,7 +126,7 @@ public class AddFragment extends Fragment {
         try {
             holidaysArrJSON = holidaysJSON.getJSONArray("holidays");
         } catch (JSONException e) {
-            Log.e("add fragment", "JSON get array exception: " + e.getMessage());
+            Log.e(TAG, "JSON get array exception: " + e.getMessage());
         }
 
         String errorMessage;
@@ -136,7 +138,7 @@ public class AddFragment extends Fragment {
                     errorMessage = "Holiday with name: "+holidayName.getText()+" already exists. Please delete existing holiday or rename this holiday.";
                 }
             } catch (JSONException e){
-                Log.e("add fragment", "JSON Array get error: " + e.getMessage());
+                Log.e(TAG, "JSON Array get error: " + e.getMessage());
             }
         }
 
@@ -155,12 +157,12 @@ public class AddFragment extends Fragment {
             holidayJSON.put("places", placesJSON);
             holidaysArrJSON.put(holidayJSON);
         } catch (JSONException e){
-            Log.e("add fragment", "JSON exception: " + e.getMessage());
+            Log.e(TAG, "JSON exception: " + e.getMessage());
         } catch (ParseException e) {
-            Log.e("add fragment", "Date parse exception: " + e.getMessage());
+            Log.e(TAG, "Date parse exception: " + e.getMessage());
         }
 
-        Log.i("add fragment", "Writing holidays back: " + holidaysJSON.toString());
+        Log.i(TAG, "Writing holidays back: " + holidaysJSON.toString());
 
         if (holidayFile.saveHolidays(holidaysJSON, getActivity())) {
             // TODO
